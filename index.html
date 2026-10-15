@@ -2,9 +2,11 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090b09">
-<title>VYTRON — Build Your Stronger Self</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a08">
+<meta name="description" content="VYTRON ELITE — твой персональный фитнес-трекер.">
+<title>VYTRON ELITE</title>
+
 <style>
 :root {
   --bg: #080a08;
@@ -13,28 +15,23 @@
   --green: #b8ff35;
   --green-dark: #86c921;
   --text: #f5f7f2;
-  --muted: #899287;
-  --border: rgba(185, 255, 55, .13);
-  --radius: 22px;
+  --muted: #858c80;
+  --border: #252c23;
+  --red: #ff6565;
 }
 
 * {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  background: var(--bg);
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
+  background: var(--bg);
   color: var(--text);
-  background:
-    radial-gradient(ellipse at 50% -15%, rgba(133, 191, 52, .12), transparent 48%),
-    var(--bg);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 95px;
 }
 
 button, input, select {
@@ -43,925 +40,846 @@ button, input, select {
 
 button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition:
-    transform .18s ease,
-    border-color .2s ease,
-    background .2s ease,
-    box-shadow .2s ease;
-}
-
-button:active {
-  transform: scale(.97);
-}
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 3px;
 }
 
 .app {
   width: 100%;
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 23px 17px 115px;
+  max-width: 600px;
+  margin: auto;
+  padding: 22px 17px;
 }
-
-/* HEADER */
 
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 29px;
+  justify-content: space-between;
+  margin-bottom: 28px;
 }
 
 .logo {
-  font-size: 27px;
-  font-weight: 950;
-  letter-spacing: 4px;
-  line-height: 1;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
 }
 
-.logo span,
-h1 span,
-h2 span {
+.logo span {
   color: var(--green);
 }
 
-.lang {
-  background: rgba(255,255,255,.035);
-  color: var(--text);
-  border: 1px solid var(--border);
+.badge {
+  color: var(--green);
+  border: 1px solid #43582b;
+  background: #182112;
   border-radius: 30px;
-  padding: 10px 15px;
-  font-size: 11px;
-  font-weight: 800;
+  padding: 8px 11px;
+  font-size: 10px;
+  font-weight: bold;
   letter-spacing: 1px;
 }
 
-/* HERO */
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 95% 10%, rgba(184,255,53,.15), transparent 45%),
-    linear-gradient(145deg, #1b2417 0%, #111611 48%, #0d100d 100%);
-  border: 1px solid rgba(184,255,53,.2);
-  border-radius: 27px;
-  padding: 29px 22px;
-  margin-bottom: 30px;
-  box-shadow: 0 18px 60px rgba(0,0,0,.2);
+.page {
+  display: none;
 }
 
-.hero::after {
-  content: "V";
-  position: absolute;
-  z-index: -1;
-  right: -12px;
-  bottom: -76px;
-  font-size: 250px;
-  line-height: 1;
-  font-weight: 950;
-  font-style: italic;
-  color: rgba(184,255,53,.035);
-  pointer-events: none;
+.page.active {
+  display: block;
+  animation: appear .2s ease;
 }
 
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+@keyframes appear {
+  from {opacity: 0; transform: translateY(5px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.eyebrow {
   color: var(--green);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 2.5px;
   text-transform: uppercase;
-}
-
-.tag::before {
-  content: "";
-  display: inline-block;
-  width: 19px;
-  height: 2px;
-  background: var(--green);
-  border-radius: 5px;
+  letter-spacing: 2px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 h1 {
-  max-width: 650px;
-  margin: 25px 0 18px;
-  font-size: clamp(38px, 9vw, 76px);
-  font-weight: 950;
-  line-height: .99;
-  letter-spacing: -2.5px;
+  font-size: clamp(30px, 8vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 12px;
 }
 
 h1 span {
-  display: inline-block;
+  color: var(--green);
 }
 
-h2 {
-  font-size: 22px;
-  font-weight: 850;
-  letter-spacing: -.5px;
-  line-height: 1.25;
+.subtitle {
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #192317, #0d100c 75%);
+  border: 1px solid #35422b;
+  border-radius: 24px;
+  padding: 25px 21px;
+  margin: 22px 0;
+}
+
+.hero:after {
+  content: "V";
+  position: absolute;
+  right: -4px;
+  bottom: -40px;
+  font-size: 180px;
+  line-height: 1;
+  font-weight: 900;
+  color: rgba(184,255,53,.045);
+  pointer-events: none;
+}
+
+.hero h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  max-width: 260px;
 }
 
 .hero p {
-  max-width: 460px;
-  color: #bdc6b8;
-  font-size: 14px;
-  line-height: 1.75;
-  margin: 0 0 24px;
+  color: #b0b7a8;
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 250px;
 }
 
-p {
-  line-height: 1.65;
-}
-
-.muted,
-small {
-  color: var(--muted);
-}
-
-/* BUTTONS */
-
-button {
-  border-radius: 13px;
-  padding: 13px 15px;
-  border: 1px solid var(--border);
-}
-
-.primary {
+.btn {
+  border: none;
   background: var(--green);
-  color: #10150a;
-  border: 1px solid var(--green);
+  color: #10140b;
+  padding: 13px 17px;
+  border-radius: 12px;
+  font-size: 12px;
   font-weight: 900;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+.btn.secondary {
+  background: #20271d;
+  color: var(--green);
+  border: 1px solid #35422b;
+}
+
+.btn.full {
+  width: 100%;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 27px 0 14px;
+}
+
+.section-title h2 {
+  font-size: 17px;
+}
+
+.section-title small {
+  color: var(--muted);
   font-size: 11px;
-  letter-spacing: .7px;
-  box-shadow: 0 5px 22px rgba(184,255,53,.10);
 }
 
-.primary:hover {
-  background: #caff70;
-  box-shadow: 0 5px 26px rgba(184,255,53,.23);
-}
-
-.secondary {
-  background: var(--panel2);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-.hero .primary {
-  padding: 16px 19px;
-  min-height: 49px;
-}
-
-.lang:hover,
-.secondary:hover {
-  border-color: rgba(184,255,53,.4);
-}
-
-/* SECTION HEADINGS */
-
-.section-head {
-  margin: 31px 0 15px;
-}
-
-.section-head h2 {
-  margin: 0;
-}
-
-.section-head h2::after {
-  content: "";
-  display: block;
-  width: 29px;
-  height: 3px;
-  margin-top: 10px;
-  border-radius: 5px;
-  background: var(--green);
-}
-
-/* WORKOUT MODES */
-
-.modes,
-.cards,
-.stats {
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 11px;
 }
 
-.mode {
-  min-width: 0;
-  min-height: 143px;
-  text-align: left;
-  color: var(--text);
-  background: linear-gradient(145deg, #151a14, #101310);
-  border: 1px solid #252d23;
-  border-radius: 19px;
-  padding: 17px 13px;
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 17px 14px;
 }
 
-.mode:hover {
-  border-color: rgba(184,255,53,.4);
-}
-
-.mode.active {
-  background:
-    linear-gradient(145deg, rgba(184,255,53,.09), transparent 80%),
-    #141a11;
-  border-color: var(--green);
-  box-shadow: inset 0 0 0 1px rgba(184,255,53,.06);
-}
-
-.mode .icon {
-  font-size: 29px;
-  margin-bottom: 15px;
-}
-
-.mode strong {
-  display: block;
-  margin: 8px 0;
+.stat-label {
   font-size: 11px;
-  font-weight: 900;
-  line-height: 1.45;
-  letter-spacing: .3px;
+  color: var(--muted);
+  margin-bottom: 13px;
 }
 
-.mode small {
-  display: block;
+.stat-value {
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.stat-value span {
+  color: var(--green);
+  font-size: 13px;
+}
+
+.stat-note {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 8px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 17px;
+  margin-bottom: 12px;
+}
+
+.workout {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.workout-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #202a18;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+  flex-shrink: 0;
+}
+
+.workout-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.workout-info h3 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.workout-info p {
+  color: var(--muted);
   font-size: 11px;
   line-height: 1.5;
 }
 
-/* STATS */
-
-.stats {
-  gap: 12px;
-}
-
-.stat {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(145deg, #161c14, #101310);
-  border: 1px solid var(--border);
-  border-radius: 19px;
-  padding: 20px 15px;
-}
-
-.stat::after {
-  content: "";
-  position: absolute;
-  width: 65px;
-  height: 65px;
-  right: -28px;
-  top: -28px;
-  border: 1px solid rgba(184,255,53,.12);
-  border-radius: 50%;
-  box-shadow: 0 0 0 10px rgba(184,255,53,.025);
-}
-
-.stat strong {
-  display: block;
+.arrow {
   color: var(--green);
-  font-size: 35px;
-  font-weight: 900;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  margin-bottom: 10px;
-}
-
-.stat span {
-  display: block;
-  color: #9ca596;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-/* WORKOUT CARDS */
-
-.card {
-  min-width: 0;
-  background: linear-gradient(145deg, #171c16, #101310);
-  border: 1px solid #252d23;
-  border-radius: 19px;
-  padding: 17px 13px;
-  transition: transform .2s ease, border-color .2s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(184,255,53,.38);
-}
-
-.card .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 47px;
-  height: 47px;
-  background: rgba(184,255,53,.08);
-  border: 1px solid rgba(184,255,53,.12);
-  border-radius: 14px;
-  font-size: 25px;
-  margin-bottom: 14px;
-}
-
-.card h3 {
-  font-size: 14px;
-  font-weight: 850;
-  line-height: 1.4;
-  margin: 0 0 8px;
-}
-
-.card p {
-  min-height: 38px;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
-  margin: 0 0 15px;
-}
-
-.card button {
-  width: 100%;
-  padding: 12px 5px;
-  font-size: 10px;
-}
-
-/* APP SCREENS */
-
-.view {
-  display: none;
-  animation: appear .28s ease both;
-}
-
-.view.active {
-  display: block;
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(7px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.view > h2:first-child {
-  margin-top: 4px;
-  margin-bottom: 21px;
-}
-
-.view > .muted {
-  font-size: 13px;
-}
-
-/* EXERCISES */
-
-.exercise {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  padding: 15px 12px;
-  margin-bottom: 8px;
-  background: #111510;
-  border: 1px solid #222a20;
-  border-radius: 14px;
-}
-
-.exercise input {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  accent-color: var(--green);
-}
-
-.exercise div {
-  flex: 1;
-  min-width: 0;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.exercise small {
-  display: block;
-  font-size: 11px;
-  font-weight: 400;
-  margin-top: 5px;
-}
-
-/* TIMER */
-
-.box {
-  background: linear-gradient(145deg, #151a13, #0f120f);
-  border: 1px solid var(--border);
-  border-radius: 21px;
-  padding: 19px;
-}
-
-.big-timer {
-  text-align: center;
-  color: var(--green);
-  font-size: clamp(48px, 12vw, 67px);
-  font-weight: 900;
-  letter-spacing: -2px;
-  margin: 20px 0;
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 28px rgba(184,255,53,.12);
-}
-
-#sessionInfo {
-  font-size: 12px;
-}
-
-/* FORMS */
-
-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #cbd1c5;
+  font-size: 20px;
 }
 
 .field {
+  margin: 15px 0;
+}
+
+.field label {
   display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.field input, .field select {
   width: 100%;
-  min-height: 48px;
-  margin: 9px 0 21px;
-  padding: 13px 14px;
+  background: #0b0e0a;
   color: var(--text);
-  background: #0d100d;
-  border: 1px solid #30382c;
-  border-radius: 13px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 13px;
   outline: none;
 }
 
-.field:focus {
+.field input:focus, .field select:focus {
   border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(184,255,53,.07);
 }
 
-select.field {
-  color-scheme: dark;
+.timer {
+  text-align: center;
+  padding: 26px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  margin: 22px 0;
 }
 
-input.field::placeholder {
-  color: #667061;
+.timer-label {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 2px;
 }
 
-#trainer > .hero {
-  margin-top: 15px;
+.timer-value {
+  color: var(--green);
+  font-size: clamp(55px, 16vw, 76px);
+  font-weight: 900;
+  letter-spacing: -3px;
+  margin: 18px 0;
+  font-variant-numeric: tabular-nums;
 }
 
-#trainer > .hero h2 {
-  font-size: 27px;
-  line-height: 1.35;
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-#advice {
-  line-height: 1.8;
+.timer-controls .btn {
+  margin-top: 0;
+}
+
+.exercise-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercise-row:last-child {
+  border-bottom: none;
+}
+
+.exercise-check {
+  width: 24px;
+  height: 24px;
+  accent-color: var(--green);
+  flex-shrink: 0;
+}
+
+.exercise-row div {
+  flex: 1;
+}
+
+.exercise-row h3 {
   font-size: 13px;
-  color: #d4dbcf;
-  overflow-wrap: anywhere;
+  margin-bottom: 5px;
 }
 
-#profileMessage {
-  font-size: 12px;
+.exercise-row p {
+  color: var(--muted);
+  font-size: 11px;
 }
 
-/* BOTTOM NAVIGATION */
+.exercise-row.done h3 {
+  color: var(--muted);
+  text-decoration: line-through;
+}
 
-.nav {
+.progress-track {
+  height: 7px;
+  background: #252c23;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--green);
+  border-radius: inherit;
+  transition: width .2s;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.profile-icon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  color: var(--green);
+  background: #1d2816;
+  border: 1px solid #35422b;
+  border-radius: 22px;
+  margin-bottom: 18px;
+}
+
+.bottom-nav {
   position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
   z-index: 10;
   display: flex;
   justify-content: center;
-  gap: 3px;
-  padding: 9px 5px calc(9px + env(safe-area-inset-bottom));
-  background: rgba(9,12,9,.94);
-  border-top: 1px solid rgba(184,255,53,.12);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(12,15,11,.96);
+  border-top: 1px solid var(--border);
+  padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
+  backdrop-filter: blur(15px);
 }
 
-.nav button {
-  flex: 1;
-  max-width: 150px;
-  min-width: 0;
-  padding: 8px 1px;
-  border: 1px solid transparent;
-  border-radius: 13px;
+.nav-inner {
+  width: 100%;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.nav-item {
+  border: none;
   background: transparent;
-  color: #818a7c;
+  color: var(--muted);
   font-size: 10px;
-  font-weight: 700;
+  padding: 5px 1px;
 }
 
-.nav button.active {
-  color: var(--green);
-  background: rgba(184,255,53,.075);
-  border-color: rgba(184,255,53,.07);
-}
-
-.navicon {
+.nav-icon {
   display: block;
-  font-size: 21px;
-  line-height: 1;
-  margin-bottom: 7px;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
-/* FOOTER */
+.nav-item.active {
+  color: var(--green);
+}
+
+.notice {
+  background: #192316;
+  border: 1px solid #34462a;
+  color: #c5eaa0;
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 15px 0;
+}
+
+.danger {
+  color: var(--red) !important;
+}
 
 footer {
   text-align: center;
-  color: #697264;
+  color: #535a4f;
   font-size: 10px;
-  line-height: 1.9;
-  letter-spacing: 1px;
-  margin-top: 42px;
+  padding: 25px 0 5px;
+  letter-spacing: 2px;
 }
 
-/* TABLETS AND DESKTOP */
-
-@media (min-width: 650px) {
-  .app {
-    padding: 30px 25px 65px;
-  }
-
-  header {
-    margin-bottom: 35px;
-  }
-
-  .hero {
-    padding: 48px 42px;
-    border-radius: 30px;
-  }
-
-  .hero p {
-    font-size: 15px;
-  }
-
-  .modes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .card {
-    padding: 22px 18px;
-  }
-
-  .card h3 {
-    font-size: 16px;
-  }
-
-  .stat {
-    padding: 24px;
-  }
-
-  .nav {
-    position: static;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    margin: 30px auto 0;
-    padding: 9px;
-    max-width: 700px;
-  }
-
-  .nav button {
-    font-size: 11px;
-  }
-}
-
-/* SMALL PHONES */
-
-@media (max-width: 360px) {
-  .app {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .hero {
-    padding: 24px 16px;
-  }
-
-  h1 {
-    font-size: 36px;
-    letter-spacing: -1.7px;
-  }
-
-  .mode {
-    padding: 14px 10px;
-  }
-
-  .card {
-    padding: 13px 10px;
-  }
-
-  .card h3 {
-    font-size: 13px;
-  }
-
-  .stat {
-    padding: 17px 12px;
-  }
-
-  .navicon {
-    font-size: 19px;
-  }
-
-  .nav button {
-    font-size: 9px;
-  }
-}
-
-/* REDUCED MOTION ACCESSIBILITY */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
+@media (min-width: 480px) {
+  .app {padding: 28px 22px;}
 }
 </style>
 </head>
+
 <body>
 <div class="app">
+
 <header>
-<div class="logo">VYTR<span>O</span>N</div>
-<button class="lang" id="langBtn">RU / EN</button>
+  <div class="logo">VYTRON<span>.</span></div>
+  <div class="badge">ELITE MEMBER</div>
 </header>
 
-<main>
-<section class="view active" id="home">
-<div class="hero">
-<div class="tag">BUILD YOUR FUTURE</div>
-<h1 id="headline">СТАНЬ<br><span>СИЛЬНЕЕ СЕБЯ.</span></h1>
-<p id="intro">Тренируйся осознанно. Развивай дисциплину. Становись сильнее каждый день.</p>
-<button class="primary" onclick="go('workouts')" id="startBtn">НАЧАТЬ ТРЕНИРОВКУ ↗</button>
-</div>
+<!-- HOME -->
+<section class="page active" id="home">
+  <div class="eyebrow" id="todayLabel">YOUR FITNESS JOURNEY</div>
+  <h1>СТАНЬ СИЛЬНЕЕ.<br><span>КАЖДЫЙ ДЕНЬ.</span></h1>
+  <p class="subtitle">Твоя дисциплина. Твой прогресс. Твои правила.</p>
 
-<div class="section-head"><h2 id="chooseTitle">Выбери место тренировки</h2></div>
-<div class="modes">
-<button class="mode active" id="gymMode" onclick="setMode('gym')">
-<div class="icon">🏋️</div><strong id="gymTitle">ТРЕНИРОВКА В ЗАЛЕ</strong><small id="gymDesc">Тренажёры и силовой прогресс</small>
-</button>
-<button class="mode" id="homeMode" onclick="setMode('home')">
-<div class="icon">⚡</div><strong id="homeTitle">ТРЕНИРОВКА ДОМА</strong><small id="homeDesc">Минимум оборудования</small>
-</button>
-</div>
+  <div class="hero">
+    <div class="eyebrow">VYTRON CHALLENGE</div>
+    <h2>Твоя лучшая версия начинается сегодня.</h2>
+    <p>Каждая тренировка приближает тебя к цели. Не ищи мотивацию — создавай привычку.</p>
+    <button class="btn" onclick="showPage('workouts')">НАЧАТЬ ТРЕНИРОВКУ ↗</button>
+  </div>
 
-<div class="section-head"><h2 id="journeyTitle">Твой прогресс</h2></div>
-<div class="stats">
-<div class="stat"><strong id="totalWorkouts">0</strong><span id="completedLabel">ТРЕНИРОВОК</span></div>
-<div class="stat"><strong id="totalMinutes">0</strong><span id="minutesLabel">МИНУТ</span></div>
-</div>
-<div class="section-head"><h2 id="featuredTitle">Популярные тренировки</h2></div>
-<div class="cards" id="featuredCards"></div>
+  <div class="section-title">
+    <h2>ТВОЯ СТАТИСТИКА</h2>
+    <small>За всё время</small>
+  </div>
+
+  <div class="grid">
+    <div class="stat">
+      <div class="stat-label">🏋️ Тренировки</div>
+      <div class="stat-value" id="totalWorkouts">0</div>
+      <div class="stat-note">Завершено</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">🔥 Калории</div>
+      <div class="stat-value" id="totalCalories">0 <span>ккал</span></div>
+      <div class="stat-note">Примерный расход</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">⏱ Время</div>
+      <div class="stat-value" id="totalMinutes">0 <span>мин</span></div>
+      <div class="stat-note">В тренировках</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">📅 Серия</div>
+      <div class="stat-value" id="streak">0 <span>дней</span></div>
+      <div class="stat-note">Текущая серия дней</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>БЫСТРЫЙ ДОСТУП</h2>
+  </div>
+
+  <div class="card workout" onclick="showPage('timer')">
+    <div class="workout-icon">⏱️</div>
+    <div class="workout-info">
+      <h3>Таймер отдыха</h3>
+      <p>Контролируй время между подходами</p>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="card workout" onclick="showPage('progress')">
+    <div class="workout-icon">📈</div>
+    <div class="workout-info">
+      <h3>Мой прогресс</h3>
+      <p>Следи за своими результатами</p>
+    </div>
+    <span class="arrow">›</span>
+  </div>
 </section>
 
-<section class="view" id="workouts">
-<div class="section-head"><h2 id="programTitle">Программы тренировок</h2></div>
-<p class="muted" id="programDesc">Выбери тренировку под свои цели.</p>
-<div class="cards" id="allCards"></div>
+<!-- WORKOUTS -->
+<section class="page" id="workouts">
+  <div class="eyebrow">TRAINING CENTER</div>
+  <h1>ВЫБЕРИ СВОЮ<br><span>ТРЕНИРОВКУ.</span></h1>
+  <p class="subtitle">Выбери программу и начни работать над собой.</p>
+
+  <div class="section-title"><h2>ПРОГРАММЫ</h2></div>
+
+  <div class="card workout" onclick="startWorkout('full')">
+    <div class="workout-icon">💪</div>
+    <div class="workout-info">
+      <h3>Всё тело</h3>
+      <p>6 упражнений · около 30 минут</p>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="card workout" onclick="startWorkout('upper')">
+    <div class="workout-icon">🏋️</div>
+    <div class="workout-info">
+      <h3>Верх тела</h3>
+      <p>Грудь, спина, плечи и руки</p>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="card workout" onclick="startWorkout('home')">
+    <div class="workout-icon">🏠</div>
+    <div class="workout-info">
+      <h3>Домашняя тренировка</h3>
+      <p>Без тренажёров · собственный вес</p>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="card workout" onclick="startWorkout('legs')">
+    <div class="workout-icon">🦵</div>
+    <div class="workout-info">
+      <h3>Ноги и пресс</h3>
+      <p>Сила, устойчивость и контроль</p>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div id="activeWorkout" style="display:none">
+    <div class="section-title">
+      <h2 id="workoutTitle">Тренировка</h2>
+    </div>
+    <div class="card">
+      <div id="exerciseList"></div>
+      <div class="progress-track">
+        <div class="progress-bar" id="exerciseProgress"></div>
+      </div>
+      <p class="subtitle" id="exerciseCount" style="margin-top:10px">0 выполнено</p>
+      <button class="btn full" onclick="finishWorkout()">ЗАВЕРШИТЬ ТРЕНИРОВКУ</button>
+      <button class="btn secondary full" onclick="cancelWorkout()">ОТМЕНИТЬ</button>
+    </div>
+  </div>
 </section>
 
-<section class="view" id="session">
-<button class="secondary" onclick="go('workouts')" id="backBtn">← Назад</button>
-<h2 id="sessionTitle">Тренировка</h2>
-<p class="muted" id="sessionInfo"></p>
-<div id="exerciseList"></div>
-<div class="box" style="margin-top:20px">
-<p class="muted" style="text-align:center" id="restLabel">ТАЙМЕР ОТДЫХА</p>
-<div class="big-timer" id="timerDisplay">01:00</div>
-<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-<button class="primary" onclick="startTimer()" id="timerStart">СТАРТ</button>
-<button class="secondary" onclick="resetTimer()" id="timerReset">СБРОСИТЬ</button>
-</div>
-</div>
-<button class="primary" style="width:100%;margin-top:16px" onclick="finishWorkout()" id="finishBtn">ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓</button>
+<!-- TIMER -->
+<section class="page" id="timer">
+  <div class="eyebrow">FOCUS MODE</div>
+  <h1>ВРЕМЯ — <span>ТВОЙ РЕСУРС.</span></h1>
+  <p class="subtitle">Настрой отдых между подходами.</p>
+
+  <div class="timer">
+    <div class="timer-label">REST TIMER</div>
+    <div class="timer-value" id="timerDisplay">01:30</div>
+    <div class="timer-controls">
+      <button class="btn secondary" onclick="adjustTimer(-15)">−15 сек</button>
+      <button class="btn" id="timerToggle" onclick="toggleTimer()">СТАРТ</button>
+      <button class="btn secondary" onclick="adjustTimer(15)">+15 сек</button>
+    </div>
+    <button class="btn secondary" onclick="resetTimer()" style="margin-top:14px">СБРОСИТЬ</button>
+  </div>
+
+  <div class="section-title"><h2>БЫСТРАЯ НАСТРОЙКА</h2></div>
+  <div class="grid">
+    <button class="btn secondary" onclick="setTimer(30)">30 секунд</button>
+    <button class="btn secondary" onclick="setTimer(60)">60 секунд</button>
+    <button class="btn secondary" onclick="setTimer(90)">90 секунд</button>
+    <button class="btn secondary" onclick="setTimer(120)">120 секунд</button>
+  </div>
+  <div class="notice">💡 Подбирай отдых под нагрузку. Тяжёлым силовым подходам часто требуется больше времени, чем лёгким упражнениям.</div>
 </section>
 
-<section class="view" id="progress">
-<h2 id="progressTitle">Твой прогресс</h2>
-<div class="stats">
-<div class="stat"><strong id="progressWorkouts">0</strong><span id="progressCompleted">ТРЕНИРОВОК</span></div>
-<div class="stat"><strong id="progressMinutes">0</strong><span id="progressMinutesLabel">МИНУТ</span></div>
-</div>
-<h2 id="historyTitle">История тренировок</h2>
-<div class="box" id="historyList"><p class="muted">Заверши первую тренировку, чтобы увидеть историю.</p></div>
+<!-- PROGRESS -->
+<section class="page" id="progress">
+  <div class="eyebrow">YOUR PERFORMANCE</div>
+  <h1>ТВОЙ <span>ПРОГРЕСС.</span></h1>
+  <p class="subtitle">Результаты сохраняются на этом устройстве.</p>
+
+  <div class="section-title"><h2>ОБЩИЕ РЕЗУЛЬТАТЫ</h2></div>
+  <div class="grid">
+    <div class="stat">
+      <div class="stat-label">Тренировки</div>
+      <div class="stat-value" id="pWorkouts">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Калории</div>
+      <div class="stat-value" id="pCalories">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Минуты</div>
+      <div class="stat-value" id="pMinutes">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Упражнения</div>
+      <div class="stat-value" id="pExercises">0</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>ИСТОРИЯ ТРЕНИРОВОК</h2>
+  </div>
+  <div id="historyList" class="card">
+    <div class="empty">Здесь появятся твои первые результаты.<br>Начни с одной тренировки сегодня.</div>
+  </div>
+
+  <button class="btn secondary full" onclick="exportData()">ЭКСПОРТИРОВАТЬ МОИ ДАННЫЕ</button>
 </section>
 
-<section class="view" id="trainer">
-<h2>VYTRON Coach</h2>
-<div class="hero">
-<div class="tag">YOUR TRAINING COMPANION</div>
-<h2>Маленькие шаги.<br><span>Реальный прогресс.</span></h2>
-<p id="coachIntro">Получи рекомендацию для своей цели.</p>
-</div>
-<label for="goal" id="goalLabel">Твоя главная цель</label>
-<select class="field" id="goal">
-<option value="muscle">Набрать мышечную массу</option>
-<option value="strength">Стать сильнее</option>
-<option value="fitness">Улучшить форму</option>
-<option value="habit">Выработать привычку</option>
-</select>
-<label for="level" id="levelLabel">Твой опыт</label>
-<select class="field" id="level">
-<option value="beginner">Начинающий</option>
-<option value="intermediate">Средний уровень</option>
-</select>
-<button class="primary" style="width:100%" onclick="getAdvice()" id="adviceBtn">ПОЛУЧИТЬ РЕКОМЕНДАЦИЮ</button>
-<div class="box" style="margin-top:15px" id="advice"><p class="muted">Твоя рекомендация появится здесь.</p></div>
+<!-- PROFILE -->
+<section class="page" id="profile">
+  <div class="eyebrow">PERSONAL SPACE</div>
+  <h1>ТВОЙ <span>ПРОФИЛЬ.</span></h1>
+
+  <div class="card" style="margin-top:22px">
+    <div class="profile-icon">♟</div>
+    <h2 id="profileGreeting">VYTRON ATHLETE</h2>
+    <p class="subtitle" style="margin-top:8px">Твой путь — твои правила.</p>
+
+    <div class="field">
+      <label for="userName">ТВОЁ ИМЯ</label>
+      <input id="userName" type="text" placeholder="Введи своё имя" maxlength="40">
+    </div>
+
+    <div class="field">
+      <label for="userGoal">ГЛАВНАЯ ЦЕЛЬ</label>
+      <select id="userGoal">
+        <option value="muscle">Набор мышечной массы</option>
+        <option value="strength">Увеличение силы</option>
+        <option value="weight">Снижение веса</option>
+        <option value="fitness">Общая физическая форма</option>
+        <option value="endurance">Выносливость</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="userWeight">ВЕС (КГ)</label>
+      <input id="userWeight" type="number" min="25" max="350" placeholder="Например, 75">
+    </div>
+
+    <button class="btn full" onclick="saveProfile()">СОХРАНИТЬ ПРОФИЛЬ</button>
+  </div>
+
+  <div class="section-title"><h2>НАСТРОЙКИ ДАННЫХ</h2></div>
+  <div class="card">
+    <p class="subtitle">Все результаты хранятся локально в браузере этого устройства. При очистке данных браузера они могут потеряться.</p>
+    <button class="btn secondary full" onclick="exportData()">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</button>
+    <button class="btn secondary full danger" onclick="clearData()">СБРОСИТЬ ВСЕ ДАННЫЕ</button>
+  </div>
 </section>
 
-<section class="view" id="profile">
-<h2 id="profileTitle">Твой профиль</h2>
-<div class="box">
-<label for="userName" id="nameLabel">Твоё имя</label>
-<input class="field" id="userName" maxlength="40" placeholder="Имя">
-<label for="userGoal" id="profileGoalLabel">Цель тренировок</label>
-<select class="field" id="userGoal">
-<option value="muscle">Набрать мышечную массу</option>
-<option value="strength">Стать сильнее</option>
-<option value="fitness">Улучшить форму</option>
-<option value="habit">Выработать привычку</option>
-</select>
-<button class="primary" style="width:100%" onclick="saveProfile()" id="saveBtn">СОХРАНИТЬ ПРОФИЛЬ</button>
-<p class="muted" id="profileMessage"></p>
-</div>
-<div class="section-head"><h2>VYTRON</h2><p class="muted">BUILD YOUR STRONGER SELF.</p></div>
-</section>
-</main>
-<footer>VYTRON © 2026<br>Build Your Stronger Self.</footer>
+<footer>VYTRON ELITE · BUILT FOR PROGRESS</footer>
 </div>
 
-<nav class="nav">
-<button class="active" data-view="home" onclick="go('home')"><span class="navicon">⌂</span><span id="navHome">Главная</span></button>
-<button data-view="workouts" onclick="go('workouts')"><span class="navicon">▤</span><span id="navTrain">Тренировки</span></button>
-<button data-view="progress" onclick="go('progress')"><span class="navicon">↗</span><span id="navProgress">Прогресс</span></button>
-<button data-view="trainer" onclick="go('trainer')"><span class="navicon">✳</span><span id="navCoach">Тренер</span></button>
-<button data-view="profile" onclick="go('profile')"><span class="navicon">◉</span><span id="navProfile">Профиль</span></button>
+<nav class="bottom-nav">
+  <div class="nav-inner">
+    <button class="nav-item active" data-page="home" onclick="showPage('home')">
+      <span class="nav-icon">⌂</span>Главная
+    </button>
+    <button class="nav-item" data-page="workouts" onclick="showPage('workouts')">
+      <span class="nav-icon">⚡</span>Тренировки
+    </button>
+    <button class="nav-item" data-page="timer" onclick="showPage('timer')">
+      <span class="nav-icon">◷</span>Таймер
+    </button>
+    <button class="nav-item" data-page="progress" onclick="showPage('progress')">
+      <span class="nav-icon">↗</span>Прогресс
+    </button>
+    <button class="nav-item" data-page="profile" onclick="showPage('profile')">
+      <span class="nav-icon">♙</span>Профиль
+    </button>
+  </div>
 </nav>
 
 <script>
-const programs=[
-{id:'full',icon:'💪',name:'Всё тело',en:'Full Body',desc:'Тренировка основных мышц',enDesc:'Train your major muscles',gym:true,ex:['Жим гантелей','Тяга гантели','Приседания','Планка']},
-{id:'push',icon:'🏋️',name:'Грудь и плечи',en:'Chest & Shoulders',desc:'Грудь, плечи и трицепсы',enDesc:'Chest, shoulders and triceps',gym:true,ex:['Жим гантелей','Жим плечами','Отжимания','Разгибание рук']},
-{id:'legs',icon:'🦵',name:'День ног',en:'Leg Day',desc:'Ноги и ягодицы',enDesc:'Legs and glutes',gym:true,ex:['Приседания','Выпады','Ягодичный мост','Подъёмы на носки']},
-{id:'home',icon:'⚡',name:'Дома без оборудования',en:'Home Bodyweight',desc:'Тренируйся где угодно',enDesc:'Train anywhere',gym:false,ex:['Отжимания','Приседания','Планка','Выпады']},
-{id:'core',icon:'🎯',name:'Пресс и корпус',en:'Core Workout',desc:'Стабильность и контроль',enDesc:'Stability and control',gym:false,ex:['Планка','Велосипед','Птица-собака','Подъёмы колен']},
-{id:'easy',icon:'🚶',name:'Лёгкая активность',en:'Easy Movement',desc:'Мягкое начало',enDesc:'A gentle start',gym:false,ex:['Ходьба на месте','Приседания','Круги плечами','Растяжка']}
-];
-let lang='ru',mode='gym',current=null,seconds=60,interval=null;
-let history=JSON.parse(localStorage.getItem('vytronHistory')||'[]');
-let profile=JSON.parse(localStorage.getItem('vytronProfile')||'{}');
-const $=id=>document.getElementById(id);
-function saveHistory(){localStorage.setItem('vytronHistory',JSON.stringify(history))}
-function go(id){
- document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
- document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
- window.scrollTo({top:0,behavior:'smooth'});
- if(id==='progress')renderStats();
+const $ = id => document.getElementById(id);
+
+const STORAGE_KEY = 'vytron_elite_v2';
+
+const defaultData = {
+  profile: {name:'', goal:'muscle', weight:''},
+  workouts: [],
+  totalExercises: 0
+};
+
+let data = loadData();
+let currentWorkout = null;
+let timerSeconds = 90;
+let timerInterval = null;
+let timerRunning = false;
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return {
+        ...defaultData,
+        ...parsed,
+        profile: {...defaultData.profile, ...(parsed.profile || {})},
+        workouts: Array.isArray(parsed.workouts) ? parsed.workouts : []
+      };
+    }
+  } catch (e) {
+    console.error('Could not load saved data', e);
+  }
+  return JSON.parse(JSON.stringify(defaultData));
 }
-function setMode(m){
- mode=m;
- $('gymMode').classList.toggle('active',m==='gym');
- $('homeMode').classList.toggle('active',m==='home');
- renderCards();go('workouts');
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    alert('Не удалось сохранить данные. Возможно, в браузере недостаточно места.');
+  }
 }
-function renderCards(){
- const list=programs.filter(p=>mode==='gym'?p.gym:!p.gym);
- const make=p=>`<div class="card"><div class="icon">${p.icon}</div><h3>${lang==='ru'?p.name:p.en}</h3><p>${lang==='ru'?p.desc:p.enDesc}</p><button class="primary" onclick="openWorkout('${p.id}')">${lang==='ru'?'НАЧАТЬ':'START'}</button></div>`;
- $('allCards').innerHTML=list.map(make).join('');
- $('featuredCards').innerHTML=programs.slice(0,4).map(make).join('');
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(el => {
+    el.classList.toggle('active', el.id === page);
+  });
+
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page);
+  });
+
+  if (page === 'home' || page === 'progress') renderStats();
+  if (page === 'profile') renderProfile();
+
+  window.scrollTo({top:0, behavior:'smooth'});
 }
-function openWorkout(id){
- current=programs.find(p=>p.id===id);
- if(!current)return;
- $('sessionTitle').textContent=lang==='ru'?current.name:current.en;
- $('sessionInfo').textContent=(lang==='ru'?current.desc:current.enDesc)+' · '+current.ex.length+(lang==='ru'?' упражнений':' exercises');
- $('exerciseList').innerHTML=current.ex.map((e,i)=>`<label class="exercise"><input type="checkbox" onchange="updateExerciseProgress()"><div>${lang==='ru'?e:['Dumbbell press','Dumbbell row','Squats','Plank'][i]||e}<small>${i===2?'3':'3'} × 10</small></div></label>`).join('');
- updateExerciseProgress();resetTimer();go('session');
+
+const programs = {
+  full: {
+    title:'Всё тело',
+    exercises:[
+      ['Приседания','3 подхода × 12 повторений'],
+      ['Отжимания','3 подхода × 10 повторений'],
+      ['Тяга гантелей','3 подхода × 12 повторений'],
+      ['Выпады','3 подхода × 10 на ногу'],
+      ['Планка','3 подхода × 30 секунд'],
+      ['Лёгкая заминка','5 минут']
+    ]
+  },
+  upper: {
+    title:'Верх тела',
+    exercises:[
+      ['Отжимания','3 × 10'],
+      ['Тяга гантелей','3 × 12'],
+      ['Жим гантелей','3 × 10'],
+      ['Подъём гантелей на бицепс','3 × 12'],
+      ['Разведение рук в стороны','3 × 12'],
+      ['Планка','3 × 30 секунд']
+    ]
+  },
+  home: {
+    title:'Домашняя тренировка',
+    exercises:[
+      ['Приседания','3 × 15'],
+      ['Отжимания от пола или опоры','3 × 8–12'],
+      ['Ягодичный мост','3 × 15'],
+      ['Обратные выпады','3 × 10 на ногу'],
+      ['Планка','3 × 20–30 секунд'],
+      ['Заминка','5 минут']
+    ]
+  },
+  legs: {
+    title:'Ноги и пресс',
+    exercises:[
+      ['Приседания','3 × 12'],
+      ['Выпады назад','3 × 10 на ногу'],
+      ['Ягодичный мост','3 × 15'],
+      ['Подъёмы на носки','3 × 15'],
+      ['Скручивания','3 × 12'],
+      ['Планка','3 × 30 секунд']
+    ]
+  }
+};
+
+function startWorkout(type) {
+  const program = programs[type];
+  currentWorkout = {
+    type,
+    title:program.title,
+    startedAt:Date.now(),
+    exercises:program.exercises.map(ex => ({
+      name:ex[0],
+      description:ex[1],
+      done:false
+    }))
+  };
+
+  $('activeWorkout').style.display = 'block';
+  $('workoutTitle').textContent = program.title;
+  renderExercises();
+  $('activeWorkout').scrollIntoView({behavior:'smooth',block:'start'});
 }
-function updateExerciseProgress(){
- const boxes=[...document.querySelectorAll('#exerciseList input')];
- const done=boxes.filter(b=>b.checked).length;
- $('sessionInfo').textContent=(lang==='ru'?'Выполнено упражнений: ':'Exercises completed: ')+done+'/'+boxes.length;
-}
-function startTimer(){
- if(interval)return;
- interval=setInterval(()=>{
-  seconds--;
-  $('timerDisplay').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
-  if(seconds<=0){clearInterval(interval);interval=null;seconds=0;$('timerDisplay').textContent='00:00';alert(lang==='ru'?'Время отдыха закончилось!':'Rest time is over!')}
- },1000);
-}
-function resetTimer(){
- clearInterval(interval);interval=null;seconds=60;
- if($('timerDisplay'))$('timerDisplay').textContent='01:00';
-}
-function finishWorkout(){
- if(!current)return;
- const done=[...document.querySelectorAll('#exerciseList input')].filter(b=>b.checked).length;
- if(!done&&!confirm(lang==='ru'?'Ты не отметил ни одного упражнения. Сохранить тренировку?':'No exercises checked. Save workout anyway?'))return;
- history.unshift({name:lang==='ru'?current.name:current.en,date:new Date().toLocaleDateString(),minutes:Math.max(5,done*5)});
- saveHistory();resetTimer();alert(lang==='ru'?'Тренировка сохранена! Отличная работа!':'Workout saved. Great job!');go('progress');renderStats();
-}
-function renderStats(){
- const mins=history.reduce((a,b)=>a+b.minutes,0);
- $('totalWorkouts').textContent=history.length;$('totalMinutes').textContent=mins;
- $('progressWorkouts').textContent=history.length;$('progressMinutes').textContent=mins;
- $('historyList').innerHTML=history.length?history.map(h=>`<div class="exercise"><div><strong>${escapeHTML(h.name)}</strong><small>${h.date} · ${h.minutes} ${lang==='ru'?'мин':'min'}</small></div></div>`).join(''):`<p class="muted">${lang==='ru'?'Заверши первую тренировку, чтобы увидеть историю.':'Complete your first workout to see history.'}</p>`;
-}
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function getAdvice(){
- const goal=$('goal').value,level=$('level').value;
- const ru={
- muscle:'Для набора мышц сочетай силовые упражнения с достаточным питанием и восстановлением. Начни с 2–3 тренировок в неделю.',
- strength:'Выбирай посильную нагрузку, следи за техникой и отдыхай между подходами. Увеличивай вес постепенно.',
- fitness:'Начни с 15–25 минут активности в комфортном темпе. Сочетай силовые упражнения и ходьбу.',
- habit:'Запланируй две короткие тренировки на этой неделе. Главное — регулярность, а не идеальный результат.',
- beginner:'Начинай спокойно: 2 подхода на упражнение, правильная техника и отдых. Остановись при боли или головокружении.',
- intermediate:'Веди учёт подходов и повторений. Увеличивай нагрузку постепенно и оставляй время на восстановление.'
- };
- const en={
- muscle:'Combine strength training with sufficient food and recovery. Start with 2–3 sessions per week.',
- strength:'Choose manageable resistance, focus on technique and rest between sets. Increase weight gradually.',
- fitness:'Start with 15–25 minutes of comfortable activity. Combine strength work and walking.',
- habit:'Schedule two short sessions this week. Consistency matters more than perfection.',
- beginner:'Start gently: 2 sets per exercise, good technique and enough rest. Stop if you feel pain or dizziness.',
- intermediate:'Track your sets and reps. Progress gradually and allow time for recovery.'
- };
- $('advice').textContent=(lang==='ru'?ru[goal]+' ':en[goal]+' ')+(lang==='ru'?ru[level]:en[level]);
-}
-function saveProfile(){
- profile={name:$('userName').value.trim(),goal:$('userGoal').value};
- localStorage.setItem('vytronProfile',JSON.stringify(profile));
- $('profileMessage').textContent=lang==='ru'?'Профиль сохранён на этом устройстве.':'Profile saved on this device.';
-}
-function setLanguage(){
- lang=lang==='ru'?'en':'ru';
- document.documentElement.lang=lang;
- const ru=lang==='ru';
- const t={
- headline:ru?'СТАНЬ<br><span>СИЛЬНЕЕ СЕБЯ.</span>':'BUILD YOUR<br><span>STRONGER SELF.</span>',
- intro:ru?'Тренируйся осознанно. Развивай дисциплину. Становись сильнее каждый день.':'Train with purpose. Build discipline. Become stronger every day.',
- startBtn:ru?'НАЧАТЬ ТРЕНИРОВКУ ↗':'START TRAINING ↗',
- chooseTitle:ru?'Выбери место тренировки':'Choose your environment',
- gymTitle:ru?'ТРЕНИРОВКА В ЗАЛЕ':'GYM TRAINING',gymDesc:ru?'Тренажёры и силовой прогресс':'Equipment and strength progression',
- homeTitle:ru?'ТРЕНИРОВКА ДОМА':'HOME WORKOUT',homeDesc:ru?'Минимум оборудования':'Minimal equipment',
- journeyTitle:ru?'Твой прогресс':'Your journey',completedLabel:ru?'ТРЕНИРОВОК':'WORKOUTS COMPLETED',minutesLabel:ru?'МИНУТ':'TOTAL MINUTES',
- featuredTitle:ru?'Популярные тренировки':'Featured workouts',programTitle:ru?'Программы тренировок':'Training programs',
- programDesc:ru?'Выбери тренировку под свои цели.':'Choose a session that matches your goals.',
- backBtn:ru?'← Назад':'← Back',restLabel:ru?'ТАЙМЕР ОТДЫХА':'REST TIMER',
- timerStart:ru?'СТАРТ':'START',timerReset:ru?'СБРОСИТЬ':'RESET',finishBtn:ru?'ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓':'FINISH WORKOUT ✓',
- progressTitle:ru?'Твой прогресс':'Your progress',progressCompleted:ru?'ТРЕНИРОВОК':'WORKOUTS COMPLETED',
- progressMinutesLabel:ru?'МИНУТ':'TOTAL MINUTES',historyTitle:ru?'История тренировок':'Workout history',
- coachIntro:ru?'Получи рекомендацию для своей цели.':'Get a suggestion for your goal.',
- goalLabel:ru?'Твоя главная цель':'Your main goal',levelLabel:ru?'Твой опыт':'Your experience',
- adviceBtn:ru?'ПОЛУЧИТЬ РЕКОМЕНДАЦИЮ':'GET MY SUGGESTION',
- profileTitle:ru?'Твой профиль':'Your profile',nameLabel:ru?'Твоё имя':'Your name',
- profileGoalLabel:ru?'Цель тренировок':'Fitness goal',saveBtn:ru?'СОХРАНИТЬ ПРОФИЛЬ':'SAVE PROFILE',
- navHome:ru?'Главная':'Home',navTrain:ru?'Тренировки':'Train',navProgress:ru?'Прогресс':'Progress',
- navCoach:ru?'Тренер':'Coach',navProfile:ru?'Профиль':'Profile'
- };
- Object.entries(t).forEach(([id,value])=>{if($(id))$(id).innerHTML=value});
- $('goal').options[0].text=ru?'Набрать мышечную массу':'Build muscle';
- $('goal').options[1].text=ru?'Стать сильнее':'Get stronger';
- $('goal').options[2].text=ru?'Улучшить форму':'Improve fitness';
- $('goal').options[3].text=ru?'Выработать привычку':'Build a routine';
- $('level').options[0].text=ru?'Начинающий':'Beginner';
- $('level').options[1].text=ru?'Средний уровень':'Intermediate';
- $('userGoal').innerHTML=$('goal').innerHTML;
- renderCards();
- if(current)openWorkout(current.id);
- renderStats();
-}
-$('langBtn').addEventListener('click',setLanguage);
-if(profile.name)$('userName').value=profile.name;
-if(profile.goal)$('userGoal').value=profile.goal;
-renderCards();renderStats();
-</script>
-</body>
-  </html>
+
+function renderExercises() {
+  if (!currentWorkout) return;
+
+  $('exerciseList').innerHTML = '';
+
+  currentWorkout.exercises.forEach((ex,index) => {
+    const row = document.createElement('label');
+    row.className = 'exercise-row' + (ex.done ? ' done' : '');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'exercise-check';
+    checkbox.checked = ex.done;
+    checkbox.setAttribute('aria-label','Упражнение выполнено');
+
+    checkbox.addEventListener('change',() => {
+      ex.done = checkbox.checked;
+      renderExercises();
+    });
+
+    const details = document.createElement('div');
