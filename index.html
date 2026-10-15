@@ -1,315 +1,316 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090b09">
-<meta name="description" content="VYTRON — Build Your Stronger Self. Your fitness journey starts here.">
 <title>VYTRON — Build Your Stronger Self</title>
 <style>
-:root {
-  --bg:#090b09;
-  --panel:#121512;
-  --panel2:#191d19;
-  --green:#b7ff39;
-  --text:#f4f6f1;
-  --muted:#929a90;
-  --border:#282e27;
-}
+:root{--bg:#090b09;--panel:#141814;--green:#b7ff39;--text:#f4f6f1;--muted:#929a90;--border:#2b3329}
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-}
-button{font:inherit;cursor:pointer}
-button:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-.app{max-width:1100px;margin:auto;padding:20px 18px 100px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:30px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible{outline:2px solid var(--green)}
+.app{max-width:1000px;margin:auto;padding:18px 15px 100px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
 .logo{font-size:27px;font-weight:900;letter-spacing:3px}
-.logo span{color:var(--green)}
-.lang{
-  color:var(--text);background:var(--panel);border:1px solid var(--border);
-  padding:10px 13px;border-radius:12px
-}
-.hero{
-  position:relative;overflow:hidden;background:linear-gradient(135deg,#1b2516,#111510 60%,#101410);
-  border:1px solid #2a3723;border-radius:26px;padding:30px 23px;margin-bottom:22px;
-}
-.hero:after{
-  content:"V";position:absolute;right:-12px;top:-60px;font-size:270px;
-  font-weight:900;color:rgba(183,255,57,.06);pointer-events:none
-}
-.tag{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:2.5px}
-h1{font-size:clamp(36px,8vw,64px);line-height:1.02;margin:16px 0;letter-spacing:-2px;max-width:650px}
-h1 span{color:var(--green)}
-.hero p{color:#b4bcb0;line-height:1.6;max-width:440px;font-size:14px}
-.primary,.secondary{
-  border:0;border-radius:12px;padding:14px 17px;font-weight:800;
-}
-.primary{background:var(--green);color:#10130d}
-.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 15px}
-h2{font-size:21px;margin:0}
-.muted{color:var(--muted);font-size:12px}
-.modes,.stats,.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.mode,.card,.stat,.box{
-  background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:18px;
-}
-.mode{min-height:135px;text-align:left;color:var(--text)}
-.mode.active{border-color:var(--green);background:#151d11}
-.mode .icon{font-size:28px}
-.mode strong{display:block;margin:12px 0 5px;font-size:16px}
-.mode small{color:var(--muted);line-height:1.5}
-.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card{padding:0;overflow:hidden}
-.card-art{
-  min-height:115px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#20291b,#111510);font-size:42px;
-}
-.card-body{padding:14px}
-.card h3{font-size:15px;margin:0 0 8px}
-.card p{font-size:12px;color:var(--muted);margin:0 0 13px}
-.card button{width:100%;padding:11px;font-size:12px}
-.stats{margin-top:15px}
-.stat strong{display:block;color:var(--green);font-size:26px;margin-bottom:6px}
+.logo span,h1 span,h2 span{color:var(--green)}
+button{border-radius:12px;padding:12px;border:1px solid var(--border)}
+.primary{background:var(--green);color:#11150c;border:0;font-weight:bold}
+.secondary,.lang{background:var(--panel);color:var(--text)}
+.hero,.box,.stat,.mode,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:18px}
+.hero{background:linear-gradient(135deg,#202d17,#111510);padding:25px;margin-bottom:22px}
+.tag{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:2px}
+h1{font-size:clamp(35px,8vw,58px);line-height:1.05}
+h2{font-size:21px}
+p{line-height:1.6}
+.muted,small{color:var(--muted)}
+.section-head{margin:25px 0 12px}
+.modes,.cards,.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.mode{text-align:left;color:var(--text);min-height:115px}
+.mode.active{border-color:var(--green)}
+.mode strong{display:block;margin:8px 0}
+.cards .card{padding:14px}
+.card .icon{font-size:30px}
+.card h3{font-size:16px}
+.card p{font-size:12px;color:var(--muted)}
+.card button{width:100%}
+.stat strong{display:block;font-size:28px;color:var(--green)}
 .stat span{font-size:11px;color:var(--muted)}
 .view{display:none}
 .view.active{display:block}
-.nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:5;
-  display:flex;justify-content:center;gap:4px;
-  background:rgba(9,11,9,.96);border-top:1px solid var(--border);
-  padding:10px 6px calc(10px + env(safe-area-inset-bottom));
-  backdrop-filter:blur(14px)
-}
-.nav button{
-  flex:1;max-width:150px;background:transparent;border:0;border-radius:12px;
-  color:var(--muted);padding:9px 2px;font-size:10px
-}
-.nav button.active{color:var(--green);background:#171d13}
-.nav .navicon{display:block;font-size:19px;margin-bottom:5px}
-.field{width:100%;padding:13px;background:var(--bg);border:1px solid var(--border);border-radius:11px;color:var(--text);margin:8px 0 16px}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;justify-content:center;background:#0b0e0b;border-top:1px solid var(--border);padding:8px 3px calc(8px + env(safe-area-inset-bottom))}
+.nav button{flex:1;max-width:150px;border:0;background:transparent;color:var(--muted);padding:8px 1px;font-size:10px}
+.nav button.active{color:var(--green);background:#192015}
+.navicon{display:block;font-size:19px;margin-bottom:4px}
+.field{display:block;width:100%;margin:8px 0 18px;padding:13px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
 label{font-size:13px;color:#c5cbc1}
-.exercise{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
-.exercise input{accent-color:var(--green);width:20px;height:20px}
+.exercise{display:flex;gap:10px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.exercise input{width:20px;height:20px;accent-color:var(--green)}
 .exercise div{flex:1}
-.exercise small{display:block;color:var(--muted);margin-top:5px}
-.big-timer{font-size:48px;font-weight:900;color:var(--green);text-align:center;margin:25px 0}
-.progress-track{height:7px;background:#292e28;border-radius:20px;overflow:hidden;margin:15px 0}
-.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s}
-.empty{color:var(--muted);font-size:13px;line-height:1.6}
-footer{text-align:center;color:#60685e;font-size:11px;margin-top:38px;line-height:1.8}
-@media(min-width:720px){
- .app{padding-top:28px}
- .hero{padding:48px}
- .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
- .cards{grid-template-columns:repeat(4,minmax(0,1fr))}
- .card-art{min-height:145px}
-}
-@media(max-width:360px){
- .app{padding-left:12px;padding-right:12px}
- .hero{padding:23px 17px}
- .logo{font-size:23px}
- .nav button{font-size:9px}
-}
+.big-timer{text-align:center;font-size:48px;font-weight:bold;color:var(--green);margin:22px}
+footer{text-align:center;color:var(--muted);font-size:11px;margin-top:35px}
+@media(min-width:650px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:38px}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="logo">VYTR<span>O</span>N</div>
-    <button class="lang" id="langBtn" aria-label="Change language">RU / EN</button>
-  </header>
+<header>
+<div class="logo">VYTR<span>O</span>N</div>
+<button class="lang" id="langBtn">RU / EN</button>
+</header>
 
-  <main>
-    <section class="view active" id="home">
-      <div class="hero">
-        <div class="tag" data-i="eyebrow">YOUR NEXT LEVEL STARTS NOW</div>
-        <h1 data-i="headline">BUILD YOUR<br><span>STRONGER SELF.</span></h1>
-        <p data-i="intro">Train with purpose. Build discipline. Become stronger every day — at home or in the gym.</p>
-        <button class="primary" onclick="go('workouts')" data-i="start">START TRAINING ↗</button>
-      </div>
-
-      <div class="section-head">
-        <h2 data-i="choose">Choose your environment</h2>
-      </div>
-      <div class="modes">
-        <button class="mode active" id="gymMode" onclick="setMode('gym')">
-          <div class="icon">🏋️</div><strong data-i="gym">GYM TRAINING</strong>
-          <small data-i="gymdesc">Strength, equipment and progression.</small>
-        </button>
-        <button class="mode" id="homeMode" onclick="setMode('homework')">
-          <div class="icon">⚡</div><strong data-i="homework">HOME WORKOUT</strong>
-          <small data-i="homedesc">Train anywhere with minimal equipment.</small>
-        </button>
-      </div>
-
-      <div class="section-head">
-        <h2 data-i="overview">Your journey</h2><span class="muted" data-i="saved">Saved on this device</span>
-      </div>
-      <div class="stats">
-        <div class="stat"><strong id="totalWorkouts">0</strong><span data-i="completed">WORKOUTS COMPLETED</span></div>
-        <div class="stat"><strong id="totalMinutes">0</strong><span data-i="minutes">TOTAL MINUTES</span></div>
-      </div>
-
-      <div class="section-head"><h2 data-i="featured">Featured workouts</h2></div>
-      <div class="cards" id="featuredCards"></div>
-    </section>
-
-    <section class="view" id="workouts">
-      <div class="section-head"><h2 data-i="allworkouts">Training programs</h2></div>
-      <p class="muted" data-i="programintro">Choose a session that matches your goals and available equipment.</p>
-      <div class="cards" id="allCards"></div>
-    </section>
-
-    <section class="view" id="session">
-      <button class="secondary" onclick="go('workouts')" data-i="back">← Back to workouts</button>
-      <div class="section-head"><h2 id="sessionTitle">Workout</h2></div>
-      <p class="muted" id="sessionInfo"></p>
-      <div class="progress-track"><div class="progress-fill" id="sessionProgress"></div></div>
-      <p class="muted" id="exerciseCount"></p>
-      <div id="exerciseList"></div>
-      <div class="box" style="margin-top:20px">
-        <div class="muted" style="text-align:center" data-i="resttimer">REST TIMER</div>
-        <div class="big-timer" id="timerDisplay">01:00</div>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="primary" onclick="startTimer()" data-i="startrest">START REST</button>
-          <button class="secondary" onclick="resetTimer()" data-i="reset">RESET</button>
-        </div>
-      </div>
-      <button class="primary" style="width:100%;margin-top:18px" onclick="finishWorkout()" data-i="finish">FINISH WORKOUT ✓</button>
-    </section>
-
-    <section class="view" id="progress">
-      <div class="section-head"><h2 data-i="yourprogress">Your progress</h2></div>
-      <div class="stats">
-        <div class="stat"><strong id="progressWorkouts">0</strong><span data-i="completed">WORKOUTS COMPLETED</span></div>
-        <div class="stat"><strong id="progressMinutes">0</strong><span data-i="minutes">TOTAL MINUTES</span></div>
-      </div>
-      <div class="section-head"><h2 data-i="history">Workout history</h2></div>
-      <div class="box" id="historyList"><p class="empty" data-i="nohistory">Your completed workouts will appear here.</p></div>
-    </section>
-
-    <section class="view" id="trainer">
-      <div class="section-head"><h2 data-i="trainer">VYTRON Coach</h2></div>
-      <div class="hero">
-        <div class="tag">YOUR TRAINING COMPANION</div>
-        <h2 data-i="coachheadline">Small steps.<br><span>Real progress.</span></h2>
-        <p data-i="coachintro">Get a simple training suggestion based on your goal. This version uses built-in guidance, not a live AI service.</p>
-      </div>
-      <label for="goal" data-i="goal">What's your main goal?</label>
-      <select class="field" id="goal">
-        <option value="muscle" data-i="muscle">Build muscle</option>
-        <option value="strength" data-i="strength">Get stronger</option>
-        <option value="fitness" data-i="fitness">Improve fitness</option>
-        <option value="habit" data-i="habit">Build a routine</option>
-      </select>
-      <label for="level" data-i="level">Your experience</label>
-      <select class="field" id="level">
-        <option value="beginner" data-i="beginner">Beginner</option>
-        <option value="intermediate" data-i="intermediate">Intermediate</option>
-      </select>
-      <button class="primary" style="width:100%" onclick="getAdvice()" data-i="getplan">GET MY SUGGESTION</button>
-      <div class="box" id="advice" style="margin-top:16px"><p class="empty" data-i="adviceplaceholder">Your personalized starter suggestion will appear here.</p></div>
-      <p class="muted" style="line-height:1.6" data-i="safety">Start at a comfortable level. Stop if you feel pain or dizziness. Seek professional advice if you have health concerns.</p>
-    </section>
-
-    <section class="view" id="profile">
-      <div class="section-head"><h2 data-i="profile">Your profile</h2></div>
-      <div class="box">
-        <label for="userName" data-i="yourname">Your name</label>
-        <input class="field" id="userName" maxlength="40" placeholder="Name">
-        <label for="userGoal" data-i="profilegoal">Fitness goal</label>
-        <select class="field" id="userGoal">
-          <option value="muscle" data-i="muscle">Build muscle</option>
-          <option value="strength" data-i="strength">Get stronger</option>
-          <option value="fitness" data-i="fitness">Improve fitness</option>
-          <option value="habit" data-i="habit">Build a routine</option>
-        </select>
-        <button class="primary" style="width:100%" onclick="saveProfile()" data-i="saveprofile">SAVE PROFILE</button>
-        <p class="muted" id="profileMessage"></p>
-      </div>
-      <div class="section-head"><h2 data-i="about">About VYTRON</h2></div>
-      <div class="box">
-        <div class="logo">VYTR<span>O</span>N</div>
-        <p data-i="abouttext" style="color:var(--muted);line-height:1.7">A fitness project built around consistency, strength and personal growth.</p>
-        <p class="muted">BUILD YOUR STRONGER SELF.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>VYTRON © 2026<br><span data-i="footer">Build your stronger self. One session at a time.</span></footer>
+<main>
+<section class="view active" id="home">
+<div class="hero">
+<div class="tag">BUILD YOUR FUTURE</div>
+<h1 id="headline">СТАНЬ<br><span>СИЛЬНЕЕ СЕБЯ.</span></h1>
+<p id="intro">Тренируйся осознанно. Развивай дисциплину. Становись сильнее каждый день.</p>
+<button class="primary" onclick="go('workouts')" id="startBtn">НАЧАТЬ ТРЕНИРОВКУ ↗</button>
 </div>
 
-<nav class="nav" aria-label="Main navigation">
-  <button class="active" data-view="home" onclick="go('home')"><span class="navicon">⌂</span><span data-i="navhome">Home</span></button>
-  <button data-view="workouts" onclick="go('workouts')"><span class="navicon">▤</span><span data-i="navworkouts">Train</span></button>
-  <button data-view="progress" onclick="go('progress')"><span class="navicon">↗</span><span data-i="navprogress">Progress</span></button>
-  <button data-view="trainer" onclick="go('trainer')"><span class="navicon">✳</span><span data-i="navcoach">Coach</span></button>
-  <button data-view="profile" onclick="go('profile')"><span class="navicon">◉</span><span data-i="navprofile">Profile</span></button>
+<div class="section-head"><h2 id="chooseTitle">Выбери место тренировки</h2></div>
+<div class="modes">
+<button class="mode active" id="gymMode" onclick="setMode('gym')">
+<div class="icon">🏋️</div><strong id="gymTitle">ТРЕНИРОВКА В ЗАЛЕ</strong><small id="gymDesc">Тренажёры и силовой прогресс</small>
+</button>
+<button class="mode" id="homeMode" onclick="setMode('home')">
+<div class="icon">⚡</div><strong id="homeTitle">ТРЕНИРОВКА ДОМА</strong><small id="homeDesc">Минимум оборудования</small>
+</button>
+</div>
+
+<div class="section-head"><h2 id="journeyTitle">Твой прогресс</h2></div>
+<div class="stats">
+<div class="stat"><strong id="totalWorkouts">0</strong><span id="completedLabel">ТРЕНИРОВОК</span></div>
+<div class="stat"><strong id="totalMinutes">0</strong><span id="minutesLabel">МИНУТ</span></div>
+</div>
+<div class="section-head"><h2 id="featuredTitle">Популярные тренировки</h2></div>
+<div class="cards" id="featuredCards"></div>
+</section>
+
+<section class="view" id="workouts">
+<div class="section-head"><h2 id="programTitle">Программы тренировок</h2></div>
+<p class="muted" id="programDesc">Выбери тренировку под свои цели.</p>
+<div class="cards" id="allCards"></div>
+</section>
+
+<section class="view" id="session">
+<button class="secondary" onclick="go('workouts')" id="backBtn">← Назад</button>
+<h2 id="sessionTitle">Тренировка</h2>
+<p class="muted" id="sessionInfo"></p>
+<div id="exerciseList"></div>
+<div class="box" style="margin-top:20px">
+<p class="muted" style="text-align:center" id="restLabel">ТАЙМЕР ОТДЫХА</p>
+<div class="big-timer" id="timerDisplay">01:00</div>
+<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+<button class="primary" onclick="startTimer()" id="timerStart">СТАРТ</button>
+<button class="secondary" onclick="resetTimer()" id="timerReset">СБРОСИТЬ</button>
+</div>
+</div>
+<button class="primary" style="width:100%;margin-top:16px" onclick="finishWorkout()" id="finishBtn">ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓</button>
+</section>
+
+<section class="view" id="progress">
+<h2 id="progressTitle">Твой прогресс</h2>
+<div class="stats">
+<div class="stat"><strong id="progressWorkouts">0</strong><span id="progressCompleted">ТРЕНИРОВОК</span></div>
+<div class="stat"><strong id="progressMinutes">0</strong><span id="progressMinutesLabel">МИНУТ</span></div>
+</div>
+<h2 id="historyTitle">История тренировок</h2>
+<div class="box" id="historyList"><p class="muted">Заверши первую тренировку, чтобы увидеть историю.</p></div>
+</section>
+
+<section class="view" id="trainer">
+<h2>VYTRON Coach</h2>
+<div class="hero">
+<div class="tag">YOUR TRAINING COMPANION</div>
+<h2>Маленькие шаги.<br><span>Реальный прогресс.</span></h2>
+<p id="coachIntro">Получи рекомендацию для своей цели.</p>
+</div>
+<label for="goal" id="goalLabel">Твоя главная цель</label>
+<select class="field" id="goal">
+<option value="muscle">Набрать мышечную массу</option>
+<option value="strength">Стать сильнее</option>
+<option value="fitness">Улучшить форму</option>
+<option value="habit">Выработать привычку</option>
+</select>
+<label for="level" id="levelLabel">Твой опыт</label>
+<select class="field" id="level">
+<option value="beginner">Начинающий</option>
+<option value="intermediate">Средний уровень</option>
+</select>
+<button class="primary" style="width:100%" onclick="getAdvice()" id="adviceBtn">ПОЛУЧИТЬ РЕКОМЕНДАЦИЮ</button>
+<div class="box" style="margin-top:15px" id="advice"><p class="muted">Твоя рекомендация появится здесь.</p></div>
+</section>
+
+<section class="view" id="profile">
+<h2 id="profileTitle">Твой профиль</h2>
+<div class="box">
+<label for="userName" id="nameLabel">Твоё имя</label>
+<input class="field" id="userName" maxlength="40" placeholder="Имя">
+<label for="userGoal" id="profileGoalLabel">Цель тренировок</label>
+<select class="field" id="userGoal">
+<option value="muscle">Набрать мышечную массу</option>
+<option value="strength">Стать сильнее</option>
+<option value="fitness">Улучшить форму</option>
+<option value="habit">Выработать привычку</option>
+</select>
+<button class="primary" style="width:100%" onclick="saveProfile()" id="saveBtn">СОХРАНИТЬ ПРОФИЛЬ</button>
+<p class="muted" id="profileMessage"></p>
+</div>
+<div class="section-head"><h2>VYTRON</h2><p class="muted">BUILD YOUR STRONGER SELF.</p></div>
+</section>
+</main>
+<footer>VYTRON © 2026<br>Build Your Stronger Self.</footer>
+</div>
+
+<nav class="nav">
+<button class="active" data-view="home" onclick="go('home')"><span class="navicon">⌂</span><span id="navHome">Главная</span></button>
+<button data-view="workouts" onclick="go('workouts')"><span class="navicon">▤</span><span id="navTrain">Тренировки</span></button>
+<button data-view="progress" onclick="go('progress')"><span class="navicon">↗</span><span id="navProgress">Прогресс</span></button>
+<button data-view="trainer" onclick="go('trainer')"><span class="navicon">✳</span><span id="navCoach">Тренер</span></button>
+<button data-view="profile" onclick="go('profile')"><span class="navicon">◉</span><span id="navProfile">Профиль</span></button>
 </nav>
 
 <script>
-const words = {
-  en:{
-    eyebrow:"YOUR NEXT LEVEL STARTS NOW",headline:'BUILD YOUR<br><span>STRONGER SELF.</span>',
-    intro:"Train with purpose. Build discipline. Become stronger every day — at home or in the gym.",
-    start:"START TRAINING ↗",choose:"Choose your environment",gym:"GYM TRAINING",gymdesc:"Strength, equipment and progression.",
-    homework:"HOME WORKOUT",homedesc:"Train anywhere with minimal equipment.",overview:"Your journey",saved:"Saved on this device",
-    completed:"WORKOUTS COMPLETED",minutes:"TOTAL MINUTES",featured:"Featured workouts",allworkouts:"Training programs",
-    programintro:"Choose a session that matches your goals and available equipment.",back:"← Back to workouts",resttimer:"REST TIMER",
-    startrest:"START REST",reset:"RESET",finish:"FINISH WORKOUT ✓",yourprogress:"Your progress",history:"Workout history",
-    nohistory:"Your completed workouts will appear here.",trainer:"VYTRON Coach",coachheadline:'Small steps.<br><span>Real progress.</span>',
-    coachintro:"Get a simple training suggestion based on your goal. This version uses built-in guidance, not a live AI service.",
-    goal:"What's your main goal?",muscle:"Build muscle",strength:"Get stronger",fitness:"Improve fitness",habit:"Build a routine",
-    level:"Your experience",beginner:"Beginner",intermediate:"Intermediate",getplan:"GET MY SUGGESTION",
-    adviceplaceholder:"Your personalized starter suggestion will appear here.",
-    safety:"Start at a comfortable level. Stop if you feel pain or dizziness. Seek professional advice if you have health concerns.",
-    profile:"Your profile",yourname:"Your name",profilegoal:"Fitness goal",saveprofile:"SAVE PROFILE",about:"About VYTRON",
-    abouttext:"A fitness project built around consistency, strength and personal growth.",
-    footer:"Build your stronger self. One session at a time.",navhome:"Home",navworkouts:"Train",
-    navprogress:"Progress",navcoach:"Coach",navprofile:"Profile",gymmode:"GYM",homemode:"HOME",
-    beginnerLabel:"Beginner",intermediateLabel:"Intermediate",min:"min",startBtn:"START WORKOUT",
-    completedMsg:"Workout completed and saved!",noExercises:"No exercises selected yet.",sets:"sets",
-    setsDone:"completed",adviceMuscle:"Focus on controlled technique and gradually increase the challenge. Train each major muscle group about twice a week, allowing recovery between sessions.",
-    adviceStrength:"Choose manageable weights, use controlled movements, and rest between challenging sets. Increase the load gradually only when your technique is solid.",
-    adviceFitness:"Start with 15–25 minutes of movement at a comfortable pace. Combine strength exercises with walking or other cardio across the week.",
-    adviceHabit:"Schedule two or three short sessions this week. Keep them manageable, and focus on showing up consistently rather than doing everything at once.",
-    adviceBeginner:"As a beginner, start with 2 sets per exercise and learn the movement first. Stop if you feel pain.",
-    adviceIntermediate:"Use a planned progression and track your sets, repetitions and recovery. Avoid increasing every training variable at once.",
-    savedMsg:"Profile saved on this device.",hello:"Let's get stronger",workout:"Workout",today:"Today",
-    emptyHistory:"Complete your first session to start tracking your progress.",confirmFinish:"Finish and save this workout?",
-    exercise:"exercises",completedWord:"completed",restDone:"Rest finished!",timerRunning:"Rest timer running",
-    upper:"Upper Body",lower:"Lower Body",full:"Full Body",push:"Push Day",pull:"Pull Day",legs:"Leg Day",bodyweight:"Bodyweight Basics",core:"Core & Mobility",
-    descUpper:"Chest, back and arms",descLower:"Legs and glutes",descFull:"A balanced full-body session",descPush:"Chest, shoulders and triceps",
-    descPull:"Back and biceps",descLegs:"Lower-body strength",descBodyweight:"No gym equipment needed",descCore:"Core stability and movement",
-    exercise1:"Push-ups",exercise2:"Bodyweight squats",exercise3:"Plank",exercise4:"Dumbbell row",exercise5:"Dumbbell shoulder press",
-    exercise6:"Lunges",exercise7:"Glute bridges",exercise8:"Bicycle crunches",exercise9:"Dumbbell chest press",exercise10:"Lat pulldown",
-    exercise11:"Romanian deadlift",exercise12:"Biceps curls",exercise13:"Triceps extensions",exercise14:"Calf raises",exercise15:"Dead bug",
-    exercise16:"Incline push-ups",exercise17:"Hip hinges",exercise18:"Bird dog",exercise19:"Shoulder taps",exercise20:"March in place",
-    rest:"Rest",historyCount:"sessions",minutesLabel:"minutes",confirmClear:"Clear local workout history?",
-    feature1:"Build your habit",feature2:"Train with a plan",feature3:"Track your effort"
-  },
-  ru:{
-    eyebrow:"ТВОЙ СЛЕДУЮЩИЙ УРОВЕНЬ НАЧИНАЕТСЯ СЕЙЧАС",headline:'СТАНЬ<br><span>СИЛЬНЕЕ СЕБЯ.</span>',
-    intro:"Тренируйся осознанно. Развивай дисциплину. Становись сильнее каждый день — дома или в зале.",
-    start:"НАЧАТЬ ТРЕНИРОВКУ ↗",choose:"Выбери место тренировки",gym:"ТРЕНИРОВКА В ЗАЛЕ",gymdesc:"Сила, тренажёры и постепенный прогресс.",
-    homework:"ТРЕНИРОВКА ДОМА",homedesc:"Тренируйся где угодно с минимумом оборудования.",overview:"Твой путь",saved:"Сохраняется на устройстве",
-    completed:"ЗАВЕРШЕНО ТРЕНИРОВОК",minutes:"ВСЕГО МИНУТ",featured:"Популярные тренировки",allworkouts:"Программы тренировок",
-    programintro:"Выбери тренировку под свои цели и доступное оборудование.",back:"← Назад к тренировкам",resttimer:"ТАЙМЕР ОТДЫХА",
-    startrest:"НАЧАТЬ ОТДЫХ",reset:"СБРОСИТЬ",finish:"ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓",yourprogress:"Твой прогресс",history:"История тренировок",
-    nohistory:"Завершённые тренировки появятся здесь.",trainer:"Тренер VYTRON",coachheadline:'Маленькие шаги.<br><span>Реальный прогресс.</span>',
-    coachintro:"Получи простую рекомендацию в зависимости от цели. В этой версии используются готовые советы, а не подключённый ИИ.",
-    goal:"Твоя главная цель?",muscle:"Набрать мышечную массу",strength:"Стать сильнее",fitness:"Улучшить форму",habit:"Выработать привычку",
-    level:"Твой опыт",beginner:"Начинающий",intermediate:"Средний уровень",getplan:"ПОЛУЧИТЬ РЕКОМЕНДАЦИЮ",
-    adviceplaceholder:"Здесь появится твоя стартовая рекомендация.",
-    safety:"Начинай с комфортной нагрузки. Остановись при боли или головокружении. При проблемах со здоровьем проконсультируйся со специалистом.",
-    profile:"Твой профиль",yourname:"Твоё имя",profilegoal:"Цель тренировок",saveprofile:"СОХРАНИТЬ ПРОФИЛЬ",about:"О VYTRON",
-    abouttext:"Фитнес-проект о регулярности, силе и личном развитии.",
-    footer:"Стань сильнее себя. Одна тренировка за раз.",navhome:"Главная",navworkouts:"Тренировки",
-    navprogress:"Прогресс",navcoach:"Тренер",navprofile:"Профиль",gymmode:"ЗАЛ",homemode:"ДОМ",
-    beginnerLabel:"Начинающий",intermediateLabel:"Средний",min:"мин",startBtn:"НАЧАТЬ",
-    completedMsg:"Тренировка завершена и сохранена!",noExercises:"Пока не выбраны упражнения.",sets:"подхода",
-    setsDone:"выполнено",adviceMuscle:"Сосредоточься на правильной технике и постепенно увеличивай нагрузку. Старайся тренировать основные группы мышц примерно дважды в неделю, оставляя время на восстановление.",
-    adviceStrength:"Выбирай посильный вес, выполняй движения контролируемо и отдыхай между тяжёлыми подходами. Увеличивай нагрузку постепенно, только если техника остаётся правильной.",
-    adviceFitness:"Начни с 15–25 минут движения в комфортном темпе. В течение недели сочетай сило
+const programs=[
+{id:'full',icon:'💪',name:'Всё тело',en:'Full Body',desc:'Тренировка основных мышц',enDesc:'Train your major muscles',gym:true,ex:['Жим гантелей','Тяга гантели','Приседания','Планка']},
+{id:'push',icon:'🏋️',name:'Грудь и плечи',en:'Chest & Shoulders',desc:'Грудь, плечи и трицепсы',enDesc:'Chest, shoulders and triceps',gym:true,ex:['Жим гантелей','Жим плечами','Отжимания','Разгибание рук']},
+{id:'legs',icon:'🦵',name:'День ног',en:'Leg Day',desc:'Ноги и ягодицы',enDesc:'Legs and glutes',gym:true,ex:['Приседания','Выпады','Ягодичный мост','Подъёмы на носки']},
+{id:'home',icon:'⚡',name:'Дома без оборудования',en:'Home Bodyweight',desc:'Тренируйся где угодно',enDesc:'Train anywhere',gym:false,ex:['Отжимания','Приседания','Планка','Выпады']},
+{id:'core',icon:'🎯',name:'Пресс и корпус',en:'Core Workout',desc:'Стабильность и контроль',enDesc:'Stability and control',gym:false,ex:['Планка','Велосипед','Птица-собака','Подъёмы колен']},
+{id:'easy',icon:'🚶',name:'Лёгкая активность',en:'Easy Movement',desc:'Мягкое начало',enDesc:'A gentle start',gym:false,ex:['Ходьба на месте','Приседания','Круги плечами','Растяжка']}
+];
+let lang='ru',mode='gym',current=null,seconds=60,interval=null;
+let history=JSON.parse(localStorage.getItem('vytronHistory')||'[]');
+let profile=JSON.parse(localStorage.getItem('vytronProfile')||'{}');
+const $=id=>document.getElementById(id);
+function saveHistory(){localStorage.setItem('vytronHistory',JSON.stringify(history))}
+function go(id){
+ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+ window.scrollTo({top:0,behavior:'smooth'});
+ if(id==='progress')renderStats();
+}
+function setMode(m){
+ mode=m;
+ $('gymMode').classList.toggle('active',m==='gym');
+ $('homeMode').classList.toggle('active',m==='home');
+ renderCards();go('workouts');
+}
+function renderCards(){
+ const list=programs.filter(p=>mode==='gym'?p.gym:!p.gym);
+ const make=p=>`<div class="card"><div class="icon">${p.icon}</div><h3>${lang==='ru'?p.name:p.en}</h3><p>${lang==='ru'?p.desc:p.enDesc}</p><button class="primary" onclick="openWorkout('${p.id}')">${lang==='ru'?'НАЧАТЬ':'START'}</button></div>`;
+ $('allCards').innerHTML=list.map(make).join('');
+ $('featuredCards').innerHTML=programs.slice(0,4).map(make).join('');
+}
+function openWorkout(id){
+ current=programs.find(p=>p.id===id);
+ if(!current)return;
+ $('sessionTitle').textContent=lang==='ru'?current.name:current.en;
+ $('sessionInfo').textContent=(lang==='ru'?current.desc:current.enDesc)+' · '+current.ex.length+(lang==='ru'?' упражнений':' exercises');
+ $('exerciseList').innerHTML=current.ex.map((e,i)=>`<label class="exercise"><input type="checkbox" onchange="updateExerciseProgress()"><div>${lang==='ru'?e:['Dumbbell press','Dumbbell row','Squats','Plank'][i]||e}<small>${i===2?'3':'3'} × 10</small></div></label>`).join('');
+ updateExerciseProgress();resetTimer();go('session');
+}
+function updateExerciseProgress(){
+ const boxes=[...document.querySelectorAll('#exerciseList input')];
+ const done=boxes.filter(b=>b.checked).length;
+ $('sessionInfo').textContent=(lang==='ru'?'Выполнено упражнений: ':'Exercises completed: ')+done+'/'+boxes.length;
+}
+function startTimer(){
+ if(interval)return;
+ interval=setInterval(()=>{
+  seconds--;
+  $('timerDisplay').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
+  if(seconds<=0){clearInterval(interval);interval=null;seconds=0;$('timerDisplay').textContent='00:00';alert(lang==='ru'?'Время отдыха закончилось!':'Rest time is over!')}
+ },1000);
+}
+function resetTimer(){
+ clearInterval(interval);interval=null;seconds=60;
+ if($('timerDisplay'))$('timerDisplay').textContent='01:00';
+}
+function finishWorkout(){
+ if(!current)return;
+ const done=[...document.querySelectorAll('#exerciseList input')].filter(b=>b.checked).length;
+ if(!done&&!confirm(lang==='ru'?'Ты не отметил ни одного упражнения. Сохранить тренировку?':'No exercises checked. Save workout anyway?'))return;
+ history.unshift({name:lang==='ru'?current.name:current.en,date:new Date().toLocaleDateString(),minutes:Math.max(5,done*5)});
+ saveHistory();resetTimer();alert(lang==='ru'?'Тренировка сохранена! Отличная работа!':'Workout saved. Great job!');go('progress');renderStats();
+}
+function renderStats(){
+ const mins=history.reduce((a,b)=>a+b.minutes,0);
+ $('totalWorkouts').textContent=history.length;$('totalMinutes').textContent=mins;
+ $('progressWorkouts').textContent=history.length;$('progressMinutes').textContent=mins;
+ $('historyList').innerHTML=history.length?history.map(h=>`<div class="exercise"><div><strong>${escapeHTML(h.name)}</strong><small>${h.date} · ${h.minutes} ${lang==='ru'?'мин':'min'}</small></div></div>`).join(''):`<p class="muted">${lang==='ru'?'Заверши первую тренировку, чтобы увидеть историю.':'Complete your first workout to see history.'}</p>`;
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function getAdvice(){
+ const goal=$('goal').value,level=$('level').value;
+ const ru={
+ muscle:'Для набора мышц сочетай силовые упражнения с достаточным питанием и восстановлением. Начни с 2–3 тренировок в неделю.',
+ strength:'Выбирай посильную нагрузку, следи за техникой и отдыхай между подходами. Увеличивай вес постепенно.',
+ fitness:'Начни с 15–25 минут активности в комфортном темпе. Сочетай силовые упражнения и ходьбу.',
+ habit:'Запланируй две короткие тренировки на этой неделе. Главное — регулярность, а не идеальный результат.',
+ beginner:'Начинай спокойно: 2 подхода на упражнение, правильная техника и отдых. Остановись при боли или головокружении.',
+ intermediate:'Веди учёт подходов и повторений. Увеличивай нагрузку постепенно и оставляй время на восстановление.'
+ };
+ const en={
+ muscle:'Combine strength training with sufficient food and recovery. Start with 2–3 sessions per week.',
+ strength:'Choose manageable resistance, focus on technique and rest between sets. Increase weight gradually.',
+ fitness:'Start with 15–25 minutes of comfortable activity. Combine strength work and walking.',
+ habit:'Schedule two short sessions this week. Consistency matters more than perfection.',
+ beginner:'Start gently: 2 sets per exercise, good technique and enough rest. Stop if you feel pain or dizziness.',
+ intermediate:'Track your sets and reps. Progress gradually and allow time for recovery.'
+ };
+ $('advice').textContent=(lang==='ru'?ru[goal]+' ':en[goal]+' ')+(lang==='ru'?ru[level]:en[level]);
+}
+function saveProfile(){
+ profile={name:$('userName').value.trim(),goal:$('userGoal').value};
+ localStorage.setItem('vytronProfile',JSON.stringify(profile));
+ $('profileMessage').textContent=lang==='ru'?'Профиль сохранён на этом устройстве.':'Profile saved on this device.';
+}
+function setLanguage(){
+ lang=lang==='ru'?'en':'ru';
+ document.documentElement.lang=lang;
+ const ru=lang==='ru';
+ const t={
+ headline:ru?'СТАНЬ<br><span>СИЛЬНЕЕ СЕБЯ.</span>':'BUILD YOUR<br><span>STRONGER SELF.</span>',
+ intro:ru?'Тренируйся осознанно. Развивай дисциплину. Становись сильнее каждый день.':'Train with purpose. Build discipline. Become stronger every day.',
+ startBtn:ru?'НАЧАТЬ ТРЕНИРОВКУ ↗':'START TRAINING ↗',
+ chooseTitle:ru?'Выбери место тренировки':'Choose your environment',
+ gymTitle:ru?'ТРЕНИРОВКА В ЗАЛЕ':'GYM TRAINING',gymDesc:ru?'Тренажёры и силовой прогресс':'Equipment and strength progression',
+ homeTitle:ru?'ТРЕНИРОВКА ДОМА':'HOME WORKOUT',homeDesc:ru?'Минимум оборудования':'Minimal equipment',
+ journeyTitle:ru?'Твой прогресс':'Your journey',completedLabel:ru?'ТРЕНИРОВОК':'WORKOUTS COMPLETED',minutesLabel:ru?'МИНУТ':'TOTAL MINUTES',
+ featuredTitle:ru?'Популярные тренировки':'Featured workouts',programTitle:ru?'Программы тренировок':'Training programs',
+ programDesc:ru?'Выбери тренировку под свои цели.':'Choose a session that matches your goals.',
+ backBtn:ru?'← Назад':'← Back',restLabel:ru?'ТАЙМЕР ОТДЫХА':'REST TIMER',
+ timerStart:ru?'СТАРТ':'START',timerReset:ru?'СБРОСИТЬ':'RESET',finishBtn:ru?'ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓':'FINISH WORKOUT ✓',
+ progressTitle:ru?'Твой прогресс':'Your progress',progressCompleted:ru?'ТРЕНИРОВОК':'WORKOUTS COMPLETED',
+ progressMinutesLabel:ru?'МИНУТ':'TOTAL MINUTES',historyTitle:ru?'История тренировок':'Workout history',
+ coachIntro:ru?'Получи рекомендацию для своей цели.':'Get a suggestion for your goal.',
+ goalLabel:ru?'Твоя главная цель':'Your main goal',levelLabel:ru?'Твой опыт':'Your experience',
+ adviceBtn:ru?'ПОЛУЧИТЬ РЕКОМЕНДАЦИЮ':'GET MY SUGGESTION',
+ profileTitle:ru?'Твой профиль':'Your profile',nameLabel:ru?'Твоё имя':'Your name',
+ profileGoalLabel:ru?'Цель тренировок':'Fitness goal',saveBtn:ru?'СОХРАНИТЬ ПРОФИЛЬ':'SAVE PROFILE',
+ navHome:ru?'Главная':'Home',navTrain:ru?'Тренировки':'Train',navProgress:ru?'Прогресс':'Progress',
+ navCoach:ru?'Тренер':'Coach',navProfile:ru?'Профиль':'Profile'
+ };
+ Object.entries(t).forEach(([id,value])=>{if($(id))$(id).innerHTML=value});
+ $('goal').options[0].text=ru?'Набрать мышечную массу':'Build muscle';
+ $('goal').options[1].text=ru?'Стать сильнее':'Get stronger';
+ $('goal').options[2].text=ru?'Улучшить форму':'Improve fitness';
+ $('goal').options[3].text=ru?'Выработать привычку':'Build a routine';
+ $('level').options[0].text=ru?'Начинающий':'Beginner';
+ $('level').options[1].text=ru?'Средний уровень':'Intermediate';
+ $('userGoal').innerHTML=$('goal').innerHTML;
+ renderCards();
+ if(current)openWorkout(current.id);
+ renderStats();
+}
+$('langBtn').addEventListener('click',setLanguage);
+if(profile.name)$('userName').value=profile.name;
+if(profile.goal)$('userGoal').value=profile.goal;
+renderCards();renderStats();
+</script>
+</body>
+  </html>
