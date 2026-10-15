@@ -2,22 +2,21 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080a08">
-<meta name="description" content="VYTRON ELITE — твой персональный фитнес-трекер.">
 <title>VYTRON ELITE</title>
 
 <style>
 :root {
   --bg: #080a08;
-  --panel: #101410;
-  --panel2: #151b14;
+  --card: #111510;
+  --card2: #171d14;
   --green: #b8ff35;
-  --green-dark: #86c921;
-  --text: #f5f7f2;
-  --muted: #858c80;
-  --border: #252c23;
-  --red: #ff6565;
+  --green2: #8fca27;
+  --text: #f6f8f2;
+  --muted: #92988d;
+  --border: #282e24;
+  --red: #ff6969;
 }
 
 * {
@@ -29,9 +28,9 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   min-height: 100vh;
-  padding-bottom: 95px;
+  padding-bottom: calc(92px + env(safe-area-inset-bottom));
 }
 
 button, input, select {
@@ -40,41 +39,46 @@ button, input, select {
 
 button {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
 }
 
 .app {
-  width: 100%;
-  max-width: 600px;
+  max-width: 620px;
   margin: auto;
-  padding: 22px 17px;
+  padding: 20px 17px 30px;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 28px;
+  margin-bottom: 29px;
 }
 
 .logo {
   font-size: 22px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
+  font-weight: 950;
+  letter-spacing: 1.8px;
 }
 
 .logo span {
   color: var(--green);
 }
 
-.badge {
+.status {
+  border: 1px solid #3c4b2d;
   color: var(--green);
-  border: 1px solid #43582b;
-  background: #182112;
+  background: #151e10;
   border-radius: 30px;
   padding: 8px 11px;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
 }
 
 .page {
@@ -83,28 +87,28 @@ header {
 
 .page.active {
   display: block;
-  animation: appear .2s ease;
+  animation: appear .24s ease;
 }
 
 @keyframes appear {
-  from {opacity: 0; transform: translateY(5px);}
-  to {opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.eyebrow {
+.kicker {
   color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 2px;
   font-size: 10px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-weight: 850;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
 h1 {
-  font-size: clamp(30px, 8vw, 42px);
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  margin-bottom: 12px;
+  font-size: clamp(32px, 8.5vw, 45px);
+  line-height: 1.04;
+  letter-spacing: -1.8px;
+  font-weight: 950;
 }
 
 h1 span {
@@ -113,229 +117,317 @@ h1 span {
 
 .subtitle {
   color: var(--muted);
-  line-height: 1.5;
   font-size: 13px;
+  line-height: 1.6;
+  margin-top: 12px;
 }
 
 .hero {
+  margin-top: 23px;
+  min-height: 330px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #192317, #0d100c 75%);
-  border: 1px solid #35422b;
   border-radius: 24px;
-  padding: 25px 21px;
-  margin: 22px 0;
+  border: 1px solid #30392a;
+  background: #171b14;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
 }
 
 .hero:after {
-  content: "V";
+  content: "";
   position: absolute;
-  right: -4px;
-  bottom: -40px;
-  font-size: 180px;
-  line-height: 1;
-  font-weight: 900;
-  color: rgba(184,255,53,.045);
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(5,8,4,.98) 0%,
+    rgba(5,8,4,.76) 37%,
+    rgba(5,8,4,.10) 100%
+  );
   pointer-events: none;
 }
 
-.hero h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  max-width: 260px;
+.hero-content {
+  position: absolute;
+  z-index: 1;
+  left: 21px;
+  right: 20px;
+  bottom: 22px;
 }
 
-.hero p {
-  color: #b0b7a8;
+.hero-content h2 {
+  font-size: 31px;
+  font-weight: 950;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  max-width: 320px;
+}
+
+.hero-content p {
+  color: #d1d6ca;
   font-size: 12px;
   line-height: 1.6;
-  max-width: 250px;
+  margin-top: 10px;
+  max-width: 300px;
 }
 
-.btn {
-  border: none;
-  background: var(--green);
-  color: #10140b;
-  padding: 13px 17px;
+.button {
+  border: 0;
   border-radius: 12px;
-  font-size: 12px;
-  font-weight: 900;
-  margin-top: 20px;
-  position: relative;
-  z-index: 1;
+  padding: 14px 17px;
+  background: var(--green);
+  color: #11150c;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 45px;
+  transition: transform .15s, background .15s;
 }
 
-.btn:active {
-  transform: scale(.98);
+.button:active {
+  transform: scale(.97);
 }
 
-.btn.secondary {
-  background: #20271d;
+.button.secondary {
   color: var(--green);
+  background: #1a2115;
   border: 1px solid #35422b;
 }
 
-.btn.full {
+.button.full {
   width: 100%;
+  margin-top: 12px;
 }
 
-.section-title {
+.hero .button {
+  margin-top: 17px;
+}
+
+.section-heading {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 27px 0 14px;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 29px 0 14px;
 }
 
-.section-title h2 {
-  font-size: 17px;
+.section-heading h2 {
+  font-size: 16px;
+  font-weight: 900;
 }
 
-.section-title small {
+.section-heading small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
 }
 
-.grid {
+.stats-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 11px;
 }
 
 .stat {
-  background: var(--panel);
+  padding: 17px 15px;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 17px;
-  padding: 17px 14px;
+  min-width: 0;
 }
 
 .stat-label {
-  font-size: 11px;
   color: var(--muted);
+  font-size: 11px;
   margin-bottom: 13px;
 }
 
 .stat-value {
-  font-size: 26px;
-  font-weight: 900;
+  font-size: 27px;
+  font-weight: 950;
+  letter-spacing: -.8px;
+  overflow-wrap: anywhere;
 }
 
-.stat-value span {
+.stat-value small {
   color: var(--green);
-  font-size: 13px;
+  font-size: 11px;
+  letter-spacing: 0;
 }
 
 .stat-note {
-  color: var(--muted);
+  color: #72796c;
   font-size: 10px;
   margin-top: 8px;
 }
 
 .card {
-  background: var(--panel);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 17px;
+  padding: 16px;
   margin-bottom: 12px;
 }
 
-.workout {
+.feature {
   display: flex;
   align-items: center;
   gap: 13px;
+  text-align: left;
+  width: 100%;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 13px;
+  margin-bottom: 11px;
 }
 
-.workout-icon {
-  width: 48px;
-  height: 48px;
+.feature:active {
+  background: var(--card2);
+}
+
+.feature-icon {
+  width: 49px;
+  height: 49px;
+  flex-shrink: 0;
   border-radius: 14px;
-  background: #202a18;
   display: grid;
   place-items: center;
+  background: #202b17;
   font-size: 23px;
-  flex-shrink: 0;
 }
 
-.workout-info {
+.feature-info {
   flex: 1;
   min-width: 0;
 }
 
-.workout-info h3 {
-  font-size: 14px;
+.feature-info strong {
+  display: block;
+  font-size: 13px;
   margin-bottom: 6px;
 }
 
-.workout-info p {
+.feature-info small {
+  display: block;
   color: var(--muted);
   font-size: 11px;
   line-height: 1.5;
 }
 
-.arrow {
+.chevron {
   color: var(--green);
-  font-size: 20px;
+  font-size: 23px;
 }
 
-.field {
-  margin: 15px 0;
+.program-card {
+  overflow: hidden;
+  border-radius: 19px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  margin: 16px 0;
 }
 
-.field label {
+.program-image {
   display: block;
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-
-.field input, .field select {
   width: 100%;
-  background: #0b0e0a;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 13px;
-  outline: none;
+  height: 170px;
+  object-fit: cover;
+  background: #1a2017;
 }
 
-.field input:focus, .field select:focus {
-  border-color: var(--green);
+.program-content {
+  padding: 16px;
 }
 
-.timer {
+.program-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.program-content h3 {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.program-content p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.program-tag {
+  color: var(--green);
+  background: #1d2815;
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 9px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.program-content .button {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.timer-box {
+  background: radial-gradient(circle at 50% 35%, #1d2a15 0%, #111510 52%, #0d100c 100%);
+  border: 1px solid #303d27;
+  border-radius: 24px;
   text-align: center;
-  padding: 26px 12px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 23px;
-  margin: 22px 0;
+  padding: 28px 15px;
+  margin-top: 22px;
 }
 
 .timer-label {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 2px;
 }
 
-.timer-value {
+.timer-number {
   color: var(--green);
-  font-size: clamp(55px, 16vw, 76px);
-  font-weight: 900;
+  font-size: clamp(61px, 17vw, 80px);
+  font-weight: 950;
   letter-spacing: -3px;
-  margin: 18px 0;
   font-variant-numeric: tabular-nums;
+  margin: 18px 0;
 }
 
 .timer-controls {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timer-controls .button {
+  padding: 13px 12px;
+}
+
+.quick-timers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  margin-top: 14px;
 }
 
-.timer-controls .btn {
-  margin-top: 0;
-}
-
-.exercise-row {
+.exercise {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -343,137 +435,194 @@ h1 span {
   border-bottom: 1px solid var(--border);
 }
 
-.exercise-row:last-child {
-  border-bottom: none;
+.exercise:last-child {
+  border-bottom: 0;
 }
 
-.exercise-check {
-  width: 24px;
-  height: 24px;
+.exercise input {
+  width: 22px;
+  height: 22px;
   accent-color: var(--green);
   flex-shrink: 0;
 }
 
-.exercise-row div {
+.exercise-info {
   flex: 1;
+  min-width: 0;
 }
 
-.exercise-row h3 {
-  font-size: 13px;
+.exercise-info strong {
+  font-size: 12px;
+  display: block;
   margin-bottom: 5px;
 }
 
-.exercise-row p {
+.exercise-info small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
 }
 
-.exercise-row.done h3 {
-  color: var(--muted);
+.exercise.completed strong {
+  color: #7d8576;
   text-decoration: line-through;
 }
 
 .progress-track {
   height: 7px;
-  background: #252c23;
-  border-radius: 10px;
+  background: #293024;
+  border-radius: 20px;
   overflow: hidden;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
-.progress-bar {
+.progress-fill {
   height: 100%;
   width: 0;
   background: var(--green);
-  border-radius: inherit;
   transition: width .2s;
 }
 
-.empty {
-  text-align: center;
-  padding: 30px 10px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
+.field {
+  margin-top: 18px;
 }
 
-.profile-icon {
-  width: 72px;
-  height: 72px;
+.field label {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 9px;
+}
+
+.field input, .field select {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  background: #090c08;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 12px;
+}
+
+.profile-avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 22px;
   display: grid;
   place-items: center;
-  font-size: 32px;
+  background: #202a18;
+  border: 1px solid #3a4a2d;
   color: var(--green);
-  background: #1d2816;
-  border: 1px solid #35422b;
-  border-radius: 22px;
+  font-size: 35px;
   margin-bottom: 18px;
+}
+
+.notice {
+  color: #c5d4b9;
+  background: #151d11;
+  border: 1px solid #34442a;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 15px;
+}
+
+.history-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-item:last-child {
+  border-bottom: 0;
+}
+
+.history-item strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.history-item small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 24px 8px;
+  font-size: 12px;
+  line-height: 1.7;
 }
 
 .bottom-nav {
   position: fixed;
+  z-index: 20;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  background: rgba(12,15,11,.96);
+  background: rgba(10,13,9,.97);
   border-top: 1px solid var(--border);
-  padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
-  backdrop-filter: blur(15px);
+  padding: 9px 4px calc(9px + env(safe-area-inset-bottom));
+  backdrop-filter: blur(16px);
 }
 
 .nav-inner {
-  width: 100%;
-  max-width: 600px;
+  max-width: 620px;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0,1fr));
 }
 
-.nav-item {
-  border: none;
+.nav-button {
+  border: 0;
   background: transparent;
-  color: var(--muted);
-  font-size: 10px;
+  color: #828a7b;
+  min-width: 0;
   padding: 5px 1px;
+  font-size: 9px;
+  font-weight: 650;
 }
 
-.nav-icon {
+.nav-button .icon {
   display: block;
-  font-size: 20px;
+  font-size: 21px;
   margin-bottom: 5px;
 }
 
-.nav-item.active {
+.nav-button.active {
   color: var(--green);
 }
 
-.notice {
-  background: #192316;
-  border: 1px solid #34462a;
-  color: #c5eaa0;
-  padding: 13px;
-  border-radius: 12px;
-  font-size: 12px;
-  line-height: 1.5;
-  margin: 15px 0;
+.footer {
+  text-align: center;
+  color: #596051;
+  letter-spacing: 2px;
+  font-size: 9px;
+  padding-top: 28px;
 }
 
 .danger {
   color: var(--red) !important;
 }
 
-footer {
-  text-align: center;
-  color: #535a4f;
-  font-size: 10px;
-  padding: 25px 0 5px;
-  letter-spacing: 2px;
-}
+@media (min-width: 500px) {
+  .app {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
 
-@media (min-width: 480px) {
-  .app {padding: 28px 22px;}
+  .hero {
+    min-height: 380px;
+  }
+
+  .program-image {
+    height: 220px;
+  }
 }
 </style>
 </head>
@@ -483,209 +632,179 @@ footer {
 
 <header>
   <div class="logo">VYTRON<span>.</span></div>
-  <div class="badge">ELITE MEMBER</div>
+  <div class="status">ELITE MEMBER</div>
 </header>
 
-<!-- HOME -->
+<!-- ГЛАВНАЯ -->
 <section class="page active" id="home">
-  <div class="eyebrow" id="todayLabel">YOUR FITNESS JOURNEY</div>
-  <h1>СТАНЬ СИЛЬНЕЕ.<br><span>КАЖДЫЙ ДЕНЬ.</span></h1>
-  <p class="subtitle">Твоя дисциплина. Твой прогресс. Твои правила.</p>
+  <div class="kicker" id="dateLabel">YOUR FITNESS JOURNEY</div>
+  <h1>BUILD YOUR<br><span>LEGACY.</span></h1>
+  <p class="subtitle" id="welcomeText">Твоя дисциплина. Твой прогресс. Твои правила.</p>
 
   <div class="hero">
-    <div class="eyebrow">VYTRON CHALLENGE</div>
-    <h2>Твоя лучшая версия начинается сегодня.</h2>
-    <p>Каждая тренировка приближает тебя к цели. Не ищи мотивацию — создавай привычку.</p>
-    <button class="btn" onclick="showPage('workouts')">НАЧАТЬ ТРЕНИРОВКУ ↗</button>
+    <img
+      class="hero-photo"
+      src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85"
+      alt="Современный тренажёрный зал"
+      onerror="this.style.display='none'">
+    <div class="hero-content">
+      <div class="kicker">NO EXCUSES. JUST RESULTS.</div>
+      <h2>СОЗДАЙ СВОЮ<br>ЛУЧШУЮ ВЕРСИЮ.</h2>
+      <p>Сильнее, чем вчера. Каждый день — новый шаг к цели.</p>
+      <button class="button" data-go="workouts">НАЧАТЬ ТРЕНИРОВКУ ↗</button>
+    </div>
   </div>
 
-  <div class="section-title">
-    <h2>ТВОЯ СТАТИСТИКА</h2>
+  <div class="section-heading">
+    <h2>ТВОИ РЕЗУЛЬТАТЫ</h2>
     <small>За всё время</small>
   </div>
 
-  <div class="grid">
+  <div class="stats-grid">
     <div class="stat">
       <div class="stat-label">🏋️ Тренировки</div>
-      <div class="stat-value" id="totalWorkouts">0</div>
+      <div class="stat-value" id="statWorkouts">0</div>
       <div class="stat-note">Завершено</div>
     </div>
     <div class="stat">
       <div class="stat-label">🔥 Калории</div>
-      <div class="stat-value" id="totalCalories">0 <span>ккал</span></div>
-      <div class="stat-note">Примерный расход</div>
+      <div class="stat-value" id="statCalories">0 <small>ккал*</small></div>
+      <div class="stat-note">Оценка расхода</div>
     </div>
     <div class="stat">
       <div class="stat-label">⏱ Время</div>
-      <div class="stat-value" id="totalMinutes">0 <span>мин</span></div>
-      <div class="stat-note">В тренировках</div>
+      <div class="stat-value" id="statMinutes">0 <small>мин</small></div>
+      <div class="stat-note">Всего тренировок</div>
     </div>
     <div class="stat">
-      <div class="stat-label">📅 Серия</div>
-      <div class="stat-value" id="streak">0 <span>дней</span></div>
-      <div class="stat-note">Текущая серия дней</div>
+      <div class="stat-label">💪 Упражнения</div>
+      <div class="stat-value" id="statExercises">0</div>
+      <div class="stat-note">Выполнено</div>
     </div>
   </div>
 
-  <div class="section-title">
-    <h2>БЫСТРЫЙ ДОСТУП</h2>
-  </div>
+  <div class="section-heading"><h2>БЫСТРЫЙ ДОСТУП</h2></div>
 
-  <div class="card workout" onclick="showPage('timer')">
-    <div class="workout-icon">⏱️</div>
-    <div class="workout-info">
-      <h3>Таймер отдыха</h3>
-      <p>Контролируй время между подходами</p>
-    </div>
-    <span class="arrow">›</span>
-  </div>
+  <button class="feature" data-go="timer">
+    <span class="feature-icon">⏱️</span>
+    <span class="feature-info">
+      <strong>Таймер отдыха</strong>
+      <small>Контролируй интервалы между подходами</small>
+    </span>
+    <span class="chevron">›</span>
+  </button>
 
-  <div class="card workout" onclick="showPage('progress')">
-    <div class="workout-icon">📈</div>
-    <div class="workout-info">
-      <h3>Мой прогресс</h3>
-      <p>Следи за своими результатами</p>
-    </div>
-    <span class="arrow">›</span>
-  </div>
+  <button class="feature" data-go="progress">
+    <span class="feature-icon">📈</span>
+    <span class="feature-info">
+      <strong>Мой прогресс</strong>
+      <small>История и результаты твоих тренировок</small>
+    </span>
+    <span class="chevron">›</span>
+  </button>
+
+  <div class="footer">VYTRON ELITE · BUILT FOR PROGRESS</div>
 </section>
 
-<!-- WORKOUTS -->
+<!-- ТРЕНИРОВКИ -->
 <section class="page" id="workouts">
-  <div class="eyebrow">TRAINING CENTER</div>
-  <h1>ВЫБЕРИ СВОЮ<br><span>ТРЕНИРОВКУ.</span></h1>
-  <p class="subtitle">Выбери программу и начни работать над собой.</p>
+  <div class="kicker">TRAINING CENTER</div>
+  <h1>TIME TO<br><span>GET STRONGER.</span></h1>
+  <p class="subtitle">Выбирай программу. Работай над собой. Фиксируй результат.</p>
 
-  <div class="section-title"><h2>ПРОГРАММЫ</h2></div>
+  <div id="programList"></div>
 
-  <div class="card workout" onclick="startWorkout('full')">
-    <div class="workout-icon">💪</div>
-    <div class="workout-info">
-      <h3>Всё тело</h3>
-      <p>6 упражнений · около 30 минут</p>
-    </div>
-    <span class="arrow">›</span>
-  </div>
-
-  <div class="card workout" onclick="startWorkout('upper')">
-    <div class="workout-icon">🏋️</div>
-    <div class="workout-info">
-      <h3>Верх тела</h3>
-      <p>Грудь, спина, плечи и руки</p>
-    </div>
-    <span class="arrow">›</span>
-  </div>
-
-  <div class="card workout" onclick="startWorkout('home')">
-    <div class="workout-icon">🏠</div>
-    <div class="workout-info">
-      <h3>Домашняя тренировка</h3>
-      <p>Без тренажёров · собственный вес</p>
-    </div>
-    <span class="arrow">›</span>
-  </div>
-
-  <div class="card workout" onclick="startWorkout('legs')">
-    <div class="workout-icon">🦵</div>
-    <div class="workout-info">
-      <h3>Ноги и пресс</h3>
-      <p>Сила, устойчивость и контроль</p>
-    </div>
-    <span class="arrow">›</span>
-  </div>
-
-  <div id="activeWorkout" style="display:none">
-    <div class="section-title">
-      <h2 id="workoutTitle">Тренировка</h2>
+  <div id="activeWorkout" hidden>
+    <div class="section-heading">
+      <h2 id="activeTitle">ТВОЯ ТРЕНИРОВКА</h2>
+      <small id="activeCounter">0/0</small>
     </div>
     <div class="card">
       <div id="exerciseList"></div>
-      <div class="progress-track">
-        <div class="progress-bar" id="exerciseProgress"></div>
-      </div>
-      <p class="subtitle" id="exerciseCount" style="margin-top:10px">0 выполнено</p>
-      <button class="btn full" onclick="finishWorkout()">ЗАВЕРШИТЬ ТРЕНИРОВКУ</button>
-      <button class="btn secondary full" onclick="cancelWorkout()">ОТМЕНИТЬ</button>
+      <div class="progress-track"><div class="progress-fill" id="exerciseProgress"></div></div>
+      <button class="button full" id="finishWorkout">ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓</button>
+      <button class="button secondary full" id="cancelWorkout">ОТМЕНИТЬ</button>
     </div>
   </div>
 </section>
 
-<!-- TIMER -->
+<!-- ТАЙМЕР -->
 <section class="page" id="timer">
-  <div class="eyebrow">FOCUS MODE</div>
-  <h1>ВРЕМЯ — <span>ТВОЙ РЕСУРС.</span></h1>
-  <p class="subtitle">Настрой отдых между подходами.</p>
+  <div class="kicker">FOCUS MODE</div>
+  <h1>OWN YOUR<br><span>TIME.</span></h1>
+  <p class="subtitle">Восстанавливайся и готовься к следующему подходу.</p>
 
-  <div class="timer">
+  <div class="timer-box">
     <div class="timer-label">REST TIMER</div>
-    <div class="timer-value" id="timerDisplay">01:30</div>
+    <div class="timer-number" id="timerDisplay">01:30</div>
     <div class="timer-controls">
-      <button class="btn secondary" onclick="adjustTimer(-15)">−15 сек</button>
-      <button class="btn" id="timerToggle" onclick="toggleTimer()">СТАРТ</button>
-      <button class="btn secondary" onclick="adjustTimer(15)">+15 сек</button>
+      <button class="button secondary" id="minus15">−15 сек</button>
+      <button class="button" id="timerToggle">СТАРТ ▶</button>
+      <button class="button secondary" id="plus15">+15 сек</button>
     </div>
-    <button class="btn secondary" onclick="resetTimer()" style="margin-top:14px">СБРОСИТЬ</button>
+    <button class="button secondary full" id="timerReset">СБРОСИТЬ ↺</button>
   </div>
 
-  <div class="section-title"><h2>БЫСТРАЯ НАСТРОЙКА</h2></div>
-  <div class="grid">
-    <button class="btn secondary" onclick="setTimer(30)">30 секунд</button>
-    <button class="btn secondary" onclick="setTimer(60)">60 секунд</button>
-    <button class="btn secondary" onclick="setTimer(90)">90 секунд</button>
-    <button class="btn secondary" onclick="setTimer(120)">120 секунд</button>
+  <div class="section-heading"><h2>БЫСТРЫЙ ВЫБОР</h2></div>
+  <div class="quick-timers">
+    <button class="button secondary" data-seconds="30">30 секунд</button>
+    <button class="button secondary" data-seconds="60">60 секунд</button>
+    <button class="button secondary" data-seconds="90">90 секунд</button>
+    <button class="button secondary" data-seconds="120">120 секунд</button>
   </div>
-  <div class="notice">💡 Подбирай отдых под нагрузку. Тяжёлым силовым подходам часто требуется больше времени, чем лёгким упражнениям.</div>
+
+  <div class="notice">💡 Время отдыха зависит от интенсивности упражнения и твоей подготовки. При необходимости отдыхай дольше.</div>
 </section>
 
-<!-- PROGRESS -->
+<!-- ПРОГРЕСС -->
 <section class="page" id="progress">
-  <div class="eyebrow">YOUR PERFORMANCE</div>
-  <h1>ТВОЙ <span>ПРОГРЕСС.</span></h1>
-  <p class="subtitle">Результаты сохраняются на этом устройстве.</p>
+  <div class="kicker">PERFORMANCE TRACKER</div>
+  <h1>TRACK YOUR<br><span>PROGRESS.</span></h1>
+  <p class="subtitle">Каждая завершённая тренировка сохраняется в истории.</p>
 
-  <div class="section-title"><h2>ОБЩИЕ РЕЗУЛЬТАТЫ</h2></div>
-  <div class="grid">
+  <div class="section-heading"><h2>ОБЩАЯ СТАТИСТИКА</h2></div>
+  <div class="stats-grid">
     <div class="stat">
       <div class="stat-label">Тренировки</div>
-      <div class="stat-value" id="pWorkouts">0</div>
+      <div class="stat-value" id="progressWorkouts">0</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Калории</div>
-      <div class="stat-value" id="pCalories">0</div>
+      <div class="stat-label">Калории*</div>
+      <div class="stat-value" id="progressCalories">0</div>
     </div>
     <div class="stat">
       <div class="stat-label">Минуты</div>
-      <div class="stat-value" id="pMinutes">0</div>
+      <div class="stat-value" id="progressMinutes">0</div>
     </div>
     <div class="stat">
       <div class="stat-label">Упражнения</div>
-      <div class="stat-value" id="pExercises">0</div>
+      <div class="stat-value" id="progressExercises">0</div>
     </div>
   </div>
 
-  <div class="section-title">
-    <h2>ИСТОРИЯ ТРЕНИРОВОК</h2>
-  </div>
-  <div id="historyList" class="card">
-    <div class="empty">Здесь появятся твои первые результаты.<br>Начни с одной тренировки сегодня.</div>
+  <div class="section-heading"><h2>ИСТОРИЯ</h2></div>
+  <div class="card" id="historyList">
+    <div class="empty">Твои результаты появятся здесь после первой тренировки.</div>
   </div>
 
-  <button class="btn secondary full" onclick="exportData()">ЭКСПОРТИРОВАТЬ МОИ ДАННЫЕ</button>
+  <button class="button secondary full" id="exportData">ЭКСПОРТИРОВАТЬ ДАННЫЕ ↓</button>
+  <p class="subtitle">*Калории указаны приблизительно, а не измерены датчиком.</p>
 </section>
 
-<!-- PROFILE -->
+<!-- ПРОФИЛЬ -->
 <section class="page" id="profile">
-  <div class="eyebrow">PERSONAL SPACE</div>
-  <h1>ТВОЙ <span>ПРОФИЛЬ.</span></h1>
+  <div class="kicker">PERSONAL SPACE</div>
+  <h1>YOUR<br><span>PROFILE.</span></h1>
+  <p class="subtitle">Настрой приложение под себя.</p>
 
   <div class="card" style="margin-top:22px">
-    <div class="profile-icon">♟</div>
+    <div class="profile-avatar">V</div>
     <h2 id="profileGreeting">VYTRON ATHLETE</h2>
-    <p class="subtitle" style="margin-top:8px">Твой путь — твои правила.</p>
+    <p class="subtitle">Твой путь. Твои правила.</p>
 
     <div class="field">
-      <label for="userName">ТВОЁ ИМЯ</label>
-      <input id="userName" type="text" placeholder="Введи своё имя" maxlength="40">
+      <label for="userName">ИМЯ</label>
+      <input id="userName" type="text" maxlength="40" placeholder="Как тебя зовут?">
     </div>
 
     <div class="field">
@@ -700,186 +819,606 @@ footer {
     </div>
 
     <div class="field">
-      <label for="userWeight">ВЕС (КГ)</label>
+      <label for="userWeight">ВЕС, КГ</label>
       <input id="userWeight" type="number" min="25" max="350" placeholder="Например, 75">
     </div>
 
-    <button class="btn full" onclick="saveProfile()">СОХРАНИТЬ ПРОФИЛЬ</button>
+    <button class="button full" id="saveProfile">СОХРАНИТЬ ПРОФИЛЬ ✓</button>
   </div>
 
-  <div class="section-title"><h2>НАСТРОЙКИ ДАННЫХ</h2></div>
+  <div class="section-heading"><h2>ТВОИ ДАННЫЕ</h2></div>
   <div class="card">
-    <p class="subtitle">Все результаты хранятся локально в браузере этого устройства. При очистке данных браузера они могут потеряться.</p>
-    <button class="btn secondary full" onclick="exportData()">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</button>
-    <button class="btn secondary full danger" onclick="clearData()">СБРОСИТЬ ВСЕ ДАННЫЕ</button>
+    <p class="subtitle">Результаты хранятся в браузере этого устройства. Для сохранности регулярно экспортируй резервную копию.</p>
+    <button class="button secondary full" id="profileExport">СОЗДАТЬ РЕЗЕРВНУЮ КОПИЮ</button>
+    <button class="button secondary full danger" id="clearData">УДАЛИТЬ МОИ ДАННЫЕ</button>
   </div>
 </section>
 
-<footer>VYTRON ELITE · BUILT FOR PROGRESS</footer>
 </div>
 
 <nav class="bottom-nav">
   <div class="nav-inner">
-    <button class="nav-item active" data-page="home" onclick="showPage('home')">
-      <span class="nav-icon">⌂</span>Главная
+    <button class="nav-button active" data-page="home">
+      <span class="icon">⌂</span>Главная
     </button>
-    <button class="nav-item" data-page="workouts" onclick="showPage('workouts')">
-      <span class="nav-icon">⚡</span>Тренировки
+    <button class="nav-button" data-page="workouts">
+      <span class="icon">ϟ</span>Тренировки
     </button>
-    <button class="nav-item" data-page="timer" onclick="showPage('timer')">
-      <span class="nav-icon">◷</span>Таймер
+    <button class="nav-button" data-page="timer">
+      <span class="icon">◷</span>Таймер
     </button>
-    <button class="nav-item" data-page="progress" onclick="showPage('progress')">
-      <span class="nav-icon">↗</span>Прогресс
+    <button class="nav-button" data-page="progress">
+      <span class="icon">↗</span>Прогресс
     </button>
-    <button class="nav-item" data-page="profile" onclick="showPage('profile')">
-      <span class="nav-icon">♙</span>Профиль
+    <button class="nav-button" data-page="profile">
+      <span class="icon">♙</span>Профиль
     </button>
   </div>
 </nav>
 
 <script>
-const $ = id => document.getElementById(id);
+(function () {
+  'use strict';
 
-const STORAGE_KEY = 'vytron_elite_v2';
+  const $ = id => document.getElementById(id);
+  const STORAGE_KEY = 'vytron_elite_3';
 
-const defaultData = {
-  profile: {name:'', goal:'muscle', weight:''},
-  workouts: [],
-  totalExercises: 0
-};
+  const defaultData = {
+    profile: {name:'', goal:'muscle', weight:''},
+    workouts: []
+  };
 
-let data = loadData();
-let currentWorkout = null;
-let timerSeconds = 90;
-let timerInterval = null;
-let timerRunning = false;
+  let data = loadData();
+  let activeWorkout = null;
+  let timerSeconds = 90;
+  let timerInterval = null;
+  let timerRunning = false;
 
-function loadData() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
+  const programs = {
+    full: {
+      title: 'Всё тело',
+      subtitle: 'Базовая тренировка всего тела',
+      duration: '25–35 мин',
+      image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=1000&q=80',
+      exercises: [
+        ['Приседания', '3 подхода × 12 повторений'],
+        ['Отжимания', '3 подхода × 8–12 повторений'],
+        ['Тяга гантелей', '3 подхода × 12 повторений'],
+        ['Выпады', '3 подхода × 10 на ногу'],
+        ['Планка', '3 подхода × 20–30 секунд'],
+        ['Заминка', '5 минут лёгкой растяжки']
+      ]
+    },
+    upper: {
+      title: 'Верх тела',
+      subtitle: 'Грудь, спина, плечи и руки',
+      duration: '25–35 мин',
+      image: 'https://images.unsplash.com/photo-1534368270820-9de3d8053204?auto=format&fit=crop&w=1000&q=80',
+      exercises: [
+        ['Отжимания', '3 подхода × 10 повторений'],
+        ['Тяга гантелей', '3 подхода × 12 повторений'],
+        ['Жим гантелей', '3 подхода × 10 повторений'],
+        ['Сгибание рук на бицепс', '3 подхода × 12 повторений'],
+        ['Разведение рук', '3 подхода × 12 повторений'],
+        ['Планка', '3 подхода × 30 секунд']
+      ]
+    },
+    home: {
+      title: 'Домашняя тренировка',
+      subtitle: 'Без тренажёров, с собственным весом',
+      duration: '20–30 мин',
+      image: 'https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?auto=format&fit=crop&w=1000&q=80',
+      exercises: [
+        ['Приседания', '3 подхода × 15 повторений'],
+        ['Отжимания от пола или опоры', '3 подхода × 8–12'],
+        ['Ягодичный мост', '3 подхода × 15 повторений'],
+        ['Обратные выпады', '3 подхода × 10 на ногу'],
+        ['Планка', '3 подхода × 20–30 секунд'],
+        ['Заминка', '5 минут']
+      ]
+    },
+    legs: {
+      title: 'Ноги и пресс',
+      subtitle: 'Сила, устойчивость и контроль',
+      duration: '25–35 мин',
+      image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&w=1000&q=80',
+      exercises: [
+        ['Приседания', '3 подхода × 12 повторений'],
+        ['Выпады назад', '3 подхода × 10 на ногу'],
+        ['Ягодичный мост', '3 подхода × 15 повторений'],
+        ['Подъёмы на носки', '3 подхода × 15 повторений'],
+        ['Скручивания', '3 подхода × 12 повторений'],
+        ['Планка', '3 подхода × 30 секунд']
+      ]
+    }
+  };
+
+  function loadData() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return JSON.parse(JSON.stringify(defaultData));
+
       const parsed = JSON.parse(saved);
+
       return {
-        ...defaultData,
-        ...parsed,
         profile: {...defaultData.profile, ...(parsed.profile || {})},
         workouts: Array.isArray(parsed.workouts) ? parsed.workouts : []
       };
+    } catch (error) {
+      console.error('VYTRON load error:', error);
+      return JSON.parse(JSON.stringify(defaultData));
     }
-  } catch (e) {
-    console.error('Could not load saved data', e);
   }
-  return JSON.parse(JSON.stringify(defaultData));
-}
 
-function saveData() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    alert('Не удалось сохранить данные. Возможно, в браузере недостаточно места.');
+  function saveData() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      return true;
+    } catch (error) {
+      console.error('VYTRON save error:', error);
+      alert('Не удалось сохранить данные. Проверь настройки браузера.');
+      return false;
+    }
   }
-}
 
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(el => {
-    el.classList.toggle('active', el.id === page);
-  });
+  function navigate(page) {
+    const target = $(page);
+    if (!target) return;
 
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.toggle('active', el.dataset.page === page);
-  });
-
-  if (page === 'home' || page === 'progress') renderStats();
-  if (page === 'profile') renderProfile();
-
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-const programs = {
-  full: {
-    title:'Всё тело',
-    exercises:[
-      ['Приседания','3 подхода × 12 повторений'],
-      ['Отжимания','3 подхода × 10 повторений'],
-      ['Тяга гантелей','3 подхода × 12 повторений'],
-      ['Выпады','3 подхода × 10 на ногу'],
-      ['Планка','3 подхода × 30 секунд'],
-      ['Лёгкая заминка','5 минут']
-    ]
-  },
-  upper: {
-    title:'Верх тела',
-    exercises:[
-      ['Отжимания','3 × 10'],
-      ['Тяга гантелей','3 × 12'],
-      ['Жим гантелей','3 × 10'],
-      ['Подъём гантелей на бицепс','3 × 12'],
-      ['Разведение рук в стороны','3 × 12'],
-      ['Планка','3 × 30 секунд']
-    ]
-  },
-  home: {
-    title:'Домашняя тренировка',
-    exercises:[
-      ['Приседания','3 × 15'],
-      ['Отжимания от пола или опоры','3 × 8–12'],
-      ['Ягодичный мост','3 × 15'],
-      ['Обратные выпады','3 × 10 на ногу'],
-      ['Планка','3 × 20–30 секунд'],
-      ['Заминка','5 минут']
-    ]
-  },
-  legs: {
-    title:'Ноги и пресс',
-    exercises:[
-      ['Приседания','3 × 12'],
-      ['Выпады назад','3 × 10 на ногу'],
-      ['Ягодичный мост','3 × 15'],
-      ['Подъёмы на носки','3 × 15'],
-      ['Скручивания','3 × 12'],
-      ['Планка','3 × 30 секунд']
-    ]
-  }
-};
-
-function startWorkout(type) {
-  const program = programs[type];
-  currentWorkout = {
-    type,
-    title:program.title,
-    startedAt:Date.now(),
-    exercises:program.exercises.map(ex => ({
-      name:ex[0],
-      description:ex[1],
-      done:false
-    }))
-  };
-
-  $('activeWorkout').style.display = 'block';
-  $('workoutTitle').textContent = program.title;
-  renderExercises();
-  $('activeWorkout').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function renderExercises() {
-  if (!currentWorkout) return;
-
-  $('exerciseList').innerHTML = '';
-
-  currentWorkout.exercises.forEach((ex,index) => {
-    const row = document.createElement('label');
-    row.className = 'exercise-row' + (ex.done ? ' done' : '');
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'exercise-check';
-    checkbox.checked = ex.done;
-    checkbox.setAttribute('aria-label','Упражнение выполнено');
-
-    checkbox.addEventListener('change',() => {
-      ex.done = checkbox.checked;
-      renderExercises();
+    document.querySelectorAll('.page').forEach(section => {
+      section.classList.toggle('active', section.id === page);
     });
 
-    const details = document.createElement('div');
+    document.querySelectorAll('.nav-button').forEach(button => {
+      button.classList.toggle('active', button.dataset.page === page);
+    });
+
+    if (page === 'home' || page === 'progress') renderStats();
+    if (page === 'profile') renderProfile();
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function renderPrograms() {
+    const list = $('programList');
+    list.replaceChildren();
+
+    Object.keys(programs).forEach(key => {
+      const program = programs[key];
+      const card = document.createElement('article');
+      card.className = 'program-card';
+
+      const image = document.createElement('img');
+      image.className = 'program-image';
+      image.src = program.image;
+      image.alt = program.title;
+      image.loading = 'lazy';
+      image.onerror = function () {
+        this.style.display = 'none';
+      };
+
+      const content = document.createElement('div');
+      content.className = 'program-content';
+
+      const top = document.createElement('div');
+      top.className = 'program-top';
+
+      const details = document.createElement('div');
+      const title = document.createElement('h3');
+      title.textContent = program.title;
+
+      const description = document.createElement('p');
+      description.textContent = program.subtitle + ' · ' + program.duration;
+
+      details.append(title, description);
+
+      const tag = document.createElement('span');
+      tag.className = 'program-tag';
+      tag.textContent = 'ПРОГРАММА';
+
+      top.append(details, tag);
+
+      const button = document.createElement('button');
+      button.className = 'button';
+      button.type = 'button';
+      button.textContent = 'ВЫБРАТЬ ТРЕНИРОВКУ →';
+      button.addEventListener('click', () => startWorkout(key));
+
+      content.append(top, button);
+      card.append(image, content);
+      list.appendChild(card);
+    });
+  }
+
+  function startWorkout(key) {
+    const program = programs[key];
+    if (!program) return;
+
+    activeWorkout = {
+      title: program.title,
+      startedAt: Date.now(),
+      exercises: program.exercises.map(item => ({
+        name: item[0],
+        description: item[1],
+        done: false
+      }))
+    };
+
+    $('activeWorkout').hidden = false;
+    $('activeTitle').textContent = program.title;
+    renderExercises();
+
+    $('activeWorkout').scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+  }
+
+  function renderExercises() {
+    if (!activeWorkout) return;
+
+    const list = $('exerciseList');
+    list.replaceChildren();
+
+    activeWorkout.exercises.forEach((exercise, index) => {
+      const row = document.createElement('label');
+      row.className = 'exercise' + (exercise.done ? ' completed' : '');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = exercise.done;
+      checkbox.setAttribute('aria-label', 'Выполнено: ' + exercise.name);
+
+      checkbox.addEventListener('change', () => {
+        exercise.done = checkbox.checked;
+        renderExercises();
+      });
+
+      const details = document.createElement('span');
+      details.className = 'exercise-info';
+
+      const title = document.createElement('strong');
+      title.textContent = exercise.name;
+
+      const description = document.createElement('small');
+      description.textContent = exercise.description;
+
+      details.append(title, description);
+      row.append(checkbox, details);
+      list.appendChild(row);
+    });
+
+    const completed = activeWorkout.exercises.filter(item => item.done).length;
+    const total = activeWorkout.exercises.length;
+
+    $('activeCounter').textContent = completed + '/' + total;
+    $('exerciseProgress').style.width = (completed / total * 100) + '%';
+  }
+
+  function finishWorkout() {
+    if (!activeWorkout) return;
+
+    const completed = activeWorkout.exercises.filter(item => item.done).length;
+
+    if (!completed) {
+      alert('Отметь хотя бы одно выполненное упражнение.');
+      return;
+    }
+
+    const elapsed = Math.round((Date.now() - activeWorkout.startedAt) / 60000);
+    const minutes = Math.max(1, Math.min(240, elapsed));
+    const calories = minutes * 5;
+
+    data.workouts.unshift({
+      id: Date.now(),
+      title: activeWorkout.title,
+      date: new Date().toISOString(),
+      minutes,
+      calories,
+      exercises: completed
+    });
+
+    if (!saveData()) return;
+
+    activeWorkout = null;
+    $('activeWorkout').hidden = true;
+    renderStats();
+
+    alert('Тренировка сохранена! Отличная работа. 💪');
+    navigate('progress');
+  }
+
+  function cancelWorkout() {
+    if (!activeWorkout) return;
+
+    if (confirm('Отменить тренировку без сохранения результата?')) {
+      activeWorkout = null;
+      $('activeWorkout').hidden = true;
+    }
+  }
+
+  function calculateStreak() {
+    const dates = [...new Set(data.workouts.map(item => {
+      const date = new Date(item.date);
+      return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+    }))].map(value => {
+      const parts = value.split('-').map(Number);
+      return new Date(parts[0], parts[1], parts[2]).getTime();
+    }).sort((a,b) => b-a);
+
+    if (!dates.length) return 0;
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate()-1);
+
+    if (dates[0] !== today.getTime() && dates[0] !== yesterday.getTime()) {
+      return 0;
+    }
+
+    let streak = 1;
+
+    for (let i = 1; i < dates.length; i++) {
+      if (dates[i] === dates[i-1] - 86400000) streak++;
+      else break;
+    }
+    
+
+    return streak;
+  }  
+  return streak;
+  }
+
+  function renderStats() {
+    const workouts = data.workouts;
+    const totalWorkouts = workouts.length;
+    const totalMinutes = workouts.reduce((sum,item) => sum + (Number(item.minutes)||0),0);
+    const totalCalories = workouts.reduce((sum,item) => sum + (Number(item.calories)||0),0);
+    const totalExercises = workouts.reduce((sum,item) => sum + (Number(item.exercises)||0),0);
+
+    $('statWorkouts').textContent = totalWorkouts;
+    $('statCalories').innerHTML = totalCalories + ' <small>ккал*</small>';
+    $('statMinutes').innerHTML = totalMinutes + ' <small>мин</small>';
+    $('statExercises').textContent = totalExercises;
+
+    $('progressWorkouts').textContent = totalWorkouts;
+    $('progressCalories').textContent = totalCalories;
+    $('progressMinutes').textContent = totalMinutes;
+    $('progressExercises').textContent = totalExercises;
+
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const box = $('historyList');
+    box.replaceChildren();
+
+    if (!data.workouts.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = 'Пока нет завершённых тренировок. Начни сегодня!';
+      box.appendChild(empty);
+      return;
+    }
+
+    data.workouts.slice(0,30).forEach(workout => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
+
+      const title = document.createElement('strong');
+      title.textContent = '✓ ' + workout.title;
+
+      const description = document.createElement('small');
+      const date = new Date(workout.date);
+
+      description.textContent =
+        date.toLocaleDateString('ru-RU') + ' · ' +
+        workout.minutes + ' мин · ' +
+        workout.exercises + ' упражн. · ~' +
+        workout.calories + ' ккал';
+
+      item.append(title, description);
+      box.appendChild(item);
+    });
+  }
+
+  function renderProfile() {
+    $('userName').value = data.profile.name || '';
+    $('userGoal').value = data.profile.goal || 'muscle';
+    $('userWeight').value = data.profile.weight || '';
+
+    $('profileGreeting').textContent = data.profile.name
+      ? 'ПРИВЕТ, ' + data.profile.name.toUpperCase()
+      : 'VYTRON ATHLETE';
+
+    $('welcomeText').textContent = data.profile.name
+      ? 'Привет, ' + data.profile.name + '! Твой прогресс начинается сегодня.'
+      : 'Твоя дисциплина. Твой прогресс. Твои правила.';
+  }
+
+  function saveProfile() {
+    const name = $('userName').value.trim();
+    const weightText = $('userWeight').value.trim();
+    const weight = weightText === '' ? '' : Number(weightText);
+
+    if (weight !== '' && (!Number.isFinite(weight) || weight < 25 || weight > 350)) {
+      alert('Введи корректный вес от 25 до 350 кг.');
+      return;
+    }
+
+    data.profile = {
+      name,
+      goal: $('userGoal').value,
+      weight
+    };
+
+    if (saveData()) {
+      renderProfile();
+      alert('Профиль успешно сохранён! 💚');
+    }
+  }
+
+  function updateTimer() {
+    const minutes = Math.floor(timerSeconds / 60);
+    const seconds = timerSeconds % 60;
+
+    $('timerDisplay').textContent =
+      String(minutes).padStart(2,'0') + ':' +
+      String(seconds).padStart(2,'0');
+
+    $('timerToggle').textContent = timerRunning ? 'ПАУЗА Ⅱ' : 'СТАРТ ▶';
+  }
+
+  function stopTimer() {
+    if (timerInterval !== null) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    timerRunning = false;
+  }
+
+  function setTimer(seconds) {
+    stopTimer();
+    timerSeconds = Math.max(0, Math.min(5999, seconds));
+    updateTimer();
+  }
+
+  function toggleTimer() {
+    if (timerRunning) {
+      stopTimer();
+      updateTimer();
+      return;
+    }
+
+    if (timerSeconds <= 0) timerSeconds = 90;
+
+    timerRunning = true;
+    updateTimer();
+
+    timerInterval = setInterval(() => {
+      if (timerSeconds > 0) timerSeconds--;
+
+      updateTimer();
+
+      if (timerSeconds <= 0) {
+        stopTimer();
+        updateTimer();
+
+        if ('vibrate' in navigator) {
+          navigator.vibrate([200,100,200,100,300]);
+        }
+
+        alert('Время отдыха закончилось! Пора продолжать. 💪');
+      }
+    }, 1000);
+  }
+
+  function exportData() {
+    const blob = new Blob(
+      [JSON.stringify(data, null, 2)],
+      {type:'application/json'}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = 'vytron-elite-backup.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+
+  function clearData() {
+    const confirmed = confirm(
+      'Удалить профиль, статистику и историю тренировок? Это действие нельзя отменить. Сначала сохрани резервную копию, если она нужна.'
+    );
+
+    if (!confirmed) return;
+
+    stopTimer();
+
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      console.error(error);
+    }
+
+    data = JSON.parse(JSON.stringify(defaultData));
+    activeWorkout = null;
+    $('activeWorkout').hidden = true;
+
+    renderStats();
+    renderProfile();
+    setTimer(90);
+
+    alert('Данные удалены.');
+    navigate('home');
+  }
+
+  function bindEvents() {
+    // Все переходы между разделами
+    document.querySelectorAll('[data-page]').forEach(button => {
+      button.addEventListener('click', () => navigate(button.dataset.page));
+    });
+
+    // Кнопки быстрого перехода
+    document.querySelectorAll('[data-go]').forEach(button => {
+      button.addEventListener('click', () => navigate(button.dataset.go));
+    });
+
+    // Тренировки
+    $('finishWorkout').addEventListener('click', finishWorkout);
+    $('cancelWorkout').addEventListener('click', cancelWorkout);
+
+    // Таймер
+    $('timerToggle').addEventListener('click', toggleTimer);
+    $('timerReset').addEventListener('click', () => setTimer(90));
+    $('minus15').addEventListener('click', () => setTimer(timerSeconds - 15));
+    $('plus15').addEventListener('click', () => setTimer(timerSeconds + 15));
+
+    document.querySelectorAll('[data-seconds]').forEach(button => {
+      button.addEventListener('click', () => {
+        setTimer(Number(button.dataset.seconds));
+      });
+    });
+
+    // Профиль и данные
+    $('saveProfile').addEventListener('click', saveProfile);
+    $('exportData').addEventListener('click', exportData);
+    $('profileExport').addEventListener('click', exportData);
+    $('clearData').addEventListener('click', clearData);
+  }
+
+  function init() {
+    const now = new Date();
+
+    $('dateLabel').textContent = now.toLocaleDateString('ru-RU', {
+      weekday:'long',
+      day:'numeric',
+      month:'long'
+    }).toUpperCase();
+
+    bindEvents();
+    renderPrograms();
+    renderStats();
+    renderProfile();
+    updateTimer();
+  }
+
+  try {
+    init();
+  } catch (error) {
+    console.error('VYTRON initialization error:', error);
+    alert('Не удалось запустить приложение. Проверь, что весь код скопирован.');
+  }
+})();
+</script>
+
+</body>
+</html>
