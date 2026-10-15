@@ -6,53 +6,704 @@
 <meta name="theme-color" content="#090b09">
 <title>VYTRON — Build Your Stronger Self</title>
 <style>
-:root{--bg:#090b09;--panel:#141814;--green:#b7ff39;--text:#f4f6f1;--muted:#929a90;--border:#2b3329}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,select{font:inherit}
-button{cursor:pointer}
-button:focus-visible{outline:2px solid var(--green)}
-.app{max-width:1000px;margin:auto;padding:18px 15px 100px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
-.logo{font-size:27px;font-weight:900;letter-spacing:3px}
-.logo span,h1 span,h2 span{color:var(--green)}
-button{border-radius:12px;padding:12px;border:1px solid var(--border)}
-.primary{background:var(--green);color:#11150c;border:0;font-weight:bold}
-.secondary,.lang{background:var(--panel);color:var(--text)}
-.hero,.box,.stat,.mode,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:18px}
-.hero{background:linear-gradient(135deg,#202d17,#111510);padding:25px;margin-bottom:22px}
-.tag{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:2px}
-h1{font-size:clamp(35px,8vw,58px);line-height:1.05}
-h2{font-size:21px}
-p{line-height:1.6}
-.muted,small{color:var(--muted)}
-.section-head{margin:25px 0 12px}
-.modes,.cards,.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-.mode{text-align:left;color:var(--text);min-height:115px}
-.mode.active{border-color:var(--green)}
-.mode strong{display:block;margin:8px 0}
-.cards .card{padding:14px}
-.card .icon{font-size:30px}
-.card h3{font-size:16px}
-.card p{font-size:12px;color:var(--muted)}
-.card button{width:100%}
-.stat strong{display:block;font-size:28px;color:var(--green)}
-.stat span{font-size:11px;color:var(--muted)}
-.view{display:none}
-.view.active{display:block}
-.nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;justify-content:center;background:#0b0e0b;border-top:1px solid var(--border);padding:8px 3px calc(8px + env(safe-area-inset-bottom))}
-.nav button{flex:1;max-width:150px;border:0;background:transparent;color:var(--muted);padding:8px 1px;font-size:10px}
-.nav button.active{color:var(--green);background:#192015}
-.navicon{display:block;font-size:19px;margin-bottom:4px}
-.field{display:block;width:100%;margin:8px 0 18px;padding:13px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
-label{font-size:13px;color:#c5cbc1}
-.exercise{display:flex;gap:10px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
-.exercise input{width:20px;height:20px;accent-color:var(--green)}
-.exercise div{flex:1}
-.big-timer{text-align:center;font-size:48px;font-weight:bold;color:var(--green);margin:22px}
-footer{text-align:center;color:var(--muted);font-size:11px;margin-top:35px}
-@media(min-width:650px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:38px}}
-</style>
+:root {
+  --bg: #080a08;
+  --panel: #101410;
+  --panel2: #151b14;
+  --green: #b8ff35;
+  --green-dark: #86c921;
+  --text: #f5f7f2;
+  --muted: #899287;
+  --border: rgba(185, 255, 55, .13);
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% -15%, rgba(133, 191, 52, .12), transparent 48%),
+    var(--bg);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform .18s ease,
+    border-color .2s ease,
+    background .2s ease,
+    box-shadow .2s ease;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+.app {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 23px 17px 115px;
+}
+
+/* HEADER */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 29px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 950;
+  letter-spacing: 4px;
+  line-height: 1;
+}
+
+.logo span,
+h1 span,
+h2 span {
+  color: var(--green);
+}
+
+.lang {
+  background: rgba(255,255,255,.035);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 10px 15px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 95% 10%, rgba(184,255,53,.15), transparent 45%),
+    linear-gradient(145deg, #1b2417 0%, #111611 48%, #0d100d 100%);
+  border: 1px solid rgba(184,255,53,.2);
+  border-radius: 27px;
+  padding: 29px 22px;
+  margin-bottom: 30px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.2);
+}
+
+.hero::after {
+  content: "V";
+  position: absolute;
+  z-index: -1;
+  right: -12px;
+  bottom: -76px;
+  font-size: 250px;
+  line-height: 1;
+  font-weight: 950;
+  font-style: italic;
+  color: rgba(184,255,53,.035);
+  pointer-events: none;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.tag::before {
+  content: "";
+  display: inline-block;
+  width: 19px;
+  height: 2px;
+  background: var(--green);
+  border-radius: 5px;
+}
+
+h1 {
+  max-width: 650px;
+  margin: 25px 0 18px;
+  font-size: clamp(38px, 9vw, 76px);
+  font-weight: 950;
+  line-height: .99;
+  letter-spacing: -2.5px;
+}
+
+h1 span {
+  display: inline-block;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 850;
+  letter-spacing: -.5px;
+  line-height: 1.25;
+}
+
+.hero p {
+  max-width: 460px;
+  color: #bdc6b8;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 0 24px;
+}
+
+p {
+  line-height: 1.65;
+}
+
+.muted,
+small {
+  color: var(--muted);
+}
+
+/* BUTTONS */
+
+button {
+  border-radius: 13px;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+}
+
+.primary {
+  background: var(--green);
+  color: #10150a;
+  border: 1px solid var(--green);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: .7px;
+  box-shadow: 0 5px 22px rgba(184,255,53,.10);
+}
+
+.primary:hover {
+  background: #caff70;
+  box-shadow: 0 5px 26px rgba(184,255,53,.23);
+}
+
+.secondary {
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.hero .primary {
+  padding: 16px 19px;
+  min-height: 49px;
+}
+
+.lang:hover,
+.secondary:hover {
+  border-color: rgba(184,255,53,.4);
+}
+
+/* SECTION HEADINGS */
+
+.section-head {
+  margin: 31px 0 15px;
+}
+
+.section-head h2 {
+  margin: 0;
+}
+
+.section-head h2::after {
+  content: "";
+  display: block;
+  width: 29px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: var(--green);
+}
+
+/* WORKOUT MODES */
+
+.modes,
+.cards,
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mode {
+  min-width: 0;
+  min-height: 143px;
+  text-align: left;
+  color: var(--text);
+  background: linear-gradient(145deg, #151a14, #101310);
+  border: 1px solid #252d23;
+  border-radius: 19px;
+  padding: 17px 13px;
+}
+
+.mode:hover {
+  border-color: rgba(184,255,53,.4);
+}
+
+.mode.active {
+  background:
+    linear-gradient(145deg, rgba(184,255,53,.09), transparent 80%),
+    #141a11;
+  border-color: var(--green);
+  box-shadow: inset 0 0 0 1px rgba(184,255,53,.06);
+}
+
+.mode .icon {
+  font-size: 29px;
+  margin-bottom: 15px;
+}
+
+.mode strong {
+  display: block;
+  margin: 8px 0;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.45;
+  letter-spacing: .3px;
+}
+
+.mode small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* STATS */
+
+.stats {
+  gap: 12px;
+}
+
+.stat {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #161c14, #101310);
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  padding: 20px 15px;
+}
+
+.stat::after {
+  content: "";
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  right: -28px;
+  top: -28px;
+  border: 1px solid rgba(184,255,53,.12);
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px rgba(184,255,53,.025);
+}
+
+.stat strong {
+  display: block;
+  color: var(--green);
+  font-size: 35px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.stat span {
+  display: block;
+  color: #9ca596;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* WORKOUT CARDS */
+
+.card {
+  min-width: 0;
+  background: linear-gradient(145deg, #171c16, #101310);
+  border: 1px solid #252d23;
+  border-radius: 19px;
+  padding: 17px 13px;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(184,255,53,.38);
+}
+
+.card .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 47px;
+  height: 47px;
+  background: rgba(184,255,53,.08);
+  border: 1px solid rgba(184,255,53,.12);
+  border-radius: 14px;
+  font-size: 25px;
+  margin-bottom: 14px;
+}
+
+.card h3 {
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+
+.card p {
+  min-height: 38px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 0 0 15px;
+}
+
+.card button {
+  width: 100%;
+  padding: 12px 5px;
+  font-size: 10px;
+}
+
+/* APP SCREENS */
+
+.view {
+  display: none;
+  animation: appear .28s ease both;
+}
+
+.view.active {
+  display: block;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view > h2:first-child {
+  margin-top: 4px;
+  margin-bottom: 21px;
+}
+
+.view > .muted {
+  font-size: 13px;
+}
+
+/* EXERCISES */
+
+.exercise {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 15px 12px;
+  margin-bottom: 8px;
+  background: #111510;
+  border: 1px solid #222a20;
+  border-radius: 14px;
+}
+
+.exercise input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--green);
+}
+
+.exercise div {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.exercise small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+/* TIMER */
+
+.box {
+  background: linear-gradient(145deg, #151a13, #0f120f);
+  border: 1px solid var(--border);
+  border-radius: 21px;
+  padding: 19px;
+}
+
+.big-timer {
+  text-align: center;
+  color: var(--green);
+  font-size: clamp(48px, 12vw, 67px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin: 20px 0;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 28px rgba(184,255,53,.12);
+}
+
+#sessionInfo {
+  font-size: 12px;
+}
+
+/* FORMS */
+
+label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd1c5;
+}
+
+.field {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin: 9px 0 21px;
+  padding: 13px 14px;
+  color: var(--text);
+  background: #0d100d;
+  border: 1px solid #30382c;
+  border-radius: 13px;
+  outline: none;
+}
+
+.field:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(184,255,53,.07);
+}
+
+select.field {
+  color-scheme: dark;
+}
+
+input.field::placeholder {
+  color: #667061;
+}
+
+#trainer > .hero {
+  margin-top: 15px;
+}
+
+#trainer > .hero h2 {
+  font-size: 27px;
+  line-height: 1.35;
+}
+
+#advice {
+  line-height: 1.8;
+  font-size: 13px;
+  color: #d4dbcf;
+  overflow-wrap: anywhere;
+}
+
+#profileMessage {
+  font-size: 12px;
+}
+
+/* BOTTOM NAVIGATION */
+
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  padding: 9px 5px calc(9px + env(safe-area-inset-bottom));
+  background: rgba(9,12,9,.94);
+  border-top: 1px solid rgba(184,255,53,.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.nav button {
+  flex: 1;
+  max-width: 150px;
+  min-width: 0;
+  padding: 8px 1px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: transparent;
+  color: #818a7c;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.nav button.active {
+  color: var(--green);
+  background: rgba(184,255,53,.075);
+  border-color: rgba(184,255,53,.07);
+}
+
+.navicon {
+  display: block;
+  font-size: 21px;
+  line-height: 1;
+  margin-bottom: 7px;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  color: #697264;
+  font-size: 10px;
+  line-height: 1.9;
+  letter-spacing: 1px;
+  margin-top: 42px;
+}
+
+/* TABLETS AND DESKTOP */
+
+@media (min-width: 650px) {
+  .app {
+    padding: 30px 25px 65px;
+  }
+
+  header {
+    margin-bottom: 35px;
+  }
+
+  .hero {
+    padding: 48px 42px;
+    border-radius: 30px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    padding: 22px 18px;
+  }
+
+  .card h3 {
+    font-size: 16px;
+  }
+
+  .stat {
+    padding: 24px;
+  }
+
+  .nav {
+    position: static;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    margin: 30px auto 0;
+    padding: 9px;
+    max-width: 700px;
+  }
+
+  .nav button {
+    font-size: 11px;
+  }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 360px) {
+  .app {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .hero {
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 36px;
+    letter-spacing: -1.7px;
+  }
+
+  .mode {
+    padding: 14px 10px;
+  }
+
+  .card {
+    padding: 13px 10px;
+  }
+
+  .card h3 {
+    font-size: 13px;
+  }
+
+  .stat {
+    padding: 17px 12px;
+  }
+
+  .navicon {
+    font-size: 19px;
+  }
+
+  .nav button {
+    font-size: 9px;
+  }
+}
+
+/* REDUCED MOTION ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+ </style>
 </head>
 <body>
 <div class="app">
