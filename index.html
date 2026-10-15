@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b09">
+<meta name="description" content="VYTRON — Build Your Stronger Self. Your fitness journey starts here.">
+<title>VYTRON — Build Your Stronger Self</title>
+<style>
+:root {
+  --bg:#090b09;
+  --panel:#121512;
+  --panel2:#191d19;
+  --green:#b7ff39;
+  --text:#f4f6f1;
+  --muted:#929a90;
+  --border:#282e27;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.app{max-width:1100px;margin:auto;padding:20px 18px 100px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:30px}
+.logo{font-size:27px;font-weight:900;letter-spacing:3px}
+.logo span{color:var(--green)}
+.lang{
+  color:var(--text);background:var(--panel);border:1px solid var(--border);
+  padding:10px 13px;border-radius:12px
+}
+.hero{
+  position:relative;overflow:hidden;background:linear-gradient(135deg,#1b2516,#111510 60%,#101410);
+  border:1px solid #2a3723;border-radius:26px;padding:30px 23px;margin-bottom:22px;
+}
+.hero:after{
+  content:"V";position:absolute;right:-12px;top:-60px;font-size:270px;
+  font-weight:900;color:rgba(183,255,57,.06);pointer-events:none
+}
+.tag{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:2.5px}
+h1{font-size:clamp(36px,8vw,64px);line-height:1.02;margin:16px 0;letter-spacing:-2px;max-width:650px}
+h1 span{color:var(--green)}
+.hero p{color:#b4bcb0;line-height:1.6;max-width:440px;font-size:14px}
+.primary,.secondary{
+  border:0;border-radius:12px;padding:14px 17px;font-weight:800;
+}
+.primary{background:var(--green);color:#10130d}
+.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 15px}
+h2{font-size:21px;margin:0}
+.muted{color:var(--muted);font-size:12px}
+.modes,.stats,.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mode,.card,.stat,.box{
+  background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:18px;
+}
+.mode{min-height:135px;text-align:left;color:var(--text)}
+.mode.active{border-color:var(--green);background:#151d11}
+.mode .icon{font-size:28px}
+.mode strong{display:block;margin:12px 0 5px;font-size:16px}
+.mode small{color:var(--muted);line-height:1.5}
+.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{padding:0;overflow:hidden}
+.card-art{
+  min-height:115px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#20291b,#111510);font-size:42px;
+}
+.card-body{padding:14px}
+.card h3{font-size:15px;margin:0 0 8px}
+.card p{font-size:12px;color:var(--muted);margin:0 0 13px}
+.card button{width:100%;padding:11px;font-size:12px}
+.stats{margin-top:15px}
+.stat strong{display:block;color:var(--green);font-size:26px;margin-bottom:6px}
+.stat span{font-size:11px;color:var(--muted)}
+.view{display:none}
+.view.active{display:block}
+.nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:5;
+  display:flex;justify-content:center;gap:4px;
+  background:rgba(9,11,9,.96);border-top:1px solid var(--border);
+  padding:10px 6px calc(10px + env(safe-area-inset-bottom));
+  backdrop-filter:blur(14px)
+}
+.nav button{
+  flex:1;max-width:150px;background:transparent;border:0;border-radius:12px;
+  color:var(--muted);padding:9px 2px;font-size:10px
+}
+.nav button.active{color:var(--green);background:#171d13}
+.nav .navicon{display:block;font-size:19px;margin-bottom:5px}
+.field{width:100%;padding:13px;background:var(--bg);border:1px solid var(--border);border-radius:11px;color:var(--text);margin:8px 0 16px}
+label{font-size:13px;color:#c5cbc1}
+.exercise{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.exercise input{accent-color:var(--green);width:20px;height:20px}
+.exercise div{flex:1}
+.exercise small{display:block;color:var(--muted);margin-top:5px}
+.big-timer{font-size:48px;font-weight:900;color:var(--green);text-align:center;margin:25px 0}
+.progress-track{height:7px;background:#292e28;border-radius:20px;overflow:hidden;margin:15px 0}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s}
+.empty{color:var(--muted);font-size:13px;line-height:1.6}
+footer{text-align:center;color:#60685e;font-size:11px;margin-top:38px;line-height:1.8}
+@media(min-width:720px){
+ .app{padding-top:28px}
+ .hero{padding:48px}
+ .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .card-art{min-height:145px}
+}
+@media(max-width:360px){
+ .app{padding-left:12px;padding-right:12px}
+ .hero{padding:23px 17px}
+ .logo{font-size:23px}
+ .nav button{font-size:9px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">VYTR<span>O</span>N</div>
+    <button class="lang" id="langBtn" aria-label="Change language">RU / EN</button>
+  </header>
+
+  <main>
+    <section class="view active" id="home">
+      <div class="hero">
+        <div class="tag" data-i="eyebrow">YOUR NEXT LEVEL STARTS NOW</div>
+        <h1 data-i="headline">BUILD YOUR<br><span>STRONGER SELF.</span></h1>
+        <p data-i="intro">Train with purpose. Build discipline. Become stronger every day — at home or in the gym.</p>
+        <button class="primary" onclick="go('workouts')" data-i="start">START TRAINING ↗</button>
+      </div>
+
+      <div class="section-head">
+        <h2 data-i="choose">Choose your environment</h2>
+      </div>
+      <div class="modes">
+        <button class="mode active" id="gymMode" onclick="setMode('gym')">
+          <div class="icon">🏋️</div><strong data-i="gym">GYM TRAINING</strong>
+          <small data-i="gymdesc">Strength, equipment and progression.</small>
+        </button>
+        <button class="mode" id="homeMode" onclick="setMode('homework')">
+          <div class="icon">⚡</div><strong data-i="homework">HOME WORKOUT</strong>
+          <small data-i="homedesc">Train anywhere with minimal equipment.</small>
+        </button>
+      </div>
+
+      <div class="section-head">
+        <h2 data-i="overview">Your journey</h2><span class="muted" data-i="saved">Saved on this device</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="totalWorkouts">0</strong><span data-i="completed">WORKOUTS COMPLETED</span></div>
+        <div class="stat"><strong id="totalMinutes">0</strong><span data-i="minutes">TOTAL MINUTES</span></div>
+      </div>
+
+      <div class="section-head"><h2 data-i="featured">Featured workouts</h2></div>
+      <div class="cards" id="featuredCards"></div>
+    </section>
+
+    <section class="view" id="workouts">
+      <div class="section-head"><h2 data-i="allworkouts">Training programs</h2></div>
+      <p class="muted" data-i="programintro">Choose a session that matches your goals and available equipment.</p>
+      <div class="cards" id="allCards"></div>
+    </section>
+
+    <section class="view" id="session">
+      <button class="secondary" onclick="go('workouts')" data-i="back">← Back to workouts</button>
+      <div class="section-head"><h2 id="sessionTitle">Workout</h2></div>
+      <p class="muted" id="sessionInfo"></p>
+      <div class="progress-track"><div class="progress-fill" id="sessionProgress"></div></div>
+      <p class="muted" id="exerciseCount"></p>
+      <div id="exerciseList"></div>
+      <div class="box" style="margin-top:20px">
+        <div class="muted" style="text-align:center" data-i="resttimer">REST TIMER</div>
+        <div class="big-timer" id="timerDisplay">01:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <button class="primary" onclick="startTimer()" data-i="startrest">START REST</button>
+          <button class="secondary" onclick="resetTimer()" data-i="reset">RESET</button>
+        </div>
+      </div>
+      <button class="primary" style="width:100%;margin-top:18px" onclick="finishWorkout()" data-i="finish">FINISH WORKOUT ✓</button>
+    </section>
+
+    <section class="view" id="progress">
+      <div class="section-head"><h2 data-i="yourprogress">Your progress</h2></div>
+      <div class="stats">
+        <div class="stat"><strong id="progressWorkouts">0</strong><span data-i="completed">WORKOUTS COMPLETED</span></div>
+        <div class="stat"><strong id="progressMinutes">0</strong><span data-i="minutes">TOTAL MINUTES</span></div>
+      </div>
+      <div class="section-head"><h2 data-i="history">Workout history</h2></div>
+      <div class="box" id="historyList"><p class="empty" data-i="nohistory">Your completed workouts will appear here.</p></div>
+    </section>
+
+    <section class="view" id="trainer">
+      <div class="section-head"><h2 data-i="trainer">VYTRON Coach</h2></div>
+      <div class="hero">
+        <div class="tag">YOUR TRAINING COMPANION</div>
+        <h2 data-i="coachheadline">Small steps.<br><span>Real progress.</span></h2>
+        <p data-i="coachintro">Get a simple training suggestion based on your goal. This version uses built-in guidance, not a live AI service.</p>
+      </div>
+      <label for="goal" data-i="goal">What's your main goal?</label>
+      <select class="field" id="goal">
+        <option value="muscle" data-i="muscle">Build muscle</option>
+        <option value="strength" data-i="strength">Get stronger</option>
+        <option value="fitness" data-i="fitness">Improve fitness</option>
+        <option value="habit" data-i="habit">Build a routine</option>
+      </select>
+      <label for="level" data-i="level">Your experience</label>
+      <select class="field" id="level">
+        <option value="beginner" data-i="beginner">Beginner</option>
+        <option value="intermediate" data-i="intermediate">Intermediate</option>
+      </select>
+      <button class="primary" style="width:100%" onclick="getAdvice()" data-i="getplan">GET MY SUGGESTION</button>
+      <div class="box" id="advice" style="margin-top:16px"><p class="empty" data-i="adviceplaceholder">Your personalized starter suggestion will appear here.</p></div>
+      <p class="muted" style="line-height:1.6" data-i="safety">Start at a comfortable level. Stop if you feel pain or dizziness. Seek professional advice if you have health concerns.</p>
+    </section>
+
+    <section class="view" id="profile">
+      <div class="section-head"><h2 data-i="profile">Your profile</h2></div>
+      <div class="box">
+        <label for="userName" data-i="yourname">Your name</label>
+        <input class="field" id="userName" maxlength="40" placeholder="Name">
+        <label for="userGoal" data-i="profilegoal">Fitness goal</label>
+        <select class="field" id="userGoal">
+          <option value="muscle" data-i="muscle">Build muscle</option>
+          <option value="strength" data-i="strength">Get stronger</option>
+          <option value="fitness" data-i="fitness">Improve fitness</option>
+          <option value="habit" data-i="habit">Build a routine</option>
+        </select>
+        <button class="primary" style="width:100%" onclick="saveProfile()" data-i="saveprofile">SAVE PROFILE</button>
+        <p class="muted" id="profileMessage"></p>
+      </div>
+      <div class="section-head"><h2 data-i="about">About VYTRON</h2></div>
+      <div class="box">
+        <div class="logo">VYTR<span>O</span>N</div>
+        <p data-i="abouttext" style="color:var(--muted);line-height:1.7">A fitness project built around consistency, strength and personal growth.</p>
+        <p class="muted">BUILD YOUR STRONGER SELF.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>VYTRON © 2026<br><span data-i="footer">Build your stronger self. One session at a time.</span></footer>
+</div>
+
+<nav class="nav" aria-label="Main navigation">
+  <button class="active" data-view="home" onclick="go('home')"><span class="navicon">⌂</span><span data-i="navhome">Home</span></button>
+  <button data-view="workouts" onclick="go('workouts')"><span class="navicon">▤</span><span data-i="navworkouts">Train</span></button>
+  <button data-view="progress" onclick="go('progress')"><span class="navicon">↗</span><span data-i="navprogress">Progress</span></button>
+  <button data-view="trainer" onclick="go('trainer')"><span class="navicon">✳</span><span data-i="navcoach">Coach</span></button>
+  <button data-view="profile" onclick="go('profile')"><span class="navicon">◉</span><span data-i="navprofile">Profile</span></button>
+</nav>
+
+<script>
+const words = {
+  en:{
+    eyebrow:"YOUR NEXT LEVEL STARTS NOW",headline:'BUILD YOUR<br><span>STRONGER SELF.</span>',
+    intro:"Train with purpose. Build discipline. Become stronger every day — at home or in the gym.",
+    start:"START TRAINING ↗",choose:"Choose your environment",gym:"GYM TRAINING",gymdesc:"Strength, equipment and progression.",
+    homework:"HOME WORKOUT",homedesc:"Train anywhere with minimal equipment.",overview:"Your journey",saved:"Saved on this device",
+    completed:"WORKOUTS COMPLETED",minutes:"TOTAL MINUTES",featured:"Featured workouts",allworkouts:"Training programs",
+    programintro:"Choose a session that matches your goals and available equipment.",back:"← Back to workouts",resttimer:"REST TIMER",
+    startrest:"START REST",reset:"RESET",finish:"FINISH WORKOUT ✓",yourprogress:"Your progress",history:"Workout history",
+    nohistory:"Your completed workouts will appear here.",trainer:"VYTRON Coach",coachheadline:'Small steps.<br><span>Real progress.</span>',
+    coachintro:"Get a simple training suggestion based on your goal. This version uses built-in guidance, not a live AI service.",
+    goal:"What's your main goal?",muscle:"Build muscle",strength:"Get stronger",fitness:"Improve fitness",habit:"Build a routine",
+    level:"Your experience",beginner:"Beginner",intermediate:"Intermediate",getplan:"GET MY SUGGESTION",
+    adviceplaceholder:"Your personalized starter suggestion will appear here.",
+    safety:"Start at a comfortable level. Stop if you feel pain or dizziness. Seek professional advice if you have health concerns.",
+    profile:"Your profile",yourname:"Your name",profilegoal:"Fitness goal",saveprofile:"SAVE PROFILE",about:"About VYTRON",
+    abouttext:"A fitness project built around consistency, strength and personal growth.",
+    footer:"Build your stronger self. One session at a time.",navhome:"Home",navworkouts:"Train",
+    navprogress:"Progress",navcoach:"Coach",navprofile:"Profile",gymmode:"GYM",homemode:"HOME",
+    beginnerLabel:"Beginner",intermediateLabel:"Intermediate",min:"min",startBtn:"START WORKOUT",
+    completedMsg:"Workout completed and saved!",noExercises:"No exercises selected yet.",sets:"sets",
+    setsDone:"completed",adviceMuscle:"Focus on controlled technique and gradually increase the challenge. Train each major muscle group about twice a week, allowing recovery between sessions.",
+    adviceStrength:"Choose manageable weights, use controlled movements, and rest between challenging sets. Increase the load gradually only when your technique is solid.",
+    adviceFitness:"Start with 15–25 minutes of movement at a comfortable pace. Combine strength exercises with walking or other cardio across the week.",
+    adviceHabit:"Schedule two or three short sessions this week. Keep them manageable, and focus on showing up consistently rather than doing everything at once.",
+    adviceBeginner:"As a beginner, start with 2 sets per exercise and learn the movement first. Stop if you feel pain.",
+    adviceIntermediate:"Use a planned progression and track your sets, repetitions and recovery. Avoid increasing every training variable at once.",
+    savedMsg:"Profile saved on this device.",hello:"Let's get stronger",workout:"Workout",today:"Today",
+    emptyHistory:"Complete your first session to start tracking your progress.",confirmFinish:"Finish and save this workout?",
+    exercise:"exercises",completedWord:"completed",restDone:"Rest finished!",timerRunning:"Rest timer running",
+    upper:"Upper Body",lower:"Lower Body",full:"Full Body",push:"Push Day",pull:"Pull Day",legs:"Leg Day",bodyweight:"Bodyweight Basics",core:"Core & Mobility",
+    descUpper:"Chest, back and arms",descLower:"Legs and glutes",descFull:"A balanced full-body session",descPush:"Chest, shoulders and triceps",
+    descPull:"Back and biceps",descLegs:"Lower-body strength",descBodyweight:"No gym equipment needed",descCore:"Core stability and movement",
+    exercise1:"Push-ups",exercise2:"Bodyweight squats",exercise3:"Plank",exercise4:"Dumbbell row",exercise5:"Dumbbell shoulder press",
+    exercise6:"Lunges",exercise7:"Glute bridges",exercise8:"Bicycle crunches",exercise9:"Dumbbell chest press",exercise10:"Lat pulldown",
+    exercise11:"Romanian deadlift",exercise12:"Biceps curls",exercise13:"Triceps extensions",exercise14:"Calf raises",exercise15:"Dead bug",
+    exercise16:"Incline push-ups",exercise17:"Hip hinges",exercise18:"Bird dog",exercise19:"Shoulder taps",exercise20:"March in place",
+    rest:"Rest",historyCount:"sessions",minutesLabel:"minutes",confirmClear:"Clear local workout history?",
+    feature1:"Build your habit",feature2:"Train with a plan",feature3:"Track your effort"
+  },
+  ru:{
+    eyebrow:"ТВОЙ СЛЕДУЮЩИЙ УРОВЕНЬ НАЧИНАЕТСЯ СЕЙЧАС",headline:'СТАНЬ<br><span>СИЛЬНЕЕ СЕБЯ.</span>',
+    intro:"Тренируйся осознанно. Развивай дисциплину. Становись сильнее каждый день — дома или в зале.",
+    start:"НАЧАТЬ ТРЕНИРОВКУ ↗",choose:"Выбери место тренировки",gym:"ТРЕНИРОВКА В ЗАЛЕ",gymdesc:"Сила, тренажёры и постепенный прогресс.",
+    homework:"ТРЕНИРОВКА ДОМА",homedesc:"Тренируйся где угодно с минимумом оборудования.",overview:"Твой путь",saved:"Сохраняется на устройстве",
+    completed:"ЗАВЕРШЕНО ТРЕНИРОВОК",minutes:"ВСЕГО МИНУТ",featured:"Популярные тренировки",allworkouts:"Программы тренировок",
+    programintro:"Выбери тренировку под свои цели и доступное оборудование.",back:"← Назад к тренировкам",resttimer:"ТАЙМЕР ОТДЫХА",
+    startrest:"НАЧАТЬ ОТДЫХ",reset:"СБРОСИТЬ",finish:"ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓",yourprogress:"Твой прогресс",history:"История тренировок",
+    nohistory:"Завершённые тренировки появятся здесь.",trainer:"Тренер VYTRON",coachheadline:'Маленькие шаги.<br><span>Реальный прогресс.</span>',
+    coachintro:"Получи простую рекомендацию в зависимости от цели. В этой версии используются готовые советы, а не подключённый ИИ.",
+    goal:"Твоя главная цель?",muscle:"Набрать мышечную массу",strength:"Стать сильнее",fitness:"Улучшить форму",habit:"Выработать привычку",
+    level:"Твой опыт",beginner:"Начинающий",intermediate:"Средний уровень",getplan:"ПОЛУЧИТЬ РЕКОМЕНДАЦИЮ",
+    adviceplaceholder:"Здесь появится твоя стартовая рекомендация.",
+    safety:"Начинай с комфортной нагрузки. Остановись при боли или головокружении. При проблемах со здоровьем проконсультируйся со специалистом.",
+    profile:"Твой профиль",yourname:"Твоё имя",profilegoal:"Цель тренировок",saveprofile:"СОХРАНИТЬ ПРОФИЛЬ",about:"О VYTRON",
+    abouttext:"Фитнес-проект о регулярности, силе и личном развитии.",
+    footer:"Стань сильнее себя. Одна тренировка за раз.",navhome:"Главная",navworkouts:"Тренировки",
+    navprogress:"Прогресс",navcoach:"Тренер",navprofile:"Профиль",gymmode:"ЗАЛ",homemode:"ДОМ",
+    beginnerLabel:"Начинающий",intermediateLabel:"Средний",min:"мин",startBtn:"НАЧАТЬ",
+    completedMsg:"Тренировка завершена и сохранена!",noExercises:"Пока не выбраны упражнения.",sets:"подхода",
+    setsDone:"выполнено",adviceMuscle:"Сосредоточься на правильной технике и постепенно увеличивай нагрузку. Старайся тренировать основные группы мышц примерно дважды в неделю, оставляя время на восстановление.",
+    adviceStrength:"Выбирай посильный вес, выполняй движения контролируемо и отдыхай между тяжёлыми подходами. Увеличивай нагрузку постепенно, только если техника остаётся правильной.",
+    adviceFitness:"Начни с 15–25 минут движения в комфортном темпе. В течение недели сочетай сило
