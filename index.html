@@ -3,1422 +3,991 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080a08">
-<title>VYTRON ELITE</title>
+<meta name="theme-color" content="#090b09">
+<title>VYTRON FITNESS</title>
 
 <style>
 :root {
-  --bg: #080a08;
-  --card: #111510;
-  --card2: #171d14;
-  --green: #b8ff35;
-  --green2: #8fca27;
-  --text: #f6f8f2;
-  --muted: #92988d;
-  --border: #282e24;
-  --red: #ff6969;
+  --bg:#090b09;
+  --panel:#111511;
+  --panel2:#181e16;
+  --line:#293126;
+  --green:#baff35;
+  --text:#f4f7ef;
+  --muted:#929b8b;
 }
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+* { box-sizing:border-box; }
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  min-height: 100vh;
-  padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-button, input, select {
-  font: inherit;
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+button:focus-visible,input:focus-visible,select:focus-visible {
+  outline:2px solid var(--green);
+  outline-offset:3px;
 }
-
-button {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:focus-visible, input:focus-visible, select:focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 3px;
-}
+button:disabled { opacity:.5; cursor:not-allowed; }
 
 .app {
-  max-width: 620px;
-  margin: auto;
-  padding: 20px 17px 30px;
+  display:grid;
+  grid-template-columns:230px 1fr;
+  min-height:100vh;
 }
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 29px;
+.sidebar {
+  position:sticky;
+  top:0;
+  height:100vh;
+  padding:27px 17px;
+  background:#0b0e0b;
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
 }
-
 .logo {
-  font-size: 22px;
-  font-weight: 950;
-  letter-spacing: 1.8px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:0 9px;
+  margin-bottom:40px;
+}
+.logo-icon {
+  width:39px;
+  height:39px;
+  display:grid;
+  place-items:center;
+  background:var(--green);
+  color:#111;
+  font-size:23px;
+  font-weight:1000;
+  border-radius:12px;
+}
+.logo-name { font-size:17px; font-weight:1000; letter-spacing:2px; }
+.logo-sub { font-size:9px; letter-spacing:2px; color:var(--muted); margin-top:4px; }
+
+.nav-label {
+  padding:0 12px;
+  color:#697363;
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:2px;
+  margin-bottom:12px;
+}
+.nav { display:grid; gap:7px; }
+.nav button {
+  border:0;
+  background:transparent;
+  color:#aab2a4;
+  text-align:left;
+  padding:14px 13px;
+  border-radius:12px;
+  font-size:13px;
+}
+.nav button.active,.nav button:hover {
+  background:#20291a;
+  color:var(--green);
+}
+.sidebar-bottom {
+  margin-top:auto;
+  padding:17px;
+  border:1px solid #33412a;
+  background:linear-gradient(140deg,#1b2415,#101410);
+  border-radius:17px;
+}
+.sidebar-bottom small { color:var(--muted); font-size:10px; }
+.sidebar-bottom h3 { margin:10px 0; font-size:17px; }
+.sidebar-bottom p { font-size:12px; color:var(--muted); line-height:1.6; }
+.sidebar-bottom button {
+  width:100%;
+  background:var(--green);
+  color:#111;
+  border:0;
+  border-radius:10px;
+  padding:11px;
+  font-weight:bold;
+  font-size:12px;
 }
 
-.logo span {
-  color: var(--green);
+main { min-width:0; }
+.topbar {
+  height:75px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 35px;
 }
-
+.breadcrumb { font-size:12px; color:var(--muted); }
+.breadcrumb strong { color:white; }
+.top-right { display:flex; align-items:center; gap:12px; }
 .status {
-  border: 1px solid #3c4b2d;
-  color: var(--green);
-  background: #151e10;
-  border-radius: 30px;
-  padding: 8px 11px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.2px;
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  font-size:10px;
+  color:#b8c1b0;
 }
-
-.page {
-  display: none;
+.status span { color:var(--green); }
+.avatar {
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  background:#283320;
+  color:var(--green);
+  border-radius:12px;
+  font-weight:bold;
 }
+.content { max-width:1450px; margin:auto; padding:32px 35px 80px; }
+.page { display:none; }
+.page.active { display:block; animation:appear .2s ease; }
+@keyframes appear { from {opacity:.4;transform:translateY(5px)} to {opacity:1;transform:none} }
 
-.page.active {
-  display: block;
-  animation: appear .24s ease;
+.eyebrow {
+  color:var(--green);
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:2px;
 }
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+.heading {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:25px;
 }
-
-.kicker {
-  color: var(--green);
-  font-size: 10px;
-  font-weight: 850;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
 h1 {
-  font-size: clamp(32px, 8.5vw, 45px);
-  line-height: 1.04;
-  letter-spacing: -1.8px;
-  font-weight: 950;
+  font-size:clamp(28px,4vw,43px);
+  line-height:1.1;
+  letter-spacing:-1.5px;
+  margin:10px 0 0;
 }
-
-h1 span {
-  color: var(--green);
+.green { color:var(--green); }
+.muted { color:var(--muted); font-size:12px; line-height:1.7; }
+.btn {
+  border:0;
+  border-radius:11px;
+  padding:13px 16px;
+  font-size:12px;
+  font-weight:bold;
 }
-
-.subtitle {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-  margin-top: 12px;
-}
+.btn-primary { background:var(--green); color:#11150b; }
+.btn-secondary { background:#20271d; border:1px solid #303a2a; color:white; }
+.btn-outline { background:transparent; border:1px solid var(--line); color:white; }
+.btn:active { transform:scale(.98); }
 
 .hero {
-  margin-top: 23px;
-  min-height: 330px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid #30392a;
-  background: #171b14;
+  position:relative;
+  overflow:hidden;
+  min-height:320px;
+  border-radius:24px;
+  border:1px solid #2b3427;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,rgba(7,10,7,.98),rgba(7,10,7,.80) 46%,rgba(7,10,7,.20)),
+    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=80') center/cover;
 }
+.hero-content { padding:35px; max-width:590px; }
+.hero h2 { font-size:clamp(35px,5vw,55px); line-height:1; letter-spacing:-2px; margin:14px 0; }
+.hero p { color:#c1c9b8; font-size:13px; line-height:1.8; max-width:390px; }
+.hero-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:21px; }
+.hero-meta { display:flex; flex-wrap:wrap; gap:17px; color:#c0c8b8; font-size:10px; margin-top:23px; }
 
-.hero-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
+.grid { display:grid; gap:15px; }
+.stats { grid-template-columns:repeat(4,minmax(0,1fr)); margin-bottom:28px; }
+.stat,.panel,.workout-card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:19px;
 }
-
-.hero:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(5,8,4,.98) 0%,
-    rgba(5,8,4,.76) 37%,
-    rgba(5,8,4,.10) 100%
-  );
-  pointer-events: none;
+.stat { padding:18px; }
+.stat-label { color:var(--muted); font-size:11px; }
+.stat-value { font-size:30px; font-weight:900; letter-spacing:-1px; margin:17px 0 7px; }
+.stat-note { color:#7e8976; font-size:10px; }
+.section-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:28px 0 15px;
 }
+.section-head h2 { margin:0; font-size:18px; }
+.link-btn { background:none; border:0; color:var(--green); font-size:11px; font-weight:bold; }
+.two-col { grid-template-columns:1.25fr .75fr; }
+.panel { padding:21px; }
+.panel-title { font-size:14px; font-weight:bold; }
+.panel-desc { color:var(--muted); font-size:11px; margin-top:7px; line-height:1.6; }
 
-.hero-content {
-  position: absolute;
-  z-index: 1;
-  left: 21px;
-  right: 20px;
-  bottom: 22px;
+.week-chart {
+  height:145px;
+  display:flex;
+  justify-content:space-around;
+  align-items:flex-end;
+  gap:12px;
+  padding-top:18px;
 }
-
-.hero-content h2 {
-  font-size: 31px;
-  font-weight: 950;
-  line-height: 1.05;
-  letter-spacing: -1px;
-  max-width: 320px;
+.day {
+  flex:1;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  gap:9px;
 }
-
-.hero-content p {
-  color: #d1d6ca;
-  font-size: 12px;
-  line-height: 1.6;
-  margin-top: 10px;
-  max-width: 300px;
+.bar-bg {
+  height:110px;
+  width:min(100%,28px);
+  background:#20271d;
+  border-radius:7px;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
 }
-
-.button {
-  border: 0;
-  border-radius: 12px;
-  padding: 14px 17px;
-  background: var(--green);
-  color: #11150c;
-  font-size: 11px;
-  font-weight: 950;
-  letter-spacing: .6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 45px;
-  transition: transform .15s, background .15s;
+.bar {
+  width:100%;
+  min-height:0;
+  background:#64794c;
+  border-radius:7px;
 }
+.bar.today { background:var(--green); }
+.day span { color:var(--muted); font-size:10px; }
 
-.button:active {
-  transform: scale(.97);
+.goal-row { display:flex; align-items:center; gap:18px; margin:24px 0; }
+.ring {
+  width:88px;
+  height:88px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:conic-gradient(var(--green) var(--progress,0%),#293126 0);
+  position:relative;
 }
-
-.button.secondary {
-  color: var(--green);
-  background: #1a2115;
-  border: 1px solid #35422b;
+.ring:before {
+  content:"";
+  position:absolute;
+  inset:8px;
+  border-radius:50%;
+  background:var(--panel);
 }
+.ring-inner { position:relative; text-align:center; }
+.ring-inner strong { display:block; font-size:20px; }
+.ring-inner small { font-size:8px; color:var(--muted); }
+.goal-copy strong { font-size:12px; }
+.goal-copy p { color:var(--muted); font-size:11px; line-height:1.6; }
 
-.button.full {
-  width: 100%;
-  margin-top: 12px;
+.workout-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.workout-card { overflow:hidden; }
+.workout-image { height:150px; position:relative; background:#20271d; }
+.workout-image img { width:100%; height:100%; object-fit:cover; opacity:.8; }
+.tag {
+  position:absolute;
+  top:12px;
+  left:12px;
+  padding:6px 8px;
+  background:#090b09df;
+  border:1px solid #ffffff20;
+  color:var(--green);
+  border-radius:7px;
+  font-size:9px;
+  font-weight:bold;
 }
-
-.hero .button {
-  margin-top: 17px;
+.workout-body { padding:16px; }
+.workout-body h3 { font-size:15px; margin:0 0 9px; }
+.workout-body p { min-height:48px; color:var(--muted); font-size:11px; line-height:1.6; }
+.workout-foot {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  font-size:10px;
+  color:#b5beac;
 }
-
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 29px 0 14px;
+.workout-foot button {
+  background:var(--green);
+  border:0;
+  border-radius:9px;
+  padding:9px 11px;
+  font-size:10px;
+  font-weight:bold;
 }
-
-.section-heading h2 {
-  font-size: 16px;
-  font-weight: 900;
+.filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:19px; }
+.filter {
+  border:1px solid var(--line);
+  background:transparent;
+  color:#b3bcae;
+  padding:9px 14px;
+  border-radius:25px;
+  font-size:11px;
 }
+.filter.active { background:var(--green); color:#111; border-color:var(--green); font-weight:bold; }
 
-.section-heading small {
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 11px;
-}
-
-.stat {
-  padding: 17px 15px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  min-width: 0;
-}
-
-.stat-label {
-  color: var(--muted);
-  font-size: 11px;
-  margin-bottom: 13px;
-}
-
-.stat-value {
-  font-size: 27px;
-  font-weight: 950;
-  letter-spacing: -.8px;
-  overflow-wrap: anywhere;
-}
-
-.stat-value small {
-  color: var(--green);
-  font-size: 11px;
-  letter-spacing: 0;
-}
-
-.stat-note {
-  color: #72796c;
-  font-size: 10px;
-  margin-top: 8px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-
-.feature {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  text-align: left;
-  width: 100%;
-  color: var(--text);
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  padding: 13px;
-  margin-bottom: 11px;
-}
-
-.feature:active {
-  background: var(--card2);
-}
-
-.feature-icon {
-  width: 49px;
-  height: 49px;
-  flex-shrink: 0;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: #202b17;
-  font-size: 23px;
-}
-
-.feature-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.feature-info strong {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-.feature-info small {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.chevron {
-  color: var(--green);
-  font-size: 23px;
-}
-
-.program-card {
-  overflow: hidden;
-  border-radius: 19px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  margin: 16px 0;
-}
-
-.program-image {
-  display: block;
-  width: 100%;
-  height: 170px;
-  object-fit: cover;
-  background: #1a2017;
-}
-
-.program-content {
-  padding: 16px;
-}
-
-.program-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.program-content h3 {
-  font-size: 16px;
-  margin-bottom: 7px;
-}
-
-.program-content p {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.program-tag {
-  color: var(--green);
-  background: #1d2815;
-  border-radius: 8px;
-  padding: 7px 8px;
-  font-size: 9px;
-  font-weight: 850;
-  white-space: nowrap;
-}
-
-.program-content .button {
-  width: 100%;
-  margin-top: 14px;
-}
-
-.timer-box {
-  background: radial-gradient(circle at 50% 35%, #1d2a15 0%, #111510 52%, #0d100c 100%);
-  border: 1px solid #303d27;
-  border-radius: 24px;
-  text-align: center;
-  padding: 28px 15px;
-  margin-top: 22px;
-}
-
-.timer-label {
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-.timer-number {
-  color: var(--green);
-  font-size: clamp(61px, 17vw, 80px);
-  font-weight: 950;
-  letter-spacing: -3px;
-  font-variant-numeric: tabular-nums;
-  margin: 18px 0;
-}
-
-.timer-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.timer-controls .button {
-  padding: 13px 12px;
-}
-
-.quick-timers {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 14px;
-}
-
+.session-layout { grid-template-columns:minmax(0,1fr) 280px; }
+.session-cover { height:190px; position:relative; background:#20271d; overflow:hidden; }
+.session-cover img { width:100%; height:100%; object-fit:cover; opacity:.6; }
+.cover-text { position:absolute; bottom:20px; left:22px; }
+.cover-text h2 { font-size:28px; margin:8px 0 0; }
+.exercise-list { padding:10px 20px; }
 .exercise {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
 }
-
-.exercise:last-child {
-  border-bottom: 0;
+.exercise:last-child { border:0; }
+.exercise-number {
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  background:#26311f;
+  color:var(--green);
+  border-radius:10px;
+  font-size:11px;
+  font-weight:bold;
 }
+.exercise-info { flex:1; }
+.exercise-info strong { font-size:12px; }
+.exercise-info small { display:block; color:var(--muted); margin-top:5px; font-size:10px; }
+.exercise input { accent-color:var(--green); width:18px; height:18px; }
 
-.exercise input {
-  width: 22px;
-  height: 22px;
-  accent-color: var(--green);
-  flex-shrink: 0;
+.timer { text-align:center; padding:26px 18px; }
+.timer-value {
+  font-size:clamp(45px,6vw,70px);
+  font-weight:900;
+  letter-spacing:-2px;
+  margin:25px 0;
+  font-variant-numeric:tabular-nums;
 }
-
-.exercise-info {
-  flex: 1;
-  min-width: 0;
+.timer-controls { display:flex; gap:9px; }
+.timer-controls button { flex:1; }
+.presets { display:flex; flex-wrap:wrap; justify-content:center; gap:7px; margin-top:18px; }
+.presets button {
+  background:#20271d;
+  color:#d6decf;
+  border:1px solid #303a2a;
+  border-radius:8px;
+  padding:8px 10px;
+  font-size:10px;
 }
-
-.exercise-info strong {
-  font-size: 12px;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.exercise-info small {
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.exercise.completed strong {
-  color: #7d8576;
-  text-decoration: line-through;
-}
-
-.progress-track {
-  height: 7px;
-  background: #293024;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 14px;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0;
-  background: var(--green);
-  transition: width .2s;
-}
-
-.field {
-  margin-top: 18px;
-}
-
-.field label {
-  display: block;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 9px;
-}
-
-.field input, .field select {
-  display: block;
-  width: 100%;
-  min-height: 46px;
-  background: #090c08;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 12px;
-}
-
-.profile-avatar {
-  width: 75px;
-  height: 75px;
-  border-radius: 22px;
-  display: grid;
-  place-items: center;
-  background: #202a18;
-  border: 1px solid #3a4a2d;
-  color: var(--green);
-  font-size: 35px;
-  margin-bottom: 18px;
-}
-
-.notice {
-  color: #c5d4b9;
-  background: #151d11;
-  border: 1px solid #34442a;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 11px;
-  line-height: 1.7;
-  margin-top: 15px;
-}
-
+.history { display:grid; gap:10px; margin-top:17px; }
 .history-item {
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px;
+  background:#171d16;
+  border-radius:12px;
 }
-
-.history-item:last-child {
-  border-bottom: 0;
+.history-icon {
+  width:37px;
+  height:37px;
+  display:grid;
+  place-items:center;
+  background:#283420;
+  color:var(--green);
+  border-radius:10px;
 }
+.history-info { flex:1; min-width:0; }
+.history-info strong { display:block; font-size:12px; }
+.history-info small { display:block; color:var(--muted); font-size:10px; margin-top:5px; }
+.history-item b { color:var(--green); font-size:11px; }
+.empty { text-align:center; padding:28px 12px; color:var(--muted); font-size:12px; line-height:1.7; }
 
-.history-item strong {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 6px;
+.profile-layout { grid-template-columns:250px minmax(0,1fr); }
+.profile-card { padding:25px; text-align:center; }
+.profile-avatar {
+  width:80px;
+  height:80px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 15px;
+  border-radius:24px;
+  background:linear-gradient(140deg,#c8ff5b,#648c28);
+  color:#10150b;
+  font-size:32px;
+  font-weight:1000;
 }
-
-.history-item small {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
+.profile-card h2 { font-size:19px; }
+.profile-card p { color:var(--muted); font-size:11px; }
+.badge { display:inline-block; padding:8px 11px; border-radius:30px; background:#20291a; color:var(--green); font-size:10px; font-weight:bold; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+.field { display:grid; gap:8px; }
+.field label { color:#b6c0af; font-size:11px; }
+.field input,.field select {
+  width:100%;
+  padding:12px;
+  border:1px solid #303a2a;
+  border-radius:10px;
+  background:#0b0e0b;
+  color:white;
 }
+.form-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.footer { text-align:center; color:#65705e; font-size:9px; margin-top:35px; }
 
-.empty {
-  color: var(--muted);
-  text-align: center;
-  padding: 24px 8px;
-  font-size: 12px;
-  line-height: 1.7;
+.mobile-nav { display:none; }
+.toast {
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  z-index:100;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  background:var(--green);
+  color:#111;
+  border-radius:12px;
+  padding:13px 18px;
+  font-size:12px;
+  font-weight:bold;
+  transition:.2s;
+  box-shadow:0 10px 35px #0009;
 }
+.toast.show { opacity:1; transform:translate(-50%,0); }
 
-.bottom-nav {
-  position: fixed;
-  z-index: 20;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(10,13,9,.97);
-  border-top: 1px solid var(--border);
-  padding: 9px 4px calc(9px + env(safe-area-inset-bottom));
-  backdrop-filter: blur(16px);
+@media(max-width:1050px) {
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .workout-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .two-col { grid-template-columns:1fr; }
 }
-
-.nav-inner {
-  max-width: 620px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-}
-
-.nav-button {
-  border: 0;
-  background: transparent;
-  color: #828a7b;
-  min-width: 0;
-  padding: 5px 1px;
-  font-size: 9px;
-  font-weight: 650;
-}
-
-.nav-button .icon {
-  display: block;
-  font-size: 21px;
-  margin-bottom: 5px;
-}
-
-.nav-button.active {
-  color: var(--green);
-}
-
-.footer {
-  text-align: center;
-  color: #596051;
-  letter-spacing: 2px;
-  font-size: 9px;
-  padding-top: 28px;
-}
-
-.danger {
-  color: var(--red) !important;
-}
-
-@media (min-width: 500px) {
-  .app {
-    padding-left: 22px;
-    padding-right: 22px;
+@media(max-width:760px) {
+  .app { display:block; }
+  .sidebar { display:none; }
+  .topbar { height:62px; padding:0 17px; }
+  .breadcrumb { font-size:11px; }
+  .content { padding:23px 15px 95px; }
+  .heading { align-items:flex-start; flex-direction:column; }
+  h1 { font-size:32px; }
+  .hero { min-height:350px; }
+  .hero-content { padding:24px; }
+  .hero h2 { font-size:39px; }
+  .hero-meta { gap:10px; }
+  .stats { gap:10px; }
+  .stat { padding:14px; }
+  .stat-value { font-size:26px; }
+  .workout-grid { grid-template-columns:1fr; }
+  .workout-image { height:185px; }
+  .session-layout,.profile-layout { grid-template-columns:1fr; }
+  .session-side { order:-1; }
+  .form-grid { grid-template-columns:1fr; }
+  .panel { padding:17px; }
+  .mobile-nav {
+    position:fixed;
+    z-index:50;
+    bottom:0;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:space-around;
+    gap:2px;
+    padding:9px 4px calc(9px + env(safe-area-inset-bottom));
+    background:#0b0e0bf2;
+    backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
   }
-
-  .hero {
-    min-height: 380px;
+  .mobile-nav button {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    background:none;
+    border:0;
+    color:#8e9887;
+    font-size:9px;
   }
-
-  .program-image {
-    height: 220px;
-  }
+  .mobile-nav button span { font-size:19px; }
+  .mobile-nav button.active { color:var(--green); }
+  .timer-value { font-size:54px; }
+  .status { padding:8px; font-size:9px; }
 }
 </style>
 </head>
 
 <body>
 <div class="app">
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">V</div>
+    <div><div class="logo-name">VYTRON</div><div class="logo-sub">FITNESS SYSTEM</div></div>
+  </div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav">
+    <button class="active" data-page="home">⌂ &nbsp; Главная</button>
+    <button data-page="workouts">▣ &nbsp; Тренировки</button>
+    <button data-page="timer">◷ &nbsp; Таймер отдыха</button>
+    <button data-page="progress">↗ &nbsp; Мой прогресс</button>
+    <button data-page="profile">◎ &nbsp; Профиль</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <small>ТВОЯ ЦЕЛЬ</small>
+    <h3>Стань сильнее.</h3>
+    <p>Маленький шаг каждый день. Большой результат со временем.</p>
+    <button data-goto="workouts">Начать тренировку ↗</button>
+  </div>
+</aside>
 
-<header>
-  <div class="logo">VYTRON<span>.</span></div>
-  <div class="status">ELITE MEMBER</div>
+<main>
+<header class="topbar">
+  <div class="breadcrumb">VYTRON / <strong id="crumb">Главная</strong></div>
+  <div class="top-right"><div class="status"><span>●</span> СИСТЕМА АКТИВНА</div><div class="avatar" id="topAvatar">V</div></div>
 </header>
 
-<!-- ГЛАВНАЯ -->
-<section class="page active" id="home">
-  <div class="kicker" id="dateLabel">YOUR FITNESS JOURNEY</div>
-  <h1>BUILD YOUR<br><span>LEGACY.</span></h1>
-  <p class="subtitle" id="welcomeText">Твоя дисциплина. Твой прогресс. Твои правила.</p>
+<div class="content">
+<section class="page active" id="page-home">
+  <div class="heading">
+    <div>
+      <div class="eyebrow">YOUR JOURNEY STARTS HERE</div>
+      <h1>Действуй. <span class="green">Становись сильнее.</span></h1>
+      <p class="muted" id="greeting">Сегодня — хороший день, чтобы стать лучше.</p>
+    </div>
+    <button class="btn btn-secondary" data-goto="progress">Моя статистика ↗</button>
+  </div>
 
   <div class="hero">
-    <img
-      class="hero-photo"
-      src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85"
-      alt="Современный тренажёрный зал"
-      onerror="this.style.display='none'">
     <div class="hero-content">
-      <div class="kicker">NO EXCUSES. JUST RESULTS.</div>
-      <h2>СОЗДАЙ СВОЮ<br>ЛУЧШУЮ ВЕРСИЮ.</h2>
-      <p>Сильнее, чем вчера. Каждый день — новый шаг к цели.</p>
-      <button class="button" data-go="workouts">НАЧАТЬ ТРЕНИРОВКУ ↗</button>
+      <div class="eyebrow">ПРОГРАММА ДНЯ / 01</div>
+      <h2>NO EXCUSES.<br><span class="green">JUST RESULTS.</span></h2>
+      <p>Твоя следующая версия начинается с одного решения. Выбери тренировку и сделай этот день продуктивным.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" data-start="full">Начать тренировку ↗</button>
+        <button class="btn btn-secondary" data-goto="workouts">Все программы</button>
+      </div>
+      <div class="hero-meta"><span>◷ 20–45 минут</span><span>▣ Все уровни</span><span>↗ Силовая база</span></div>
     </div>
   </div>
 
-  <div class="section-heading">
-    <h2>ТВОИ РЕЗУЛЬТАТЫ</h2>
-    <small>За всё время</small>
+  <div class="grid stats">
+    <div class="stat"><div class="stat-label">Тренировки</div><div class="stat-value" id="statWorkouts">0</div><div class="stat-note">Завершено всего</div></div>
+    <div class="stat"><div class="stat-label">Минуты активности</div><div class="stat-value" id="statMinutes">0</div><div class="stat-note">Время в движении</div></div>
+    <div class="stat"><div class="stat-label">Серия дней</div><div class="stat-value" id="statStreak">0</div><div class="stat-note">Продолжай ритм</div></div>
+    <div class="stat"><div class="stat-label">Калории*</div><div class="stat-value" id="statCalories">0</div><div class="stat-note">Расчётная оценка</div></div>
   </div>
 
-  <div class="stats-grid">
-    <div class="stat">
-      <div class="stat-label">🏋️ Тренировки</div>
-      <div class="stat-value" id="statWorkouts">0</div>
-      <div class="stat-note">Завершено</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">🔥 Калории</div>
-      <div class="stat-value" id="statCalories">0 <small>ккал*</small></div>
-      <div class="stat-note">Оценка расхода</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">⏱ Время</div>
-      <div class="stat-value" id="statMinutes">0 <small>мин</small></div>
-      <div class="stat-note">Всего тренировок</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">💪 Упражнения</div>
-      <div class="stat-value" id="statExercises">0</div>
-      <div class="stat-note">Выполнено</div>
+  <div class="section-head"><h2>Твоя неделя</h2><button class="link-btn" data-goto="progress">Подробнее ↗</button></div>
+  <div class="grid two-col">
+    <div class="panel"><div class="panel-title">Активность за 7 дней</div><div class="panel-desc">Минуты тренировок по дням</div><div class="week-chart" id="weekChart"></div></div>
+    <div class="panel">
+      <div class="panel-title">Цель на неделю</div><div class="panel-desc">Регулярность важнее идеала</div>
+      <div class="goal-row"><div class="ring" id="goalRing"><div class="ring-inner"><strong id="goalPercent">0%</strong><small>ВЫПОЛНЕНО</small></div></div><div class="goal-copy"><strong id="goalCount">0 из 4 тренировок</strong><p>Начни с одной тренировки и постепенно выстраивай привычку.</p></div></div>
+      <button class="btn btn-secondary" style="width:100%" data-goto="workouts">Выбрать программу</button>
     </div>
   </div>
 
-  <div class="section-heading"><h2>БЫСТРЫЙ ДОСТУП</h2></div>
-
-  <button class="feature" data-go="timer">
-    <span class="feature-icon">⏱️</span>
-    <span class="feature-info">
-      <strong>Таймер отдыха</strong>
-      <small>Контролируй интервалы между подходами</small>
-    </span>
-    <span class="chevron">›</span>
-  </button>
-
-  <button class="feature" data-go="progress">
-    <span class="feature-icon">📈</span>
-    <span class="feature-info">
-      <strong>Мой прогресс</strong>
-      <small>История и результаты твоих тренировок</small>
-    </span>
-    <span class="chevron">›</span>
-  </button>
-
-  <div class="footer">VYTRON ELITE · BUILT FOR PROGRESS</div>
+  <div class="section-head"><h2>Рекомендуем тебе</h2><button class="link-btn" data-goto="workouts">Все тренировки ↗</button></div>
+  <div class="grid workout-grid" id="homeCards"></div>
 </section>
 
-<!-- ТРЕНИРОВКИ -->
-<section class="page" id="workouts">
-  <div class="kicker">TRAINING CENTER</div>
-  <h1>TIME TO<br><span>GET STRONGER.</span></h1>
-  <p class="subtitle">Выбирай программу. Работай над собой. Фиксируй результат.</p>
+<section class="page" id="page-workouts">
+  <div class="heading"><div><div class="eyebrow">TRAINING LIBRARY</div><h1>Выбирай свой <span class="green">режим.</span></h1><p class="muted">Программы для силы, выносливости и уверенного старта.</p></div></div>
+  <div class="filters" id="filters">
+    <button class="filter active" data-filter="all">Все программы</button>
+    <button class="filter" data-filter="Сила">Сила</button>
+    <button class="filter" data-filter="Кардио">Кардио</button>
+    <button class="filter" data-filter="Начинающим">Для начинающих</button>
+  </div>
+  <div class="grid workout-grid" id="workoutCards"></div>
+</section>
 
-  <div id="programList"></div>
-
-  <div id="activeWorkout" hidden>
-    <div class="section-heading">
-      <h2 id="activeTitle">ТВОЯ ТРЕНИРОВКА</h2>
-      <small id="activeCounter">0/0</small>
+<section class="page" id="page-session">
+  <div class="heading"><div><div class="eyebrow">YOUR TRAINING SESSION</div><h1 id="sessionTitle">Тренировка</h1><p class="muted" id="sessionSub">Выполняй упражнения в своём темпе.</p></div><button class="btn btn-outline" data-goto="workouts">← К программам</button></div>
+  <div class="grid session-layout">
+    <div class="panel" style="padding:0;overflow:hidden">
+      <div class="session-cover"><img id="sessionImage" alt="Тренировка"><div class="cover-text"><div class="eyebrow" id="sessionTag">STRENGTH</div><h2 id="sessionCoverTitle">FULL BODY</h2></div></div>
+      <div class="exercise-list" id="exerciseList"></div>
+      <div style="padding:0 20px 20px"><button class="btn btn-primary" style="width:100%" id="finishWorkout">Завершить тренировку ✓</button></div>
     </div>
-    <div class="card">
-      <div id="exerciseList"></div>
-      <div class="progress-track"><div class="progress-fill" id="exerciseProgress"></div></div>
-      <button class="button full" id="finishWorkout">ЗАВЕРШИТЬ ТРЕНИРОВКУ ✓</button>
-      <button class="button secondary full" id="cancelWorkout">ОТМЕНИТЬ</button>
+    <div class="panel timer">
+      <div class="eyebrow">REST TIMER</div><div class="panel-title" style="margin-top:9px">Время отдыха</div>
+      <div class="timer-value" id="sessionTimer">01:30</div>
+      <div class="timer-controls"><button class="btn btn-primary" id="sessionStart">Старт</button><button class="btn btn-secondary" id="sessionReset">Сброс</button></div>
+      <div class="presets"><button data-session="30">30 сек</button><button data-session="60">60 сек</button><button data-session="90">90 сек</button></div>
+      <div style="margin-top:25px;text-align:left"><div class="panel-desc">Упражнений: <strong id="exerciseCount">0</strong></div><div class="panel-desc">Выполнено: <strong id="exerciseDone">0 / 0</strong></div></div>
+      <p class="muted" style="text-align:left;margin-top:20px">Соблюдай технику и выбирай нагрузку по своему уровню. При боли остановись.</p>
     </div>
   </div>
 </section>
 
-<!-- ТАЙМЕР -->
-<section class="page" id="timer">
-  <div class="kicker">FOCUS MODE</div>
-  <h1>OWN YOUR<br><span>TIME.</span></h1>
-  <p class="subtitle">Восстанавливайся и готовься к следующему подходу.</p>
-
-  <div class="timer-box">
-    <div class="timer-label">REST TIMER</div>
-    <div class="timer-number" id="timerDisplay">01:30</div>
-    <div class="timer-controls">
-      <button class="button secondary" id="minus15">−15 сек</button>
-      <button class="button" id="timerToggle">СТАРТ ▶</button>
-      <button class="button secondary" id="plus15">+15 сек</button>
+<section class="page" id="page-timer">
+  <div class="heading"><div><div class="eyebrow">FOCUS MODE</div><h1>Контролируй <span class="green">отдых.</span></h1><p class="muted">Восстановись и возвраща к следующему подходу.</p></div></div>
+  <div class="grid two-col">
+    <div class="panel timer">
+      <div class="eyebrow">REST TIMER</div>
+      <div class="timer-value" id="mainTimer">01:30</div>
+      <div class="timer-controls" style="max-width:350px;margin:auto"><button class="btn btn-primary" id="mainStart">Старт</button><button class="btn btn-secondary" id="mainReset">Сброс</button></div>
+      <div class="presets"><button data-main="30">30 сек</button><button data-main="60">60 сек</button><button data-main="90">90 сек</button><button data-main="120">120 сек</button><button data-main="180">3 мин</button></div>
     </div>
-    <button class="button secondary full" id="timerReset">СБРОСИТЬ ↺</button>
-  </div>
-
-  <div class="section-heading"><h2>БЫСТРЫЙ ВЫБОР</h2></div>
-  <div class="quick-timers">
-    <button class="button secondary" data-seconds="30">30 секунд</button>
-    <button class="button secondary" data-seconds="60">60 секунд</button>
-    <button class="button secondary" data-seconds="90">90 секунд</button>
-    <button class="button secondary" data-seconds="120">120 секунд</button>
-  </div>
-
-  <div class="notice">💡 Время отдыха зависит от интенсивности упражнения и твоей подготовки. При необходимости отдыхай дольше.</div>
-</section>
-
-<!-- ПРОГРЕСС -->
-<section class="page" id="progress">
-  <div class="kicker">PERFORMANCE TRACKER</div>
-  <h1>TRACK YOUR<br><span>PROGRESS.</span></h1>
-  <p class="subtitle">Каждая завершённая тренировка сохраняется в истории.</p>
-
-  <div class="section-heading"><h2>ОБЩАЯ СТАТИСТИКА</h2></div>
-  <div class="stats-grid">
-    <div class="stat">
-      <div class="stat-label">Тренировки</div>
-      <div class="stat-value" id="progressWorkouts">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Калории*</div>
-      <div class="stat-value" id="progressCalories">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Минуты</div>
-      <div class="stat-value" id="progressMinutes">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Упражнения</div>
-      <div class="stat-value" id="progressExercises">0</div>
-    </div>
-  </div>
-
-  <div class="section-heading"><h2>ИСТОРИЯ</h2></div>
-  <div class="card" id="historyList">
-    <div class="empty">Твои результаты появятся здесь после первой тренировки.</div>
-  </div>
-
-  <button class="button secondary full" id="exportData">ЭКСПОРТИРОВАТЬ ДАННЫЕ ↓</button>
-  <p class="subtitle">*Калории указаны приблизительно, а не измерены датчиком.</p>
-</section>
-
-<!-- ПРОФИЛЬ -->
-<section class="page" id="profile">
-  <div class="kicker">PERSONAL SPACE</div>
-  <h1>YOUR<br><span>PROFILE.</span></h1>
-  <p class="subtitle">Настрой приложение под себя.</p>
-
-  <div class="card" style="margin-top:22px">
-    <div class="profile-avatar">V</div>
-    <h2 id="profileGreeting">VYTRON ATHLETE</h2>
-    <p class="subtitle">Твой путь. Твои правила.</p>
-
-    <div class="field">
-      <label for="userName">ИМЯ</label>
-      <input id="userName" type="text" maxlength="40" placeholder="Как тебя зовут?">
-    </div>
-
-    <div class="field">
-      <label for="userGoal">ГЛАВНАЯ ЦЕЛЬ</label>
-      <select id="userGoal">
-        <option value="muscle">Набор мышечной массы</option>
-        <option value="strength">Увеличение силы</option>
-        <option value="weight">Снижение веса</option>
-        <option value="fitness">Общая физическая форма</option>
-        <option value="endurance">Выносливость</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="userWeight">ВЕС, КГ</label>
-      <input id="userWeight" type="number" min="25" max="350" placeholder="Например, 75">
-    </div>
-
-    <button class="button full" id="saveProfile">СОХРАНИТЬ ПРОФИЛЬ ✓</button>
-  </div>
-
-  <div class="section-heading"><h2>ТВОИ ДАННЫЕ</h2></div>
-  <div class="card">
-    <p class="subtitle">Результаты хранятся в браузере этого устройства. Для сохранности регулярно экспортируй резервную копию.</p>
-    <button class="button secondary full" id="profileExport">СОЗДАТЬ РЕЗЕРВНУЮ КОПИЮ</button>
-    <button class="button secondary full danger" id="clearData">УДАЛИТЬ МОИ ДАННЫЕ</button>
+    <div class="panel"><div class="panel-title">Как выбрать отдых</div><div class="history">
+      <div class="history-item"><div class="history-icon">ϟ</div><div class="history-info"><strong>30–60 секунд</strong><small>Лёгкие упражнения и круговые комплексы</small></div></div>
+      <div class="history-item"><div class="history-icon">▣</div><div class="history-info"><strong>60–90 секунд</strong><small>Средняя нагрузка и рабочие подходы</small></div></div>
+      <div class="history-item"><div class="history-icon">↗</div><div class="history-info"><strong>2–3 минуты</strong><small>Тяжёлые силовые подходы</small></div></div>
+    </div><p class="muted">Это ориентиры, а не строгие правила. Отдыхай достаточно для безопасной техники.</p></div>
   </div>
 </section>
 
+<section class="page" id="page-progress">
+  <div class="heading"><div><div class="eyebrow">PERFORMANCE TRACKER</div><h1>Твои <span class="green">результаты.</span></h1><p class="muted">Здесь сохраняются завершённые тренировки.</p></div><button class="btn btn-secondary" id="exportData">Экспорт данных ↓</button></div>
+  <div class="grid stats">
+    <div class="stat"><div class="stat-label">Тренировок</div><div class="stat-value" id="pWorkouts">0</div><div class="stat-note">Всего завершено</div></div>
+    <div class="stat"><div class="stat-label">Минут активности</div><div class="stat-value" id="pMinutes">0</div><div class="stat-note">Время в движении</div></div>
+    <div class="stat"><div class="stat-label">Калории*</div><div class="stat-value" id="pCalories">0</div><div class="stat-note">Приблизительная оценка</div></div>
+    <div class="stat"><div class="stat-label">Средняя длительность</div><div class="stat-value" id="pAverage">0</div><div class="stat-note">Минут на тренировку</div></div>
+  </div>
+  <div class="grid two-col">
+    <div class="panel"><div class="panel-title">Активность за неделю</div><div class="panel-desc">Минуты тренировок по дням</div><div class="week-chart" id="progressChart"></div></div>
+    <div class="panel"><div class="panel-title">История тренировок</div><div class="panel-desc">Последние занятия</div><div class="history" id="historyList"></div><button class="btn btn-outline" style="width:100%;margin-top:15px" id="clearHistory">Очистить историю</button></div>
+  </div>
+</section>
+
+<section class="page" id="page-profile">
+  <div class="heading"><div><div class="eyebrow">YOUR PERSONAL SPACE</div><h1>Твой <span class="green">профиль.</span></h1><p class="muted">Настрой приложение под свои цели.</p></div></div>
+  <div class="grid profile-layout">
+    <div class="panel profile-card"><div class="profile-avatar" id="profileAvatar">V</div><h2 id="profileNameDisplay">Атлет VYTRON</h2><p id="profileGoalDisplay">Твоя цель — твой ориентир</p><span class="badge">VYTRON MEMBER</span><hr style="border:0;border-top:1px solid var(--line);margin:25px 0"><div class="panel-desc">Завершено тренировок: <strong id="profileCount">0</strong></div></div>
+    <div class="panel"><div class="panel-title">Личные данные</div><p class="muted">Данные сохраняются локально в браузере.</p>
+      <form id="profileForm">
+        <div class="form-grid">
+          <div class="field"><label for="nameInput">Имя</label><input id="nameInput" maxlength="32" placeholder="Как тебя называть?"></div>
+          <div class="field"><label for="ageInput">Возраст</label><input id="ageInput" type="number" min="13" max="100" placeholder="Например, 22"></div>
+          <div class="field"><label for="goalInput">Главная цель</label><select id="goalInput"><option>Набор мышечной массы</option><option>Снижение веса</option><option>Сила и выносливость</option><option>Поддержание формы</option><option>Регулярные тренировки</option></select></div>
+          <div class="field"><label for="levelInput">Уровень подготовки</label><select id="levelInput"><option>Начинающий</option><option>Средний</option><option>Продвинутый</option></select></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-primary" type="submit">Сохранить профиль ✓</button><button class="btn btn-outline" type="button" id="resetProfile">Сбросить данные</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="footer">VYTRON FITNESS · TRAIN WITH INTENT · ТВОЙ ПУТЬ — ТВОИ РЕЗУЛЬТАТЫ</div>
+</div>
+</main>
 </div>
 
-<nav class="bottom-nav">
-  <div class="nav-inner">
-    <button class="nav-button active" data-page="home">
-      <span class="icon">⌂</span>Главная
-    </button>
-    <button class="nav-button" data-page="workouts">
-      <span class="icon">ϟ</span>Тренировки
-    </button>
-    <button class="nav-button" data-page="timer">
-      <span class="icon">◷</span>Таймер
-    </button>
-    <button class="nav-button" data-page="progress">
-      <span class="icon">↗</span>Прогресс
-    </button>
-    <button class="nav-button" data-page="profile">
-      <span class="icon">♙</span>Профиль
-    </button>
-  </div>
+<nav class="mobile-nav">
+  <button class="active" data-page="home"><span>⌂</span>Главная</button>
+  <button data-page="workouts"><span>▣</span>Тренировки</button>
+  <button data-page="timer"><span>◷</span>Таймер</button>
+  <button data-page="progress"><span>↗</span>Прогресс</button>
+  <button data-page="profile"><span>◎</span>Профиль</button>
 </nav>
+<div class="toast" id="toast"></div>
 
 <script>
-(function () {
-  'use strict';
-
-  const $ = id => document.getElementById(id);
-  const STORAGE_KEY = 'vytron_elite_3';
-
-  const defaultData = {
-    profile: {name:'', goal:'muscle', weight:''},
-    workouts: []
-  };
-
-  let data = loadData();
-  let activeWorkout = null;
-  let timerSeconds = 90;
-  let timerInterval = null;
-  let timerRunning = false;
-
-  const programs = {
-    full: {
-      title: 'Всё тело',
-      subtitle: 'Базовая тренировка всего тела',
-      duration: '25–35 мин',
-      image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=1000&q=80',
-      exercises: [
-        ['Приседания', '3 подхода × 12 повторений'],
-        ['Отжимания', '3 подхода × 8–12 повторений'],
-        ['Тяга гантелей', '3 подхода × 12 повторений'],
-        ['Выпады', '3 подхода × 10 на ногу'],
-        ['Планка', '3 подхода × 20–30 секунд'],
-        ['Заминка', '5 минут лёгкой растяжки']
-      ]
-    },
-    upper: {
-      title: 'Верх тела',
-      subtitle: 'Грудь, спина, плечи и руки',
-      duration: '25–35 мин',
-      image: 'https://images.unsplash.com/photo-1534368270820-9de3d8053204?auto=format&fit=crop&w=1000&q=80',
-      exercises: [
-        ['Отжимания', '3 подхода × 10 повторений'],
-        ['Тяга гантелей', '3 подхода × 12 повторений'],
-        ['Жим гантелей', '3 подхода × 10 повторений'],
-        ['Сгибание рук на бицепс', '3 подхода × 12 повторений'],
-        ['Разведение рук', '3 подхода × 12 повторений'],
-        ['Планка', '3 подхода × 30 секунд']
-      ]
-    },
-    home: {
-      title: 'Домашняя тренировка',
-      subtitle: 'Без тренажёров, с собственным весом',
-      duration: '20–30 мин',
-      image: 'https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?auto=format&fit=crop&w=1000&q=80',
-      exercises: [
-        ['Приседания', '3 подхода × 15 повторений'],
-        ['Отжимания от пола или опоры', '3 подхода × 8–12'],
-        ['Ягодичный мост', '3 подхода × 15 повторений'],
-        ['Обратные выпады', '3 подхода × 10 на ногу'],
-        ['Планка', '3 подхода × 20–30 секунд'],
-        ['Заминка', '5 минут']
-      ]
-    },
-    legs: {
-      title: 'Ноги и пресс',
-      subtitle: 'Сила, устойчивость и контроль',
-      duration: '25–35 мин',
-      image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&w=1000&q=80',
-      exercises: [
-        ['Приседания', '3 подхода × 12 повторений'],
-        ['Выпады назад', '3 подхода × 10 на ногу'],
-        ['Ягодичный мост', '3 подхода × 15 повторений'],
-        ['Подъёмы на носки', '3 подхода × 15 повторений'],
-        ['Скручивания', '3 подхода × 12 повторений'],
-        ['Планка', '3 подхода × 30 секунд']
-      ]
-    }
-  };
-
-  function loadData() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return JSON.parse(JSON.stringify(defaultData));
-
-      const parsed = JSON.parse(saved);
-
-      return {
-        profile: {...defaultData.profile, ...(parsed.profile || {})},
-        workouts: Array.isArray(parsed.workouts) ? parsed.workouts : []
-      };
-    } catch (error) {
-      console.error('VYTRON load error:', error);
-      return JSON.parse(JSON.stringify(defaultData));
-    }
-  }
-
-  function saveData() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      return true;
-    } catch (error) {
-      console.error('VYTRON save error:', error);
-      alert('Не удалось сохранить данные. Проверь настройки браузера.');
-      return false;
-    }
-  }
-
-  function navigate(page) {
-    const target = $(page);
-    if (!target) return;
-
-    document.querySelectorAll('.page').forEach(section => {
-      section.classList.toggle('active', section.id === page);
-    });
-
-    document.querySelectorAll('.nav-button').forEach(button => {
-      button.classList.toggle('active', button.dataset.page === page);
-    });
-
-    if (page === 'home' || page === 'progress') renderStats();
-    if (page === 'profile') renderProfile();
-
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  function renderPrograms() {
-    const list = $('programList');
-    list.replaceChildren();
-
-    Object.keys(programs).forEach(key => {
-      const program = programs[key];
-      const card = document.createElement('article');
-      card.className = 'program-card';
-
-      const image = document.createElement('img');
-      image.className = 'program-image';
-      image.src = program.image;
-      image.alt = program.title;
-      image.loading = 'lazy';
-      image.onerror = function () {
-        this.style.display = 'none';
-      };
-
-      const content = document.createElement('div');
-      content.className = 'program-content';
-
-      const top = document.createElement('div');
-      top.className = 'program-top';
-
-      const details = document.createElement('div');
-      const title = document.createElement('h3');
-      title.textContent = program.title;
-
-      const description = document.createElement('p');
-      description.textContent = program.subtitle + ' · ' + program.duration;
-
-      details.append(title, description);
-
-      const tag = document.createElement('span');
-      tag.className = 'program-tag';
-      tag.textContent = 'ПРОГРАММА';
-
-      top.append(details, tag);
-
-      const button = document.createElement('button');
-      button.className = 'button';
-      button.type = 'button';
-      button.textContent = 'ВЫБРАТЬ ТРЕНИРОВКУ →';
-      button.addEventListener('click', () => startWorkout(key));
-
-      content.append(top, button);
-      card.append(image, content);
-      list.appendChild(card);
-    });
-  }
-
-  function startWorkout(key) {
-    const program = programs[key];
-    if (!program) return;
-
-    activeWorkout = {
-      title: program.title,
-      startedAt: Date.now(),
-      exercises: program.exercises.map(item => ({
-        name: item[0],
-        description: item[1],
-        done: false
-      }))
-    };
-
-    $('activeWorkout').hidden = false;
-    $('activeTitle').textContent = program.title;
-    renderExercises();
-
-    $('activeWorkout').scrollIntoView({
-      behavior:'smooth',
-      block:'start'
-    });
-  }
-
-  function renderExercises() {
-    if (!activeWorkout) return;
-
-    const list = $('exerciseList');
-    list.replaceChildren();
-
-    activeWorkout.exercises.forEach((exercise, index) => {
-      const row = document.createElement('label');
-      row.className = 'exercise' + (exercise.done ? ' completed' : '');
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.checked = exercise.done;
-      checkbox.setAttribute('aria-label', 'Выполнено: ' + exercise.name);
-
-      checkbox.addEventListener('change', () => {
-        exercise.done = checkbox.checked;
-        renderExercises();
-      });
-
-      const details = document.createElement('span');
-      details.className = 'exercise-info';
-
-      const title = document.createElement('strong');
-      title.textContent = exercise.name;
-
-      const description = document.createElement('small');
-      description.textContent = exercise.description;
-
-      details.append(title, description);
-      row.append(checkbox, details);
-      list.appendChild(row);
-    });
-
-    const completed = activeWorkout.exercises.filter(item => item.done).length;
-    const total = activeWorkout.exercises.length;
-
-    $('activeCounter').textContent = completed + '/' + total;
-    $('exerciseProgress').style.width = (completed / total * 100) + '%';
-  }
-
-  function finishWorkout() {
-    if (!activeWorkout) return;
-
-    const completed = activeWorkout.exercises.filter(item => item.done).length;
-
-    if (!completed) {
-      alert('Отметь хотя бы одно выполненное упражнение.');
-      return;
-    }
-
-    const elapsed = Math.round((Date.now() - activeWorkout.startedAt) / 60000);
-    const minutes = Math.max(1, Math.min(240, elapsed));
-    const calories = minutes * 5;
-
-    data.workouts.unshift({
-      id: Date.now(),
-      title: activeWorkout.title,
-      date: new Date().toISOString(),
-      minutes,
-      calories,
-      exercises: completed
-    });
-
-    if (!saveData()) return;
-
-    activeWorkout = null;
-    $('activeWorkout').hidden = true;
-    renderStats();
-
-    alert('Тренировка сохранена! Отличная работа. 💪');
-    navigate('progress');
-  }
-
-  function cancelWorkout() {
-    if (!activeWorkout) return;
-
-    if (confirm('Отменить тренировку без сохранения результата?')) {
-      activeWorkout = null;
-      $('activeWorkout').hidden = true;
-    }
-  }
-
-  function calculateStreak() {
-    const dates = [...new Set(data.workouts.map(item => {
-      const date = new Date(item.date);
-      return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
-    }))].map(value => {
-      const parts = value.split('-').map(Number);
-      return new Date(parts[0], parts[1], parts[2]).getTime();
-    }).sort((a,b) => b-a);
-
-    if (!dates.length) return 0;
-
-    const today = new Date();
-    today.setHours(0,0,0,0);
-
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate()-1);
-
-    if (dates[0] !== today.getTime() && dates[0] !== yesterday.getTime()) {
-      return 0;
-    }
-
-    let streak = 1;
-
-    for (let i = 1; i < dates.length; i++) {
-      if (dates[i] === dates[i-1] - 86400000) streak++;
-      else break;
-    }
-    
-
-    return streak;
-  }  
-  return streak;
-  }
-
-  function renderStats() {
-    const workouts = data.workouts;
-    const totalWorkouts = workouts.length;
-    const totalMinutes = workouts.reduce((sum,item) => sum + (Number(item.minutes)||0),0);
-    const totalCalories = workouts.reduce((sum,item) => sum + (Number(item.calories)||0),0);
-    const totalExercises = workouts.reduce((sum,item) => sum + (Number(item.exercises)||0),0);
-
-    $('statWorkouts').textContent = totalWorkouts;
-    $('statCalories').innerHTML = totalCalories + ' <small>ккал*</small>';
-    $('statMinutes').innerHTML = totalMinutes + ' <small>мин</small>';
-    $('statExercises').textContent = totalExercises;
-
-    $('progressWorkouts').textContent = totalWorkouts;
-    $('progressCalories').textContent = totalCalories;
-    $('progressMinutes').textContent = totalMinutes;
-    $('progressExercises').textContent = totalExercises;
-
-    renderHistory();
-  }
-
-  function renderHistory() {
-    const box = $('historyList');
-    box.replaceChildren();
-
-    if (!data.workouts.length) {
-      const empty = document.createElement('div');
-      empty.className = 'empty';
-      empty.textContent = 'Пока нет завершённых тренировок. Начни сегодня!';
-      box.appendChild(empty);
-      return;
-    }
-
-    data.workouts.slice(0,30).forEach(workout => {
-      const item = document.createElement('div');
-      item.className = 'history-item';
-
-      const title = document.createElement('strong');
-      title.textContent = '✓ ' + workout.title;
-
-      const description = document.createElement('small');
-      const date = new Date(workout.date);
-
-      description.textContent =
-        date.toLocaleDateString('ru-RU') + ' · ' +
-        workout.minutes + ' мин · ' +
-        workout.exercises + ' упражн. · ~' +
-        workout.calories + ' ккал';
-
-      item.append(title, description);
-      box.appendChild(item);
-    });
-  }
-
-  function renderProfile() {
-    $('userName').value = data.profile.name || '';
-    $('userGoal').value = data.profile.goal || 'muscle';
-    $('userWeight').value = data.profile.weight || '';
-
-    $('profileGreeting').textContent = data.profile.name
-      ? 'ПРИВЕТ, ' + data.profile.name.toUpperCase()
-      : 'VYTRON ATHLETE';
-
-    $('welcomeText').textContent = data.profile.name
-      ? 'Привет, ' + data.profile.name + '! Твой прогресс начинается сегодня.'
-      : 'Твоя дисциплина. Твой прогресс. Твои правила.';
-  }
-
-  function saveProfile() {
-    const name = $('userName').value.trim();
-    const weightText = $('userWeight').value.trim();
-    const weight = weightText === '' ? '' : Number(weightText);
-
-    if (weight !== '' && (!Number.isFinite(weight) || weight < 25 || weight > 350)) {
-      alert('Введи корректный вес от 25 до 350 кг.');
-      return;
-    }
-
-    data.profile = {
-      name,
-      goal: $('userGoal').value,
-      weight
-    };
-
-    if (saveData()) {
-      renderProfile();
-      alert('Профиль успешно сохранён! 💚');
-    }
-  }
-
-  function updateTimer() {
-    const minutes = Math.floor(timerSeconds / 60);
-    const seconds = timerSeconds % 60;
-
-    $('timerDisplay').textContent =
-      String(minutes).padStart(2,'0') + ':' +
-      String(seconds).padStart(2,'0');
-
-    $('timerToggle').textContent = timerRunning ? 'ПАУЗА Ⅱ' : 'СТАРТ ▶';
-  }
-
-  function stopTimer() {
-    if (timerInterval !== null) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-
-    timerRunning = false;
-  }
-
-  function setTimer(seconds) {
-    stopTimer();
-    timerSeconds = Math.max(0, Math.min(5999, seconds));
-    updateTimer();
-  }
-
-  function toggleTimer() {
-    if (timerRunning) {
-      stopTimer();
-      updateTimer();
-      return;
-    }
-
-    if (timerSeconds <= 0) timerSeconds = 90;
-
-    timerRunning = true;
-    updateTimer();
-
-    timerInterval = setInterval(() => {
-      if (timerSeconds > 0) timerSeconds--;
-
-      updateTimer();
-
-      if (timerSeconds <= 0) {
-        stopTimer();
-        updateTimer();
-
-        if ('vibrate' in navigator) {
-          navigator.vibrate([200,100,200,100,300]);
-        }
-
-        alert('Время отдыха закончилось! Пора продолжать. 💪');
-      }
-    }, 1000);
-  }
-
-  function exportData() {
-    const blob = new Blob(
-      [JSON.stringify(data, null, 2)],
-      {type:'application/json'}
-    );
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-
-    link.href = url;
-    link.download = 'vytron-elite-backup.json';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  }
-
-  function clearData() {
-    const confirmed = confirm(
-      'Удалить профиль, статистику и историю тренировок? Это действие нельзя отменить. Сначала сохрани резервную копию, если она нужна.'
-    );
-
-    if (!confirmed) return;
-
-    stopTimer();
-
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (error) {
-      console.error(error);
-    }
-
-    data = JSON.parse(JSON.stringify(defaultData));
-    activeWorkout = null;
-    $('activeWorkout').hidden = true;
-
-    renderStats();
-    renderProfile();
-    setTimer(90);
-
-    alert('Данные удалены.');
-    navigate('home');
-  }
-
-  function bindEvents() {
-    // Все переходы между разделами
-    document.querySelectorAll('[data-page]').forEach(button => {
-      button.addEventListener('click', () => navigate(button.dataset.page));
-    });
-
-    // Кнопки быстрого перехода
-    document.querySelectorAll('[data-go]').forEach(button => {
-      button.addEventListener('click', () => navigate(button.dataset.go));
-    });
-
-    // Тренировки
-    $('finishWorkout').addEventListener('click', finishWorkout);
-    $('cancelWorkout').addEventListener('click', cancelWorkout);
-
-    // Таймер
-    $('timerToggle').addEventListener('click', toggleTimer);
-    $('timerReset').addEventListener('click', () => setTimer(90));
-    $('minus15').addEventListener('click', () => setTimer(timerSeconds - 15));
-    $('plus15').addEventListener('click', () => setTimer(timerSeconds + 15));
-
-    document.querySelectorAll('[data-seconds]').forEach(button => {
-      button.addEventListener('click', () => {
-        setTimer(Number(button.dataset.seconds));
-      });
-    });
-
-    // Профиль и данные
-    $('saveProfile').addEventListener('click', saveProfile);
-    $('exportData').addEventListener('click', exportData);
-    $('profileExport').addEventListener('click', exportData);
-    $('clearData').addEventListener('click', clearData);
-  }
-
-  function init() {
-    const now = new Date();
-
-    $('dateLabel').textContent = now.toLocaleDateString('ru-RU', {
-      weekday:'long',
-      day:'numeric',
-      month:'long'
-    }).toUpperCase();
-
-    bindEvents();
-    renderPrograms();
-    renderStats();
-    renderProfile();
-    updateTimer();
-  }
-
+const programs = [
+ {
+  id:"full",title:"Full Body Power",category:"Сила",tag:"FULL BODY",
+  duration:40,calories:280,
+  desc:"Комплекс на всё тело для развития силы и уверенного старта.",
+  image:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
+  exercises:[["Приседания","3 подхода × 12 повторений"],["Отжимания","3 подхода × 10 повторений"],["Тяга гантелей","3 подхода × 12 повторений"],["Планка","3 подхода × 30 секунд"],["Выпады","3 подхода × 10 на ногу"]]
+ },
+ {
+  id:"upper",title:"Upper Body Strength",category:"Сила",tag:"UPPER BODY",
+  duration:45,calories:320,
+  desc:"Верх тела: грудь, спина, плечи и руки.",
+  image:"https://images.unsplash.com/photo-1534368270820-9de3d8053204?auto=format&fit=crop&w=900&q=80",
+  exercises:[["Отжимания","4 подхода × 12 повторений"],["Тяга гантелей","4 подхода × 10 повторений"],["Жим гантелей","3 подхода × 10 повторений"],["Сгибания на бицепс","3 подхода × 12 повторений"]]
+ },
+ {
+  id:"cardio",title:"Cardio Burn",category:"Кардио",tag:"CARDIO",
+  duration:25,calories:240,
+  desc:"Динамичный комплекс для выносливости и общего тонуса.",
+  image:"https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=80",
+  exercises:[["Ходьба на месте","3 минуты"],["Прыжки на месте","3 подхода × 30 секунд"],["Высокие колени","3 подхода × 30 секунд"],["Спокойная заминка","4 минуты"]]
+ },
+ {
+  id:"starter",title:"Start Strong",category:"Начинающим",tag:"BEGINNER",
+  duration:20,calories:140,
+  desc:"Мягкое знакомство с тренировками без сложного оборудования.",
+  image:"https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80",
+  exercises:[["Разминка","4 минуты"],["Приседания к стулу","2 подхода × 10 повторений"],["Отжимания от стены","2 подхода × 10 повторений"],["Ягодичный мост","2 подхода × 12 повторений"],["Растяжка","4 минуты"]]
+ },
+ {
+  id:"core",title:"Core Control",category:"Сила",tag:"CORE",
+  duration:18,calories:130,
+  desc:"Укрепи мышцы корпуса и улучши контроль движений.",
+  image:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?auto=format&fit=crop&w=900&q=80",
+  exercises:[["Планка","3 подхода × 30 секунд"],["Dead bug","3 подхода × 10 повторений"],["Боковая планка","2 подхода × 20 секунд"],["Ягодичный мост","3 подхода × 12 повторений"]]
+ },
+ {
+  id:"legs",title:"Leg Day",category:"Сила",tag:"LOWER BODY",
+  duration:35,calories:290,
+  desc:"Сбалансированная тренировка ног и ягодичных мышц.",
+  image:"https://images.unsplash.com/photo-1434596922112-19c563067271?auto=format&fit=crop&w=900&q=80",
+  exercises:[["Приседания","4 подхода × 10 повторений"],["Выпады назад","3 подхода × 10 на ногу"],["Ягодичный мост","3 подхода × 15 повторений"],["Подъёмы на носки","3 подхода × 15 повторений"]]
+ }
+];
+
+function readStore(key,fallback){
   try {
-    init();
-  } catch (error) {
-    console.error('VYTRON initialization error:', error);
-    alert('Не удалось запустить приложение. Проверь, что весь код скопирован.');
-  }
-})();
-</script>
+    const data=localStorage.getItem(key);
+    return data ? JSON.parse(data) : fallback;
+  } catch(e) { return fallback; }
+}
+function store(key,value){
+  try { localStorage.setItem(key,JSON.stringify(value)); }
+  catch(e) { notify("Не удалось сохранить данные браузера"); }
+}
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+let profile=readStore("vytron_profile",{name:"",age:"",goal:"Набор мышечной массы",level:"Начинающий"});
+let history=readStore("vytron_history",[]);
+let current=null;
+let mainSeconds=90,sessionSeconds=90;
+let mainInterval=null,sessionInterval=null;
 
+function notify(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.classList.add("show");
+  clearTimeout(notify.timeout);
+  notify.timeout=setTimeout(()=>el.classList.remove("show"),2400);
+}
+
+function go(page){
+  document.querySelectorAll(".page").forEach(el=>el.classList.toggle("active",el.id==="page-"+page));
+  document.querySelectorAll("[data-page]").forEach(el=>el.classList.toggle("active",el.dataset.page===page));
+  const names={home:"Главная",workouts:"Тренировки",session:"Тренировка",timer:"Таймер отдыха",progress:"Мой прогресс",profile:"Профиль"};
+  document.getElementById("crumb").textContent=names[page]||"Главная";
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(page==="home"||page==="progress") renderStats();
+  if(page==="profile") renderProfile();
+}
+
+document.addEventListener("click",event=>{
+  const page=event.target.closest("[data-page]");
+  if(page){go(page.dataset.page);return;}
+  const goto=event.target.closest("[data-goto]");
+  if(goto){go(goto.dataset.goto);return;}
+  const start=event.target.closest("[data-start]");
+  if(start) startWorkout(start.dataset.start);
+});
+
+function workoutCard(w){
+  return `<article class="workout-card">
+    <div class="workout-image">
+      <img src="${w.image}" alt="${escapeHTML(w.title)}" loading="lazy" onerror="this.style.display='none'">
+      <span class="tag">${w.tag}</span>
+    </div>
+    <div class="workout-body">
+      <h3>${escapeHTML(w.title)}</h3>
+      <p>${escapeHTML(w.desc)}</p>
+      <div class="workout-foot">
+        <span>◷ ${w.duration} мин</span>
+        <button data-start="${w.id}">Выбрать ↗</button>
+      </div>
+    </div>
+  </article>`;
+}
+function renderCards(filter="all"){
+  const list=programs.filter(w=>filter==="all"||w.category===filter);
+  document.getElementById("workoutCards").innerHTML=list.map(workoutCard).join("");
+  document.getElementById("homeCards").innerHTML=programs.slice(0,3).map(workoutCard).join("");
+}
+document.getElementById("filters").addEventListener("click",event=>{
+  const button=event.target.closest("[data-filter]");
+  if(!button)return;
+  document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b===button));
+  renderCards(button.dataset.filter);
+});
+
+function startWorkout(id){
+  current=programs.find(w=>w.id===id);
+  if(!current)return;
+  document.getElementById("sessionTitle").textContent=current.title;
+  document.getElementById("sessionSub").textContent=`${current.duration} минут · ${current.desc}`;
+  document.getElementById("sessionImage").src=current.image;
+  document.getElementById("sessionCoverTitle").textContent=current.tag;
+  document.getElementById("sessionTag").textContent=current.category.toUpperCase();
+  document.getElementById("exerciseList").innerHTML=current.exercises.map((exercise,i)=>`
+    <label class="exercise">
+      <div class="exercise-number">${String(i+1).padStart(2,"0")}</div>
+      <div class="exercise-info"><strong>${escapeHTML(exercise[0])}</strong><small>${escapeHTML(exercise[1])}</small></div>
+      <input type="checkbox" class="exercise-check" aria-label="Отметить упражнение">
+    </label>`).join("");
+  document.getElementById("exerciseCount").textContent=current.exercises.length;
+  document.getElementById("exerciseDone").textContent=`0 / ${current.exercises.length}`;
+  document.querySelectorAll(".exercise-check").forEach(box=>box.addEventListener("change",updateExerciseCount));
+  resetSessionTimer(90);
+  go("session");
+}
+function updateExerciseCount(){
+  const all=[...document.querySelectorAll(".exercise-check")];
+  const done=all.filter(el=>el.checked).length;
+  document.getElementById("exerciseDone").textContent=`${done} / ${all.length}`;
+}
+document.getElementById("finishWorkout").addEventListener("click",()=>{
+  if(!current)return;
+  const checks=[...document.querySelectorAll(".exercise-check")];
+  const completed=checks.filter(el=>el.checked).length;
+  history.unshift({
+    id:Date.now(),
+    title:current.title,
+    minutes:current.duration,
+    calories:current.calories,
+    date:new Date().toISOString(),
+    completed,
+    total:checks.length
+  });
+  store("vytron_history",history);
+  renderStats();
+  notify("Тренировка сохранена. Отличная работа!");
+  go("progress");
+});
+
+function renderChart(id){
+  const days=[];
+  const now=new Date();
+  for(let i=6;i>=0;i--){
+    const d=new Date(now);
+    d.setDate(now.getDate()-i);
+    const mins=history.filter(h=>new Date(h.date).toDateString()===d.toDateString()).reduce((sum,h)=>sum+h.minutes,0);
+    days.push({label:["Вс","Пн","Вт","Ср","Чт","Пт","Сб"][d.getDay()],mins,today:i===0});
+  }
+  const max=Math.max(30,...days.map(d=>d.mins));
+  document.getElementById(id).innerHTML=days.map(d=>`
+    <div class="day">
+      <div class="bar-bg"><div class="bar ${d.today?"today":""}" style="height:${d.mins?Math.max(5,d.mins/max*100):0}%"></div></div>
+      <span>${d.label}</span>
+    </div>`).join("");
+}
+
+function renderStats(){
+  const count=history.length;
+  const minutes=history.reduce((sum,h)=>sum+h.minutes,0);
+  const calories=history.reduce((sum,h)=>sum+h.calories,0);
+  const average=count?Math.round(minutes/count):0;
+  const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+  set("statWorkouts",count);set("pWorkouts",count);set("profileCount",count);
+  set("statMinutes",minutes);set("pMinutes",minutes);
+  set("statCalories",calories.toLocaleString("ru-RU"));set("pCalories",calories.toLocaleString("ru-RU"));
+  set("pAverage",average);
+  let streak=0;
+  for(let i=0;i<365;i++){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const didTrain=history.some(h=>new Date(h.date).toDateString()===d.toDateString());
+    if(didTrain)streak++;
+    else if(i>0)break;
+    else continue;
+  }
+  set("statStreak",streak);
+  const lastWeek=history.filter(h=>Date.now()-new Date(h.date).getTime()<7*86400000).length;
+  const percent=Math.min(100,Math.round(lastWeek/4*100));
+  document.getElementById("goalRing").style.setProperty("--progress",percent+"%");
+  set("goalPercent",percent+"%");
+  set("goalCount",`${Math.min(lastWeek,4)} из 4 тренировок`);
+  renderChart("weekChart");
+  renderChart("progressChart");
+  document.getElementById("historyList").innerHTML=history.slice(0,10).map(h=>`
+    <div class="history-item">
+      <div class="history-icon">✓</div>
+      <div class="history-info"><strong>${escapeHTML(h.title)}</strong><small>${new Date(h.date).toLocaleDateString("ru-RU",{day:"numeric",month:"short"})} · ${h.minutes} мин · ${h.completed??0}/${h.total??0} упражн.</small></div>
+      <b>+${h.calories}</b>
+    </div>`).join("") || `<div class="empty">Здесь появятся твои завершённые тренировки.<br>Начни с первой — и история будет расти.</div>`;
+}
+
+document.getElementById("clearHistory").addEventListener("click",()=>{
+  if(!history.length){notify("История уже пустая");return;}
+  if(confirm("Удалить всю историю тренировок? Это действие нельзя отменить.")){
+    history=[];store("vytron_history",history);renderStats();notify("История очищена");
+  }
+});
+
+document.getElementById("exportData").addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify({profile,history},null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.href=url;link.download="vytron-fitness-data.json";link.click();
+  URL.revokeObjectURL(url);
+  notify("Экспорт подготовлен");
+});
+
+function renderProfile(){
+  document.getElementById("nameInput").value=profile.name||"";
+  document.getElementById("ageInput").value=profile.age||"";
+  document.getElementById("goalInput").value=profile.goal||"Набор мышечной массы";
+  document.getElementById("levelInput").value=profile.level||"Начинающий";
+  document.getElementById("profileNameDisplay").textContent=profile.name||"Атлет VYTRON";
+  document.getElementById("profileGoalDisplay").textContent=profile.goal||"Твоя цель — твой ориентир";
+  const initial=(profile.name||"V").trim().charAt(0).toUpperCase();
+  document.getElementById("profileAvatar").textContent=initial;
+  document.getElementById("topAvatar").textContent=initial;
+}
+document.getElementById("profileForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  profile={
+    name:document.getElementById("nameInput").value.trim(),
+    age:document.getElementById("ageInput").value,
+    goal:document.getElementById("goalInput").value,
+    level:document.getElementById("levelInput").value
+  };
+  store("vytron_profile",profile);
+  renderProfile();
+  notify("Профиль сохранён ✓");
+});
+document.getElementById("resetProfile").addEventListener("click",()=>{
+  if(confirm("Сбросить данные профиля?")){
+    profile={name:"",age:"",goal:"Набор мышечной массы",level:"Начинающий"};
+    store("vytron_profile",profile);renderProfile();notify("Профиль сброшен");
+  }
+});
+
+function formatTime(seconds){
+  return `${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`;
+}
+function setMainTimer(){
+  document.getElementById("mainTimer").textContent=formatTime(mainSeconds);
+  document.getElementById("mainStart").textContent=mainInterval?"Пауза":"Старт";
+}
+function resetMainTimer(seconds=90){
+  clearInterval(mainInterval);mainInterval=null;mainSeconds=seconds;setMainTimer();
+}
+document.getElementById("mainStart").addEventListener("click",()=>{
+  if(mainInterval){clearInterval(mainInterval);mainInterval=null;setMainTimer();return;}
+  if(mainSeconds<=0)mainSeconds=90;
+  mainInterval=setInterval(()=>{
+    mainSeconds--;setMainTimer();
+    if(mainSeconds<=0){clearInterval(mainInterval);mainInterval=null;setMainTimer();notify("Время отдыха закончилось!");}
+  },1000);
+  setMainTimer();
+});
+document.getElementById("mainReset").addEventListener("click",()=>resetMainTimer());
+document.querySelectorAll("[data-main]").forEach(b=>b.addEventListener("click",()=>resetMainTimer(Number(b.dataset.main))));
+
+function setSessionTimer(){
+  document.getElementById("sessionTimer").textContent=formatTime(sessionSeconds);
+  document.getElementById("sessionStart").textContent=sessionInterval?"Пауза":"Старт";
+}
+function resetSessionTimer(seconds=90){
+  clearInterval(sessionInterval);sessionInterval=null;sessionSeconds=seconds;setSessionTimer();
+}
+document.getElementById("sessionStart").addEventListener("click",()=>{
+  if(sessionInterval){clearInterval(sessionInterval);sessionInterval=null;setSessionTimer();return;}
+  if(sessionSeconds<=0)sessionSeconds=90;
+  sessionInterval=setInterval(()=>{
+    sessionSeconds--;setSessionTimer();
+    if(sessionSeconds<=0){clearInterval(sessionInterval);sessionInterval=null;setSessionTimer();notify("Отдых завершён — следующий подход!");}
+  },1000);
+  setSessionTimer();
+});
+document.getElementById("sessionReset").addEventListener("click",()=>resetSessionTimer());
+document.querySelectorAll("[data-session]").forEach(b=>b.addEventListener("click",()=>resetSessionTimer(Number(b.dataset.session))));
+
+const hour=new Date().getHours();
+document.getElementById("greeting").textContent=(hour<12?"Доброе утро":hour<18?"Добрый день":"Добрый вечер")+". Сегодня — хороший день, чтобы стать лучше.";
+renderCards();
+renderStats();
+renderProfile();
+setMainTimer();
+setSessionTimer();
+</script>
 </body>
 </html>
